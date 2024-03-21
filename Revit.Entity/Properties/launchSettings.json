@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Tmplate.Revit.Entity": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

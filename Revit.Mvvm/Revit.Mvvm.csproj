@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net472</TargetFramework>
+		<PlatformTarget>x64</PlatformTarget>
+		<Configurations>Debug;Release;RVT_19;RVT_17;RVT_20;RVT_18</Configurations>
+		<XamlDebuggingInformation>True</XamlDebuggingInformation>
+		<DisableXbfLineInfo>False</DisableXbfLineInfo>
+		<LangVersion>10</LangVersion>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<TargetFramework>net472</TargetFramework>
+		<Optimize>true</Optimize>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='RVT_18'">
+		<TargetFramework>net472</TargetFramework>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<Optimize>true</Optimize>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RVT_18|AnyCPU'">
+		<Optimize>true</Optimize>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+	  <PackageReference Include="Prism.DryIoc" Version="7.2.0.1422" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<ProjectReference Include="..\Revit.Entity\Revit.Entity.csproj" />
+		<ProjectReference Include="..\Revit.Service\Revit.Service.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="PresentationCore" />
+		<Reference Include="PresentationFramework" />
+		<Reference Include="System.Windows" />
+		<Reference Include="System.Windows.Forms" />
+		<Reference Include="System.Xaml" />
+		<Reference Include="WindowsBase" />
+	</ItemGroup>
+
+</Project>

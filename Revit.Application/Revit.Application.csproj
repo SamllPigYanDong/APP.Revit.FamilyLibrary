@@ -1,0 +1,81 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<!--<Target Name="CopeyAddin" BeforeTargets="PostBuildEvent" Condition="'$(Configuration)'=='RVT_18'">
+		<ItemGroup>
+			<SourceFiles Include="$(ProjectDir)$(OutDir)\**\*.*"></SourceFiles>			
+		</ItemGroup>
+		
+		<Copy SourceFiles="$(ProjectDir)\Revit.Application.addin" DestinationFolder="C:\ProgramData\Autodesk\Revit\Addins\$(RvtVersion)"></Copy>
+		<Copy SourceFiles="@(SourceFiles)" DestinationFiles="@(SourceFiles->'C:\ProgramData\Autodesk\Revit\Addins\$(RvtVersion)\Revit.Application\%(RecursiveDir)%(Filename)%(Extension)')"></Copy>
+	</Target>-->
+
+	<PropertyGroup>
+		<UseWPF>true</UseWPF>
+		<XamlDebuggingInformation>True</XamlDebuggingInformation>
+		<UseWindowsForms>true</UseWindowsForms>
+		<PlatformTarget>x64</PlatformTarget>
+		<LangVersion>10</LangVersion>
+		<Configurations>Debug;Release;RVT_19;RVT_17;RVT_20;RVT_18</Configurations>
+		<Nullable>disable</Nullable>
+		<Optimize>false</Optimize>
+		<TargetFramework>net472</TargetFramework>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<RvtVersion>2018</RvtVersion>
+		<TargetFramework>net472</TargetFramework>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='RVT_18'">
+		<StartAction>Program</StartAction>
+		<RvtVersion>2018</RvtVersion>
+		<StartProgram>D:\Program Files\Autodesk\Revit 2018\Revit.exe</StartProgram>
+		<TargetFramework>net472</TargetFramework>
+		<Optimize>false</Optimize>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Properties\Settings.Designer.cs">
+			<DesignTimeSharedInput>True</DesignTimeSharedInput>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Settings.settings</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="System.Windows" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Revit.Mvvm\Revit.Mvvm.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Properties\Settings.settings">
+			<Generator>SettingsSingleFileGenerator</Generator>
+			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Views\ProjectDialogs\" />
+	  <Folder Include="Views\UserViews\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="REVIT-WPF-UI" Version="2.2.0" />
+	</ItemGroup>
+
+</Project>
