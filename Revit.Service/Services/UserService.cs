@@ -17,11 +17,13 @@ namespace Revit.Service.Services
             this.ServiceName = "Accounts";
         }
 
-        public async Task<ApiResponse<LoginedUserDto>> GetLoginedUser()
+        public async Task<ApiResponse<LoginedUserDto>> GetLoginedUser(string token)
         {
             BaseRequest request = new BaseRequest();
             request.Method = RestSharp.Method.GET;
             request.Route = $"api/{ServiceName}";
+            request.Token= token;
+            request.ContentType= ContentType.Json;
             return await client.ExecuteAsync<LoginedUserDto>(request);
         }
 

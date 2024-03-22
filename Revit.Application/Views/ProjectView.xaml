@@ -46,8 +46,12 @@
                             Command="{Binding CreateProjectCommand}"
                             Margin="5,0"></Button>
                     <Button Content="修改项目"
+                            Command="{Binding ModifyProjectCommand}"
+                            CommandParameter="{Binding ElementName=listBox,Path=SelectedItem}"
                             Margin="5,0"></Button>
                     <Button Content="删除项目"
+                            Command="{Binding DeleteProjectCommand}"
+                            CommandParameter="{Binding ElementName=listBox,Path=SelectedItem}"
                             Margin="5,0"></Button>
                 </StackPanel>
                 <GridSplitter Width="5"
@@ -55,6 +59,7 @@
                               HorizontalAlignment="Center"
                               Grid.Column="1"></GridSplitter>
                 <ListView Grid.Column="2"
+                          Name="listBox"
                           Grid.Row="1"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                           ItemsSource="{Binding RecentlyUserProjects}">

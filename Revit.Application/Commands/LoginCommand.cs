@@ -19,6 +19,7 @@ using Revit.Entity.Entity.Dtos;
 using Revit.Entity.Interfaces;
 using Revit.Entity;
 using Prism.Mvvm;
+using Prism.Common;
 
 namespace Revit.Application.Commands
 {
@@ -35,10 +36,10 @@ namespace Revit.Application.Commands
 
         public override Result Execute(string message, ElementSet elements)
         {
-            //if (!LoginExtension.IsUserLogin())
-            //{
-            //    return Result.Cancelled;
-            //}
+            if (!LoginExtension.IsUserLogin())
+            {
+                return Result.Cancelled;
+            }
             TransactionStatus transactionStatus = DocumentExtension.NewTransactionGroup(DataContext.Document, "族库管理", () => MainWindow.ShowDialog().Value);
             return transactionStatus == TransactionStatus.Committed ? Result.Succeeded : Result.Cancelled;
         }
@@ -48,6 +49,7 @@ namespace Revit.Application.Commands
             containerRegistry.RegisterLoginTypes();
             containerRegistry.Register<MainView>();
             containerRegistry.Register<MainViewModel>();
+
             containerRegistry.RegisterForNavigation<MainView, MainViewModel>();
             containerRegistry.RegisterForNavigation<ProjectView, ProjectViewModel>();
             containerRegistry.RegisterForNavigation<WorkSpaceView, WorkSpaceViewModel>();

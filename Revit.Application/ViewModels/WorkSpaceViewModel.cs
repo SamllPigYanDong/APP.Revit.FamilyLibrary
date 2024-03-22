@@ -1,6 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Revit.Entity;
+using Revit.Entity.Entity;
 using Revit.Entity.Entity.Dtos;
 using Revit.Entity.Interfaces;
+using Revit.Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +15,17 @@ namespace Revit.Application.ViewModels
 {
     public  class WorkSpaceViewModel : ViewModelBase
     {
+        private LoginedUserDto _loginUserDto;
+        private readonly IUserService _userService;
+
+        public LoginedUserDto LoginUserDto
+        {
+            get { return _loginUserDto; }
+            set { SetProperty(ref _loginUserDto, value); }
+        }
+
+
+
         //[ObservableProperty]
         //public LoginedUserDto _loginedUser = new LoginedUserDto() { UserName = "严冬", Account = "188****3248" };
 
@@ -38,17 +52,28 @@ namespace Revit.Application.ViewModels
         //[ObservableProperty]
         //public ObservableCollection<string> _recentlyTasks = new ObservableCollection<string>() { "123", "456" };
 
-        public WorkSpaceViewModel(IDataContext dataContext) : base(dataContext)
+        public WorkSpaceViewModel(IDataContext dataContext, IUserService userService) : base(dataContext)
         {
+            this._userService = userService;
+
+            Init();
         }
+
+
+        private async void InitUser()
+        {
+            LoginUserDto = Global.User;
+        }
+
 
         #region PrivateMethod
 
         private void Init()
         {
-            InitRecentlyProjects();
-            InitRecentlyNews();
-            InitRecentlyTasks();
+            InitUser();
+            //InitRecentlyProjects();
+            //InitRecentlyNews();
+            //InitRecentlyTasks();
         }
 
         private void InitRecentlyTasks()

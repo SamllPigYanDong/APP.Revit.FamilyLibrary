@@ -17,6 +17,11 @@ namespace Revit.Entity.Entity.Dtos.Project
         /// </summary>
         public string Introduction { get; set; }
 
-        public string Icon { get; set; }
+        private string _icon;
+        public string Icon
+        {
+            get { return _icon; }
+            set { SetProperty(ref _icon, value); }
+        }
     }
 }

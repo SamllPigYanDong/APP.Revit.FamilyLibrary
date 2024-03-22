@@ -5,6 +5,6 @@ namespace Revit.Service.Services
 {
     public interface IUserService
     {
-        Task<ApiResponse<LoginedUserDto>> GetLoginedUser();
+        Task<ApiResponse<LoginedUserDto>> GetLoginedUser(string content);
     }
 }

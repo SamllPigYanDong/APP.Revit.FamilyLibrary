@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Services.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,25 +12,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Wpf.Ui.Appearance;
-using Prism.Ioc;
-using Revit.Application.ViewModels;
-using Prism.Regions;
 
 namespace Revit.Application.Views
 {
     /// <summary>
-    /// MainView.xaml 的交互逻辑
+    /// DefaultDialog.xaml 的交互逻辑
     /// </summary>
-    public partial class MainView:Window
+    public partial class DefaultDialog : Window,IDialogWindow
     {
-        private readonly IRegionManager regionManager;
-
-        public MainView()
+        public DefaultDialog()
         {
             InitializeComponent();
-            Wpf.Ui.Appearance.Theme.Apply(this);
         }
 
+        public IDialogResult Result { get; set;  }
     }
 }

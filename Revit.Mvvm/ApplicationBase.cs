@@ -11,9 +11,7 @@ namespace Revit.Mvvm
     public abstract class ApplicationBase : IExternalApplication
     {
 
-#pragma warning disable CS0649 // 从未对字段“ApplicationBase._containerExtension”赋值，字段将一直保持其默认值 null
         private IContainerExtension _containerExtension;
-#pragma warning restore CS0649 // 从未对字段“ApplicationBase._containerExtension”赋值，字段将一直保持其默认值 null
 
         public abstract void RegisterTypes(IContainerExtension container);//其他插件自定义服务注入到IOC中
 

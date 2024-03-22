@@ -10,26 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Wpf.Ui.Appearance;
-using Prism.Ioc;
-using Revit.Application.ViewModels;
-using Prism.Regions;
 
-namespace Revit.Application.Views
+namespace Revit.Application.Views.ProjectDialogs
 {
     /// <summary>
-    /// MainView.xaml 的交互逻辑
+    /// ProjectCreateDialog.xaml 的交互逻辑
     /// </summary>
-    public partial class MainView:Window
+    public partial class ProjectEditDialog : UserControl
     {
-        private readonly IRegionManager regionManager;
-
-        public MainView()
+        public ProjectEditDialog()
         {
             InitializeComponent();
-            Wpf.Ui.Appearance.Theme.Apply(this);
         }
-
     }
 }

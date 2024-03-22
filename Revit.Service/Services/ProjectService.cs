@@ -39,9 +39,16 @@ namespace Revit.Service.Services
             request.Method = RestSharp.Method.POST;
             request.Route = $"api/{ServiceName}";
             request.Parameter=createDto;
+            request.FilePaths = new List<string>() { createDto.Icon};   
             return await client.ExecuteAsync<ProjectDto>(request);
         }
 
-       
+        public async Task<ApiResponse> Delete(long projectId)
+        {
+            BaseRequest request = new BaseRequest();
+            request.Method = RestSharp.Method.DELETE;
+            request.Route = $"api/{ServiceName}/{projectId}";
+            return await client.ExecuteAsync(request);
+        }
     }
 }

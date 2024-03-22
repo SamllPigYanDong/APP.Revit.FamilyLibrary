@@ -1,21 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Revit.Application.UI;
 using Revit.Service.Services;
 using System;
 using System.Collections.ObjectModel;
 using Revit.Service.IServices;
-using System.Windows;
-using System.Windows.Data;
 using Revit.Entity.Entity.Parameters;
-using Revit.Entity;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Revit.Entity.Entity;
-using Revit.Entity.Entity.Dtos;
-using Prism.Services.Dialogs;
 using Prism.Commands;
 using Revit.Entity.Entity.Dtos.Project;
+using Revit.Mvvm.Prism;
+using Prism.Services.Dialogs;
 
 namespace Revit.Application.ViewModels
 {
@@ -34,21 +28,70 @@ namespace Revit.Application.ViewModels
 
         public DelegateCommand<MenuBar> NavigateCommand { get; private set; }
 
-#pragma warning disable CS0649 // 从未对字段“ProjectViewModel._createProjectCommand”赋值，字段将一直保持其默认值 null
         private DelegateCommand<ProjectDto> _createProjectCommand;
-#pragma warning restore CS0649 // 从未对字段“ProjectViewModel._createProjectCommand”赋值，字段将一直保持其默认值 null
 
-        public DelegateCommand<ProjectDto> CreateProjectCommand { get => _createProjectCommand ??new  DelegateCommand<ProjectDto>(CreateProject); }
+        public DelegateCommand<ProjectDto> CreateProjectCommand 
+        { get => _createProjectCommand ??new  DelegateCommand<ProjectDto>(CreateProject).ObservesCanExecute(()=>IsEnable); }
+
+        private DelegateCommand<ProjectDto> _modifyProjectCommand;
+
+
+
+        public DelegateCommand<ProjectDto> ModifyProjectCommand
+        { get => _modifyProjectCommand ?? new DelegateCommand<ProjectDto>(ModifyProject).ObservesCanExecute(() => IsEnable); }
+
+        private DelegateCommand<ProjectDto> _deleteProjectCommand;
+
+        public DelegateCommand<ProjectDto> DeleteProjectCommand
+        { get => _deleteProjectCommand ?? new DelegateCommand<ProjectDto>(DeleteProject).ObservesCanExecute(() => IsEnable); }
+
+       
+
+        private bool _isEnable=true;
+
+        public bool IsEnable
+        {
+            get { return _isEnable; }
+            set { SetProperty(ref _isEnable, value); }
+        }
+
 
         private async void CreateProject(ProjectDto projectCreateDto)
         {
-           var apiResult =await this._projectService.Create(new ProjectCreateDto() {   Icon="123", CreatorId=Global.User.UserId, Introduction="123" ,ProjectAddress="123",ProjectName="123"});
-            if (apiResult.Code == ResponseCode.Success && apiResult.Content != null)
+            IsEnable = false;
+            dialogService.ShowDialog("ProjectCreateDialog", new DialogParameters() ,async (res) =>
             {
-                RecentlyUserProjects.Add(apiResult.Content);
+                if (res.Result==ButtonResult.OK)
+                {
+                    var projectDto = res.Parameters.GetValue<ProjectCreateDto>("createProject");
+                    var apiResult = await this._projectService.Create(projectDto);
+                    if (apiResult.Code == ResponseCode.Success && apiResult.Content != null)
+                    {
+                        RecentlyUserProjects.Add(apiResult.Content);
+                        RecentlyUserProjects = new ObservableCollection<ProjectDto>(RecentlyUserProjects);
+                    }
+                }
+            });
+            IsEnable = true;
+        }
+      
+        private void ModifyProject(ProjectDto dto)
+        {
+            throw new NotImplementedException();
+        }
+        private async void DeleteProject(ProjectDto project)
+        {
+            IsEnable = false;
+            var apiResult = await this._projectService.Delete(project.Id);
+            if (apiResult.Code == ResponseCode.Success)
+            {
+                RecentlyUserProjects.Remove(project);
                 RecentlyUserProjects = new ObservableCollection<ProjectDto>(RecentlyUserProjects);
             }
+            IsEnable = true;
         }
+
+
 
         public ProjectViewModel(IProjectService projectService,IDialogService dialogService)
         {
@@ -64,6 +107,7 @@ namespace Revit.Application.ViewModels
 
         private  async void InitRecentlyUserProjects()
         {
+          
             var apiResult =await  _projectService.GetProjects(new ProjectQueryParameter() { PageIndex = 1, PageSize = 5, UserId = 1 });
             if (apiResult.Code==ResponseCode.Success&&apiResult.Content!=null)
             {

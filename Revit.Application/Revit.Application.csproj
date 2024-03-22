@@ -70,7 +70,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Views\ProjectDialogs\" />
+	  <Folder Include="ViewModels\GenernaDialogViewModel\" />
 	  <Folder Include="Views\UserViews\" />
 	</ItemGroup>
 

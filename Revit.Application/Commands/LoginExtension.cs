@@ -3,7 +3,10 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Prism.Ioc;
 using Prism.Mvvm;
+using Revit.Application.ViewModels.ProjectDialogViewModel;
 using Revit.Application.ViewModels.UserViewModels;
+using Revit.Application.Views;
+using Revit.Application.Views.ProjectDialogs;
 using Revit.Application.Views.UserViews;
 using Revit.Entity;
 using Revit.Mvvm;
@@ -21,7 +24,11 @@ namespace Revit.Application.Commands
     {
         public static  void RegisterLoginTypes(this IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterDialogWindow<DefaultDialog>();
+            containerRegistry.RegisterDialog<ProjectCreateDialog, ProjectCreateDialogViewModel>();
+
             containerRegistry.RegisterForNavigation<LoginView, LoginViewModel>();
+
         }
 
         public static bool IsUserLogin()

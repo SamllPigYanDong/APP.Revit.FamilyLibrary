@@ -52,16 +52,34 @@ namespace Revit.Service.ApiServices
         private async Task<IRestResponse> RequestAsync(BaseRequest baseRequest)
         {
             var request = new RestRequest(apiUrl + baseRequest.Route, baseRequest.Method);
-            request.AddHeader("Content-Type", baseRequest.ContentType);
-            if (!string.IsNullOrWhiteSpace(Global.Token))
+            request.AddHeader("Host", "localhost:5177");
+
+            if (!string.IsNullOrWhiteSpace(baseRequest.ContentType))
             {
-                request.AddHeader("Autherization", "Bearer "+ Global.Token);
+                request.AddHeader("Content-Type", baseRequest.ContentType);
+            }
+            string token = Global.Token;
+            if (!string.IsNullOrWhiteSpace(baseRequest.Token))
+            {
+                token=baseRequest.Token;    
+            }
+            if (!string.IsNullOrWhiteSpace(token))
+            {
+                request.AddHeader("Authorization", "Bearer " + token);
             }
             if (baseRequest.Parameter != null)
             {
                 var json = JsonConvert.SerializeObject(baseRequest.Parameter);
-                request.AddParameter("application/json", json, ParameterType.RequestBody);
+                request.AddParameter(baseRequest.ContentType, json, ParameterType.RequestBody);
             }
+            if (baseRequest.FilePaths!=null&&baseRequest.FilePaths.Count()>0)
+            {
+                foreach (var filePath in baseRequest.FilePaths)
+                {
+                    request.AddFile("icon", filePath);
+                }
+            }
+
             var response = await client.ExecuteAsync(request);
             return response;
         }

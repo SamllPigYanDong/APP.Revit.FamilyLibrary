@@ -17,5 +17,19 @@ namespace Revit.Service.ApiServices
 
         public object Parameter { get; set; }
         public string Token { get; set; }
+
+        public IEnumerable<string> FilePaths { get; set; }
+
+
     }
+
+    public static class ContentType
+    {
+        public static string Json { get => "application/json"; }
+        public static string FormData { get => "multipart/form-data"; }
+    
+    }
+
+    
+
 }

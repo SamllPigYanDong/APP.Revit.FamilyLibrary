@@ -12,7 +12,8 @@ namespace Revit.Service.IServices
 {
     public interface IProjectService
     {
-          Task<ApiResponse<IEnumerable<ProjectDto>>> GetProjects(ProjectQueryParameter pagedList);
-          Task<ApiResponse<ProjectDto>> Create(ProjectCreateDto createDto);
+        Task<ApiResponse<IEnumerable<ProjectDto>>> GetProjects(ProjectQueryParameter pagedList);
+        Task<ApiResponse<ProjectDto>> Create(ProjectCreateDto createDto);
+        Task<ApiResponse> Delete(long projectId);
     }
 }

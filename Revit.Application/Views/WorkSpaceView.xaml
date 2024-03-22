@@ -7,6 +7,7 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:vm="clr-namespace:Revit.Application.ViewModels"
              xmlns:prism="http://prismlibrary.com/"
+             d:DataContext="{d:DesignInstance vm:WorkSpaceViewModel}"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d"
              Width="1000"
@@ -52,15 +53,15 @@
                         <StackPanel Orientation="Vertical"
                                     Margin="20,0"
                                     VerticalAlignment="Center">
-                            <TextBlock Text="{Binding LoginedUser.UserName}" />
-                            <TextBlock Text="{Binding LoginedUser.Account}" />
+                            <TextBlock Text="{Binding LoginUserDto.UserName,StringFormat=用户名:{0}}" />
+                            <TextBlock Text="{Binding LoginUserDto.Account,StringFormat=账号:{0}}" />
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Orientation="Vertical"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center">
                         <TextBlock Text="我的项目"></TextBlock>
-                        <TextBlock Text="{Binding ProjectCount}"></TextBlock>
+                        <TextBlock Text="{Binding ProjectCount,StringFormat=项目数量:{0}}"></TextBlock>
                     </StackPanel>
                     <StackPanel  Grid.Column="1"
                                  Orientation="Vertical"

@@ -41,17 +41,17 @@ namespace Revit.Application.ViewModels.UserViewModels
             set { _loginDto = value; }
         }
 
-#pragma warning disable CS0649 // 从未对字段“LoginViewModel._loginCommand”赋值，字段将一直保持其默认值 null
         private AsyncRelayCommand<Window> _loginCommand;
-#pragma warning restore CS0649 // 从未对字段“LoginViewModel._loginCommand”赋值，字段将一直保持其默认值 null
         private readonly ILoginService _loginService;
+        private readonly IUserService _userService;
 
         public AsyncRelayCommand<Window> LoginCommand { get => _loginCommand ?? new AsyncRelayCommand<Window>(Login); }
 
 
-        public LoginViewModel(IDataContext dataContext, ILoginService loginService) : base(dataContext)
+        public LoginViewModel(IDataContext dataContext, ILoginService loginService,IUserService userService) : base(dataContext)
         {
             this._loginService = loginService;
+            this._userService = userService;
         }
 
         private async Task Login(Window window)
@@ -59,8 +59,13 @@ namespace Revit.Application.ViewModels.UserViewModels
             var result = await _loginService.Login(new LoginDto() { UserName = "admin", PassWord = "Abc123@" });
             if (result.Code == ResponseCode.Success)
             {
-                Global.Token = result.Content;
-                window.DialogResult = true;
+                var getUserResponse = await _userService.GetLoginedUser(result.Content);
+                if (getUserResponse.Code == ResponseCode.Success)
+                {
+                    Global.Token = result.Content;
+                    Global.User = getUserResponse.Content;
+                    window.DialogResult = true;
+                }
             }
         }
 

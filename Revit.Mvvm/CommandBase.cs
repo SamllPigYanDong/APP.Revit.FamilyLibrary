@@ -141,7 +141,7 @@ namespace Revit.Mvvm
         {
             // Base WPF Application types
             registry.RegisterSingleton<ILoggerFacade, TextLogger>();
-            registry.RegisterSingleton<IDialogService, DialogService>();
+            registry.RegisterSingleton<IDialogService,Revit.Mvvm.Prism.DialogService>();
             registry.RegisterSingleton<IModuleInitializer, ModuleInitializer>();
             registry.RegisterSingleton<IModuleManager, ModuleManager>();
             registry.RegisterSingleton<RegionAdapterMappings>();

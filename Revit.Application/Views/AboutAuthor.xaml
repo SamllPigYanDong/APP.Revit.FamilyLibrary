@@ -16,15 +16,15 @@
                    VerticalAlignment="Top"
                    Source="../Resources/Pictrues/AboutLogo200.png" />
             <StackPanel Margin="30,0,0,0">
-                <TextBlock Text="RevitLookup"
+                <TextBlock Text="Revit协同客户端"
                            FontSize="48" />
                 <TextBlock TextWrapping="Wrap"
                            Margin="0,15,0,0"
                            HorizontalAlignment="Left"
-                           Text="Interactive Revit RFA and RVT project database exploration tool to view and navigate BIM element parameters, properties and relationships." />
+                           Text="交互式Revit协同探索工具，用于协作管理项目，交互及标记问题。" />
                 <TextBlock FontWeight="Medium"
                            Margin="0,15,0,0"
-                           Text="Version" />
+                           Text="版本：1.0.0.0" />
                 <ui:CardControl Margin="0,12,0,0">
                     <ui:CardControl.Header>
                         <StackPanel>
@@ -88,7 +88,7 @@
                         <TextBlock Margin="20,0,0,0"
                                    FontWeight="Medium"
                                    Foreground="White"
-                                   Text="The new version has been downloaded and will be installed when Revit is closed" />
+                                   Text="新版本已经下载，并将在Revit关闭时安装" />
                     </StackPanel>
                 </ui:Card>
                 <ui:Card Margin="0,4,0,0">
@@ -100,7 +100,7 @@
                         <TextBlock Margin="20,0,0,0"
                                    FontWeight="Medium"
                                    Foreground="White"
-                                   Text="RevitLookup is up to date" />
+                                   Text="目前版本是最新的" />
                     </StackPanel>
                 </ui:Card>
                 <ui:Card Margin="0,4,0,0">
@@ -120,11 +120,11 @@
                            Text="{Binding ViewModel.DotNetVersion}" />
                 <TextBlock FontSize="12"
                            Margin="0,6,0,0">
-                   <Run Text="Runtime" />
+                   <Run Text="开发版本" />
                    <Run Text="{Binding ViewModel.RuntimeVersion}" /></TextBlock>
                 <TextBlock FontSize="12"
                            Margin="0,6,0,0"
-                           Text="Copyright © 2013-2023 Autodesk Inc." />
+                           Text="版权所有 作者：严冬" />
             </StackPanel>
         </DockPanel>
     </ui:DynamicScrollViewer>

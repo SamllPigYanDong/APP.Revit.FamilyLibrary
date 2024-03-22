@@ -17,6 +17,7 @@ using System.Windows;
 using Prism.Ioc;
 using Prism.Regions;
 using Prism.Commands;
+using Revit.Entity.Entity.Dtos;
 
 namespace Revit.Application.ViewModels
 {
@@ -36,31 +37,22 @@ namespace Revit.Application.ViewModels
 
 
         private readonly IUserService _userService;
-#pragma warning disable CS0649 // 从未对字段“MainViewModel._navigateCommand”赋值，字段将一直保持其默认值 null
         private DelegateCommand<MenuBar> _navigateCommand;
-#pragma warning restore CS0649 // 从未对字段“MainViewModel._navigateCommand”赋值，字段将一直保持其默认值 null
         public DelegateCommand<MenuBar> NavigateCommand
         {
             get => _navigateCommand ?? new DelegateCommand<MenuBar>(Navigate);
         }
 
+      
+
         public MainViewModel(IDataContext dataContext, IRegionManager regionManager, IUserService userService) : base(dataContext)
         {
             this._regionManager = regionManager;
             this._userService = userService;
-            //Init();
             this._regionManager.RequestNavigate("MainContent", MenuBars.FirstOrDefault().NameSpace);
         }
 
-        private async void Init()
-        {
-            var getUserResponse = await _userService.GetLoginedUser();
-            if (getUserResponse.Code == ResponseCode.Success)
-            {
-                Global.User = getUserResponse.Content;
-            }
-        }
-
+      
 
 
 
