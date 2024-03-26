@@ -1,15 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Revit.Entity;
-using Revit.Entity.Entity;
+﻿using Revit.Entity;
 using Revit.Entity.Entity.Dtos;
 using Revit.Entity.Interfaces;
 using Revit.Service.Services;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Revit.Application.ViewModels
 {

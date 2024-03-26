@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Revit.Application.ViewModels.ProjectDialogViewModel
+namespace Revit.Application.ViewModels.ProjectViewModels.ProjectDialogViewModel
 {
     public class ProjectEditDialogViewModel : ViewModelBase, IDialogAware
     {

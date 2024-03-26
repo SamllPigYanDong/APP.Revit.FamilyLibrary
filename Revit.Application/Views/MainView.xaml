@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         xmlns:pages="clr-namespace:Revit.Application.Views"
+        xmlns:projectViews="clr-namespace:Revit.Application.Views.ProjectViews"
         xmlns:vm="clr-namespace:Revit.Application.ViewModels"
+        d:DataContext="{d:DesignInstance vm:MainViewModel}"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        d:DataContext="{d:DesignInstance vm:MainViewModel}"
         x:Name="mainWindow"
         mc:Ignorable="d"
         Title="MainView"
@@ -34,10 +35,13 @@
                         <ui:NavigationItem Content="工作台"
                                            Icon="Home24"
                                            PageTag="home"
-                                           PageType="{x:Type pages:WorkSpaceView}" />
+                                           PageType="{x:Type pages:MainProjectView}" />
                         <ui:NavigationItem Content="项目"
                                            Icon="Mail24"
-                                           PageType="{x:Type pages:ProjectView}" />
+                                           PageType="{x:Type pages:WorkSpaceView}" />
+                        <ui:NavigationItem Content="当前项目"
+                                           Icon="Mail24"
+                                           PageType="{x:Type projectViews:ProjectView}" />
                     </ui:NavigationStore.Items>
                     <ui:NavigationStore.Footer>
                         <ui:NavigationItem Content="Settings"
@@ -48,6 +52,9 @@
                     </ui:NavigationStore.Footer>
                 </ui:NavigationStore>
                 <Frame x:Name="MainFrame"
+                       Background="Black"
+                       HorizontalContentAlignment="Left"
+                       prism:RegionManager.RegionName="MainContent"
                        Grid.Column="1"
                        Margin="8,0,0,0" />
             </Grid>

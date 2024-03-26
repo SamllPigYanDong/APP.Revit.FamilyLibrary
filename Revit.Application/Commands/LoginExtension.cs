@@ -1,22 +1,10 @@
-﻿using Autodesk.Revit.Attributes;
-using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
-using Prism.Ioc;
-using Prism.Mvvm;
-using Revit.Application.ViewModels.ProjectDialogViewModel;
+﻿using Prism.Ioc;
+using Revit.Application.ViewModels.ProjectViewModels.ProjectDialogViewModel;
 using Revit.Application.ViewModels.UserViewModels;
-using Revit.Application.Views;
-using Revit.Application.Views.ProjectDialogs;
+using Revit.Application.Views.ProjectViews.ProjectDialogs;
 using Revit.Application.Views.UserViews;
 using Revit.Entity;
 using Revit.Mvvm;
-using Revit.Mvvm.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace Revit.Application.Commands
 {
@@ -24,7 +12,7 @@ namespace Revit.Application.Commands
     {
         public static  void RegisterLoginTypes(this IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterDialogWindow<DefaultDialog>();
+            //containerRegistry.RegisterDialogWindow<DefaultDialog>();
             containerRegistry.RegisterDialog<ProjectCreateDialog, ProjectCreateDialogViewModel>();
 
             containerRegistry.RegisterForNavigation<LoginView, LoginViewModel>();

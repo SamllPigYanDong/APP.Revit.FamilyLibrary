@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace Revit.Service.ApiServices
 {
@@ -56,12 +57,12 @@ namespace Revit.Service.ApiServices
 
             if (!string.IsNullOrWhiteSpace(baseRequest.ContentType))
             {
-                request.AddHeader("Content-Type", baseRequest.ContentType);
+                //request.AddHeader("Content-Type", baseRequest.ContentType);
             }
             string token = Global.Token;
             if (!string.IsNullOrWhiteSpace(baseRequest.Token))
             {
-                token=baseRequest.Token;    
+                token = baseRequest.Token;
             }
             if (!string.IsNullOrWhiteSpace(token))
             {
@@ -72,15 +73,27 @@ namespace Revit.Service.ApiServices
                 var json = JsonConvert.SerializeObject(baseRequest.Parameter);
                 request.AddParameter(baseRequest.ContentType, json, ParameterType.RequestBody);
             }
-            if (baseRequest.FilePaths!=null&&baseRequest.FilePaths.Count()>0)
+            if (baseRequest.FilePaths != null && baseRequest.FilePaths.Count() > 0)
             {
+                request.AlwaysMultipartFormData = true;
                 foreach (var filePath in baseRequest.FilePaths)
                 {
                     request.AddFile("icon", filePath);
                 }
             }
-
+            if (baseRequest.FormDatas != null && baseRequest.FormDatas.Count() > 0)
+            {
+                request.AlwaysMultipartFormData = true;
+                foreach (var formData in baseRequest.FormDatas)
+                {
+                    request.AddParameter(formData.Key, formData.Value);
+                }
+            }
             var response = await client.ExecuteAsync(request);
+            if (Global.IsDebug)
+            {
+                MessageBox.Show(response.Content.ToString() + response.ErrorMessage);
+            }
             return response;
         }
     }

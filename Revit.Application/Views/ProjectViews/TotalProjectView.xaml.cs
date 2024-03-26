@@ -1,6 +1,4 @@
-﻿using Prism.Regions;
-using Revit.Application.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,19 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Wpf.Ui.Controls;
-using Prism.Ioc;
 
-namespace Revit.Application.Views
+namespace Revit.Application.Views.ProjectViews
 {
     /// <summary>
-    /// ProjectView.xaml 的交互逻辑
+    /// TotalProjectView.xaml 的交互逻辑
     /// </summary>
-    public partial class ProjectView 
+    public partial class TotalProjectView : UserControl
     {
-        public ProjectView()
+        public TotalProjectView()
         {
             InitializeComponent();
         }
+
+        
     }
 }

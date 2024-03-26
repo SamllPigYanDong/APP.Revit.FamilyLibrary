@@ -10,8 +10,10 @@
              d:DataContext="{d:DesignInstance vm:WorkSpaceViewModel}"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d"
-             Width="1000"
-             Height="1000">
+             Width="auto"
+             Height="auto"
+             d:Width="2000"
+             d:Height="1000">
     <UserControl.Resources>
         <Style  TargetType="{x:Type TextBlock}">
             <Setter Property="FontFamily"

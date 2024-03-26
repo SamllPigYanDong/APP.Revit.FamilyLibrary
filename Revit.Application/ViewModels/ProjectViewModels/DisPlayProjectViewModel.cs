@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Revit.Application.UI;
-using Revit.Service.Services;
 using System;
 using System.Collections.ObjectModel;
 using Revit.Service.IServices;
@@ -8,15 +7,21 @@ using Revit.Entity.Entity.Parameters;
 using Revit.Entity.Entity;
 using Prism.Commands;
 using Revit.Entity.Entity.Dtos.Project;
-using Revit.Mvvm.Prism;
 using Prism.Services.Dialogs;
+using Revit.Entity;
+using Revit.Entity.Entity.Dtos;
+using Prism.Regions;
+using Revit.Application.Views.ProjectViews;
+using System.Windows;
+using System.Linq;
 
-namespace Revit.Application.ViewModels
+namespace Revit.Application.ViewModels.ProjectViewModels
 {
-    public  class ProjectViewModel : ObservableRecipient
+    public class DisPlayProjectViewModel : ObservableRecipient
     {
         private readonly IProjectService _projectService;
         private readonly IDialogService dialogService;
+        private readonly IRegionManager regionManager;
         public ObservableCollection<ProjectDto> _recentlyUserProjects = new ObservableCollection<ProjectDto>();
         public ObservableCollection<ProjectDto> RecentlyUserProjects
         {
@@ -30,8 +35,8 @@ namespace Revit.Application.ViewModels
 
         private DelegateCommand<ProjectDto> _createProjectCommand;
 
-        public DelegateCommand<ProjectDto> CreateProjectCommand 
-        { get => _createProjectCommand ??new  DelegateCommand<ProjectDto>(CreateProject).ObservesCanExecute(()=>IsEnable); }
+        public DelegateCommand<ProjectDto> CreateProjectCommand
+        { get => _createProjectCommand ?? new DelegateCommand<ProjectDto>(CreateProject).ObservesCanExecute(() => IsEnable); }
 
         private DelegateCommand<ProjectDto> _modifyProjectCommand;
 
@@ -45,9 +50,14 @@ namespace Revit.Application.ViewModels
         public DelegateCommand<ProjectDto> DeleteProjectCommand
         { get => _deleteProjectCommand ?? new DelegateCommand<ProjectDto>(DeleteProject).ObservesCanExecute(() => IsEnable); }
 
-       
+        private DelegateCommand<ProjectDto> _entryProjectCommand;
 
-        private bool _isEnable=true;
+        public DelegateCommand<ProjectDto> EntryProjectCommand
+        { get => _entryProjectCommand ?? new DelegateCommand<ProjectDto>(EntryProject).ObservesCanExecute(() => IsEnable); }
+
+     
+
+        private bool _isEnable = true;
 
         public bool IsEnable
         {
@@ -58,12 +68,13 @@ namespace Revit.Application.ViewModels
 
         private async void CreateProject(ProjectDto projectCreateDto)
         {
-            IsEnable = false;
-            dialogService.ShowDialog("ProjectCreateDialog", new DialogParameters() ,async (res) =>
+            //IsEnable = false;
+            dialogService.ShowDialog("ProjectCreateDialog", new DialogParameters(), async (res) =>
             {
-                if (res.Result==ButtonResult.OK)
+                if (res.Result == ButtonResult.OK)
                 {
                     var projectDto = res.Parameters.GetValue<ProjectCreateDto>("createProject");
+
                     var apiResult = await this._projectService.Create(projectDto);
                     if (apiResult.Code == ResponseCode.Success && apiResult.Content != null)
                     {
@@ -72,44 +83,50 @@ namespace Revit.Application.ViewModels
                     }
                 }
             });
-            IsEnable = true;
         }
-      
+
+        private void EntryProject(ProjectDto dto)
+        {
+            MessageBox.Show(this.regionManager.Regions.Count().ToString());
+            this.regionManager.RequestNavigate("MainContent", nameof(ProjectView));
+        }
+
+
         private void ModifyProject(ProjectDto dto)
         {
             throw new NotImplementedException();
         }
         private async void DeleteProject(ProjectDto project)
         {
-            IsEnable = false;
             var apiResult = await this._projectService.Delete(project.Id);
             if (apiResult.Code == ResponseCode.Success)
             {
                 RecentlyUserProjects.Remove(project);
                 RecentlyUserProjects = new ObservableCollection<ProjectDto>(RecentlyUserProjects);
             }
-            IsEnable = true;
         }
 
 
 
-        public ProjectViewModel(IProjectService projectService,IDialogService dialogService)
+        public DisPlayProjectViewModel(IProjectService projectService
+            , IDialogService dialogService
+            ,IRegionManager regionManager)
         {
             this._projectService = projectService;
             this.dialogService = dialogService;
+            this.regionManager = regionManager;
             Init();
         }
 
-        private  void Init()
+        private void Init()
         {
-           InitRecentlyUserProjects();
+            InitRecentlyUserProjects();
         }
 
-        private  async void InitRecentlyUserProjects()
+        private async void InitRecentlyUserProjects()
         {
-          
-            var apiResult =await  _projectService.GetProjects(new ProjectQueryParameter() { PageIndex = 1, PageSize = 5, UserId = 1 });
-            if (apiResult.Code==ResponseCode.Success&&apiResult.Content!=null)
+            var apiResult = await _projectService.GetProjects(new ProjectQueryParameter() { PageIndex = 1, PageSize = 50000, UserId = 1 });
+            if (apiResult.Code == ResponseCode.Success && apiResult.Content != null)
             {
                 this.RecentlyUserProjects = new ObservableCollection<ProjectDto>(apiResult.Content);
             }

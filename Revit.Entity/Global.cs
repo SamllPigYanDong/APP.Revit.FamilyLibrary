@@ -19,8 +19,7 @@ namespace Revit.Entity
             set { _provider = value; }
         }
 
-        //private static IServiceCollection _collection;
-        //public static IServiceCollection Collection { get => _collection ?? new ServiceCollection(); }
+        public static bool IsDebug { get; set; } = false;
 
 
 

@@ -10,27 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Wpf.Ui.Appearance;
-using Prism.Ioc;
-using Revit.Application.ViewModels;
-using Prism.Regions;
-using Wpf.Ui.Mvvm.Services;
 
-namespace Revit.Application.Views
+namespace Revit.Application.Views.ProjectViews
 {
     /// <summary>
-    /// MainView.xaml 的交互逻辑
+    /// ProjectMemberView.xaml 的交互逻辑
     /// </summary>
-    public partial class MainView:Window
+    public partial class ProjectMemberView : UserControl
     {
-        private readonly IRegionManager regionManager;
-
-        public MainView()
+        public ProjectMemberView()
         {
             InitializeComponent();
-            Wpf.Ui.Appearance.Theme.Apply(this);
         }
-
     }
 }

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 
-namespace Revit.Application.ViewModels.ProjectDialogViewModel
+namespace Revit.Application.ViewModels.ProjectViewModels.ProjectDialogViewModel
 {
     public class ProjectCreateDialogViewModel : ViewModelBase, IDialogAware
     {

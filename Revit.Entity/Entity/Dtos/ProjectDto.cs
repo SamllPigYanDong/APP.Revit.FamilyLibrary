@@ -1,14 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System;
-using Revit.Entity.Entity.Dtos;
 
-namespace Revit.Service.Services
+namespace Revit.Entity.Entity.Dtos
 {
     public class ProjectDto
     {
         public string ProjectName { get; set; }
-
 
         public long Id { get; set; }
 
@@ -24,5 +22,7 @@ namespace Revit.Service.Services
         public int ProjectUserCount { get; set; }
 
         public double DocumentsSize { get; set; }
+
+        public string BasePath { get; set; }
     }
 }

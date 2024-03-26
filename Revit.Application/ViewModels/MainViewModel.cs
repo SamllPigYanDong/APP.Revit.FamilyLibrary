@@ -1,23 +1,13 @@
 ﻿using Revit.Application.UI;
 using Revit.Application.Views;
-using Revit.Entity.Entity;
-using Revit.Entity;
 using Revit.Entity.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using Revit.Service.Services;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using System.Web.UI.WebControls;
-using System.Windows.Controls;
 using System.Windows;
-using Prism.Ioc;
 using Prism.Regions;
 using Prism.Commands;
-using Revit.Entity.Entity.Dtos;
+using Revit.Application.Views.ProjectViews;
 
 namespace Revit.Application.ViewModels
 {
@@ -49,7 +39,6 @@ namespace Revit.Application.ViewModels
         {
             this._regionManager = regionManager;
             this._userService = userService;
-            this._regionManager.RequestNavigate("MainContent", MenuBars.FirstOrDefault().NameSpace);
         }
 
       

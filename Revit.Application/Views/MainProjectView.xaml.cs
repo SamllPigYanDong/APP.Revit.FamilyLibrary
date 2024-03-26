@@ -1,5 +1,5 @@
 ﻿using Prism.Ioc;
-using Revit.Application.ViewModels.ProjectDialogViewModel;
+using Prism.Regions;
 using Revit.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -15,17 +15,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Wpf.Ui.Appearance;
 
-namespace Revit.Application.Views.ProjectDialogs
+namespace Revit.Application.Views
 {
     /// <summary>
-    /// ProjectCreateDialog.xaml 的交互逻辑
+    /// MainProjectView.xaml 的交互逻辑
     /// </summary>
-    public partial class ProjectCreateDialog : UserControl
+    public partial class MainProjectView : UserControl
     {
-        public ProjectCreateDialog()
+
+        public MainProjectView()
         {
             InitializeComponent();
+            RegionManager.SetRegionManager(this, CommandBase.Instance.Container.Resolve<IRegionManager>());
+            RegionManager.UpdateRegions();
+
+            //regionManager.RegisterViewWithRegion("ProjectContent", typeof(ProjectView));
         }
+
+
     }
 }

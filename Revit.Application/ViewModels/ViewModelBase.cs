@@ -2,7 +2,10 @@
 using Autodesk.Revit.UI;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
+using Revit.Application.UI;
 using Revit.Entity.Interfaces;
 using System.Windows;
 using Application = Autodesk.Revit.ApplicationServices.Application;
@@ -12,6 +15,16 @@ namespace Revit.Application.ViewModels
     public abstract class ViewModelBase : BindableBase
     {
 
+
+        private DelegateCommand<MenuBar> _navigateCommand;
+
+        public DelegateCommand<MenuBar> NavigateCommand
+        { get => _navigateCommand ?? new DelegateCommand<MenuBar>(Navigate); }
+
+        protected virtual void Navigate(MenuBar menuBar)
+        {
+            
+        }
 
 
         protected readonly IDataContext _dataContext;

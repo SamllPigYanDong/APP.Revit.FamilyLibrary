@@ -23,5 +23,8 @@ namespace Revit.Entity.Entity.Dtos.Project
             get { return _icon; }
             set { SetProperty(ref _icon, value); }
         }
+
+
+
     }
 }

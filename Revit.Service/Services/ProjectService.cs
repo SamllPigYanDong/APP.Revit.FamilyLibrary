@@ -13,7 +13,7 @@ using System.Windows;
 
 namespace Revit.Service.Services
 {
-    public class ProjectService : BaseService<ProjectDto>,IProjectService
+    public class ProjectService : BaseService<ProjectDto>, IProjectService
     {
         public ProjectService(HttpRestClient client) : base(client)
         {
@@ -21,7 +21,7 @@ namespace Revit.Service.Services
         }
 
 
-        public async Task<ApiResponse<IEnumerable<ProjectDto>>>  GetProjects(ProjectQueryParameter queryParameter)
+        public async Task<ApiResponse<IEnumerable<ProjectDto>>> GetProjects(ProjectQueryParameter queryParameter)
         {
             BaseRequest request = new BaseRequest();
             request.Method = RestSharp.Method.GET;
@@ -29,7 +29,7 @@ namespace Revit.Service.Services
                 $"&&pageSize={queryParameter.PageSize}" +
                 $"&&userId={queryParameter.UserId}" +
                 $"&&searchMessage={queryParameter.SearchMessage}";
-            return await  client.ExecuteAsync<IEnumerable<ProjectDto>>(request);
+            return await client.ExecuteAsync<IEnumerable<ProjectDto>>(request);
         }
 
 
@@ -38,8 +38,18 @@ namespace Revit.Service.Services
             BaseRequest request = new BaseRequest();
             request.Method = RestSharp.Method.POST;
             request.Route = $"api/{ServiceName}";
-            request.Parameter=createDto;
-            request.FilePaths = new List<string>() { createDto.Icon};   
+            if (!string.IsNullOrWhiteSpace(createDto.Icon))
+            {
+                request.FilePaths = new List<string>() { createDto.Icon };
+            }
+            request.ContentType = ContentType.FormData;
+            request.FormDatas = new Dictionary<string, object>
+            {
+                { "ProjectName", createDto.ProjectName },
+                { "ProjectAddress", createDto.ProjectAddress },
+                { "Introduction", createDto.Introduction },
+                { "CreatorId", createDto.CreatorId }
+            };
             return await client.ExecuteAsync<ProjectDto>(request);
         }
 

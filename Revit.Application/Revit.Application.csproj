@@ -70,11 +70,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="ViewModels\GenernaDialogViewModel\" />
+	  <Folder Include="ViewModels\GenernaDialogViewModels\" />
 	  <Folder Include="Views\UserViews\" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
 	  <PackageReference Include="REVIT-WPF-UI" Version="2.2.0" />
 	</ItemGroup>
 

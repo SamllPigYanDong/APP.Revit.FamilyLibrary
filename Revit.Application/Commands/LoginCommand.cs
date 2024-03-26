@@ -3,23 +3,14 @@ using Autodesk.Revit.UI;
 using System.Windows;
 using Autodesk.Revit.Attributes;
 using Prism.Ioc;
-using Revit.Application.ViewModels.UserViewModels;
 using Revit.Application.ViewModels;
 using Revit.Application.Views;
 using Revit.Extension;
 using Revit.Mvvm.Extensions;
 using Revit.Mvvm;
-using Revit.Application.Views.UserViews;
-using Revit.Service.IServices;
-using Revit.Service.Services;
-using Revit.Entity.Entity.Parameters;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using Revit.Entity.Entity.Dtos;
-using Revit.Entity.Interfaces;
-using Revit.Entity;
-using Prism.Mvvm;
-using Prism.Common;
+using Revit.Application.Views.ProjectViews;
+using Revit.Application.ViewModels.ProjectViewModels;
+using Revit.Application.ViewModels.ProjectViewModels.ProjectDialogViewModels;
 
 namespace Revit.Application.Commands
 {
@@ -47,10 +38,12 @@ namespace Revit.Application.Commands
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterLoginTypes();
-            containerRegistry.Register<MainView>();
-            containerRegistry.Register<MainViewModel>();
 
-            containerRegistry.RegisterForNavigation<MainView, MainViewModel>();
+            containerRegistry.RegisterForNavigation<MainProjectView,MainProjectViewModel>();
+            containerRegistry.RegisterForNavigation<TotalProjectView, DisPlayProjectViewModel>();
+            containerRegistry.RegisterForNavigation<RecentlyProjectView, DisPlayProjectViewModel>();
+            containerRegistry.RegisterForNavigation<ProjectFileManageView, ProjectFileManageViewModel>();
+            containerRegistry.RegisterForNavigation<ProjectMemberView, ProjectMemberViewModel>();
             containerRegistry.RegisterForNavigation<ProjectView, ProjectViewModel>();
             containerRegistry.RegisterForNavigation<WorkSpaceView, WorkSpaceViewModel>();
         }

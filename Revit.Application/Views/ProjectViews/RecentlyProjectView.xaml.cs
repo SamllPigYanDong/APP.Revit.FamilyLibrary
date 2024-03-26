@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Revit.Application.Views.ProjectDialogs
+namespace Revit.Application.Views.ProjectViews
 {
     /// <summary>
-    /// ProjectCreateDialog.xaml 的交互逻辑
+    /// RecentlyProjectView.xaml 的交互逻辑
     /// </summary>
-    public partial class ProjectEditDialog : UserControl
+    public partial class RecentlyProjectView : ContentControl
     {
-        public ProjectEditDialog()
+        public RecentlyProjectView()
         {
             InitializeComponent();
         }
