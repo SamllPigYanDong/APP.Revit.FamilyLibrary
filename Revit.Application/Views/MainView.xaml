@@ -52,7 +52,6 @@
                     </ui:NavigationStore.Footer>
                 </ui:NavigationStore>
                 <Frame x:Name="MainFrame"
-                       Background="Black"
                        HorizontalContentAlignment="Left"
                        prism:RegionManager.RegionName="MainContent"
                        Grid.Column="1"

@@ -7,7 +7,6 @@
              xmlns:local="clr-namespace:Revit.Application.Views"
              xmlns:vm="clr-namespace:Revit.Application.ViewModels"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             d:DataContext="{d:DesignInstance vm:ProjectViewModel}"
              mc:Ignorable="d"
              Width="auto"
              Height="auto"
@@ -15,6 +14,13 @@
              d:Height="1000"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Styles/BorderStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid Grid.Row="1">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
@@ -49,16 +55,7 @@
                 <DataTemplate>
                     <Border Width="200"
                             Height="130"
-                            CornerRadius="3"
-                            Background="Gray"
-                            Opacity="1">
-                        <Border.Effect>
-                            <DropShadowEffect Direction="320"
-                                              BlurRadius="6"
-                                              ShadowDepth="8"
-                                              Color="Black"
-                                              Opacity="0.5" />
-                        </Border.Effect>
+                            CornerRadius="3">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="80"></RowDefinition>

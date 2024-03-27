@@ -15,12 +15,17 @@
              d:Width="2000"
              d:Height="1000">
     <UserControl.Resources>
-        <Style  TargetType="{x:Type TextBlock}">
-            <Setter Property="FontFamily"
-                    Value="../Resources/#iconfont" />
-            <Setter Property="Foreground"
-                    Value="Gray" />
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/BorderStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style  TargetType="{x:Type TextBlock}">
+                <Setter Property="FontFamily"
+                        Value="../Resources/#iconfont" />
+                <Setter Property="Foreground"
+                        Value="Gray" />
+            </Style>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid Background="White">
         <Grid>
@@ -115,24 +120,21 @@
                         </StackPanel>
                     </UniformGrid>
                 </Grid>
-                <ui:CardControl Grid.Row="1"
+                <Border Grid.Row="1"
                                 Margin="5"
-                                Background="Gray"
-                                VerticalAlignment="Stretch"
-                                Opacity="0.5">
+                                VerticalAlignment="Stretch">
                     <StackPanel Margin="5">
                         <TextBlock Text="最近访问"
                                     Foreground="Black"></TextBlock>
                         <ui:DataGrid Grid.Row="1"
                                      VerticalAlignment="Stretch"></ui:DataGrid>
                     </StackPanel>
-                </ui:CardControl>
+                </Border>
                 <Border Grid.Row="1"
                         Grid.Column="1"
                         Grid.RowSpan="2"
                         Margin="5"
-                        CornerRadius="3"
-                        Background="Green"></Border>
+                        CornerRadius="3"></Border>
                 <ui:TitleBar Grid.Row="2"
                              Margin="5"
                              Title="最近动态"></ui:TitleBar>
