@@ -1,9 +1,5 @@
-﻿using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Messaging;
-using Revit.Service.Contants;
-using Tamplate.Revit.Mep.IServices;
-using Tamplate.Revit.Mep.ViewModels;
-using Tamplate.Revit.Mep.Views;
+﻿using Revit.Service.Contants;
+using Revit.Service.IServices;
 
 namespace Tamplate.Revit.Mep.Services
 {

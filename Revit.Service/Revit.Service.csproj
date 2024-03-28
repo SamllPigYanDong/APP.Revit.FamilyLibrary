@@ -20,6 +20,7 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
+	  <Compile Remove="IServices\IProgressBarService.cs" />
 	  <Compile Remove="Services\ProgressBarService.cs" />
 	  <Compile Remove="ViewModels\ProgressBarViewModel.cs" />
 	  <Compile Remove="Views\ProgressBarDialog.xaml.cs" />
@@ -40,6 +41,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Services\WebAPIService\新文件夹\" />
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="Views\" />
 	</ItemGroup>

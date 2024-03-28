@@ -167,6 +167,8 @@ namespace Revit.Mvvm
             registry.Register<ILoginService, LoginService>();
             registry.Register<IProjectService, ProjectService>();
             registry.Register<IUserService, UserService>();
+            registry.Register<IProjectFolderService, ProjectFolderService>();
+            registry.Register<IProjectFileService, ProjectFileService>();
         }
 
     }

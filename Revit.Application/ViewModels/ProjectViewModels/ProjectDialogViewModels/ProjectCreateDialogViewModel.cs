@@ -36,8 +36,6 @@ namespace Revit.Application.ViewModels.ProjectViewModels.ProjectDialogViewModel
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                //openFileDialog.Filter = "图片文件|*.jpg|*.png";
-                //openFileDialog.Multiselect = false;
                 if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     //获取选择的文件名

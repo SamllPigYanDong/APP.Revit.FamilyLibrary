@@ -34,7 +34,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.5*"></RowDefinition>
+                    <RowDefinition Height="0.2*"></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
@@ -121,6 +121,7 @@
                     </UniformGrid>
                 </Grid>
                 <Border Grid.Row="1"
+                        Style="{StaticResource Border_Panel}"
                                 Margin="5"
                                 VerticalAlignment="Stretch">
                     <StackPanel Margin="5">
@@ -131,6 +132,7 @@
                     </StackPanel>
                 </Border>
                 <Border Grid.Row="1"
+                        Style="{StaticResource Border_Panel}"
                         Grid.Column="1"
                         Grid.RowSpan="2"
                         Margin="5"

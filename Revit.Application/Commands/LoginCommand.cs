@@ -10,7 +10,6 @@ using Revit.Mvvm.Extensions;
 using Revit.Mvvm;
 using Revit.Application.Views.ProjectViews;
 using Revit.Application.ViewModels.ProjectViewModels;
-using Revit.Application.ViewModels.ProjectViewModels.ProjectDialogViewModels;
 
 namespace Revit.Application.Commands
 {

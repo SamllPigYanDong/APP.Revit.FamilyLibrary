@@ -9,17 +9,19 @@
              d:DataContext="{d:DesignInstance vm:ProjectViewModel}"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
-             Width="1000"
-             Height="1000"
+             Width="auto"
+             Height="auto"
+             d:Width="1000"
+             d:Height="800"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <ListView Width="200"
-                  HorizontalAlignment="Left"
+                  HorizontalAlignment="Stretch"
                   Name="listView"
                   ItemsSource="{Binding MenuBars}">
             <i:Interaction.Triggers>

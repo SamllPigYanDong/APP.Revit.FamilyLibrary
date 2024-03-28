@@ -11,7 +11,7 @@ namespace Revit.Application.ViewModels.ProjectViewModels
     {
         private ObservableCollection<MenuBar> _menuBars = new ObservableCollection<MenuBar>() {
         new MenuBar() { Icon = "FloderManage", Title = "文件夹管理", NameSpace = nameof(ProjectFileManageView) },
-        new MenuBar() { Icon = "Member", Title = "成员", NameSpace = nameof(TotalProjectView) },
+        new MenuBar() { Icon = "Member", Title = "成员", NameSpace = nameof(ProjectMemberView) },
         };
         public ObservableCollection<MenuBar> MenuBars
         {

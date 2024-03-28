@@ -15,5 +15,7 @@ namespace Revit.Service.IServices
         Task<ApiResponse<IEnumerable<ProjectDto>>> GetProjects(ProjectQueryParameter pagedList);
         Task<ApiResponse<ProjectDto>> Create(ProjectCreateDto createDto);
         Task<ApiResponse> Delete(long projectId);
+
+        Task<ApiResponse<IEnumerable<ProjectFolderDto>>> GetRecentlyFiles(long userId);
     }
 }

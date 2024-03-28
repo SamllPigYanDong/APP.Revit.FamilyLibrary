@@ -1,15 +1,21 @@
 ﻿using Revit.Entity;
+using Revit.Entity.Entity;
 using Revit.Entity.Entity.Dtos;
+using Revit.Entity.Entity.Dtos.Project;
 using Revit.Entity.Interfaces;
+using Revit.Service.IServices;
 using Revit.Service.Services;
 using System;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace Revit.Application.ViewModels
 {
-    public  class WorkSpaceViewModel : ViewModelBase
+    public class WorkSpaceViewModel : ViewModelBase
     {
         private LoginedUserDto _loginUserDto;
         private readonly IUserService _userService;
+        private readonly IProjectService projectService;
 
         public LoginedUserDto LoginUserDto
         {
@@ -36,8 +42,12 @@ namespace Revit.Application.ViewModels
         //public int _myTaskCount = 0;
 
 
-        //[ObservableProperty]
-        //public ObservableCollection<string> _recentlyFiles=new ObservableCollection<string>() { "123","456"};
+        public ObservableCollection<ProjectFolderDto> _recentlyFiles = new ObservableCollection<ProjectFolderDto>();
+        public ObservableCollection<ProjectFolderDto> RecentlyFiles
+        {
+            get { return _recentlyFiles; }
+            set { SetProperty(ref _recentlyFiles, value); }
+        }
 
         //[ObservableProperty]
         //public ObservableCollection<string> _recentlyNews = new ObservableCollection<string>() { "123", "456" };
@@ -45,10 +55,10 @@ namespace Revit.Application.ViewModels
         //[ObservableProperty]
         //public ObservableCollection<string> _recentlyTasks = new ObservableCollection<string>() { "123", "456" };
 
-        public WorkSpaceViewModel(IDataContext dataContext, IUserService userService) : base(dataContext)
+        public WorkSpaceViewModel(IDataContext dataContext, IUserService userService, IProjectService projectService) : base(dataContext)
         {
             this._userService = userService;
-
+            this.projectService = projectService;
             Init();
         }
 
@@ -64,7 +74,7 @@ namespace Revit.Application.ViewModels
         private void Init()
         {
             InitUser();
-            //InitRecentlyProjects();
+            InitRecentlyProjects();
             //InitRecentlyNews();
             //InitRecentlyTasks();
         }
@@ -87,10 +97,14 @@ namespace Revit.Application.ViewModels
         /// <summary>
         /// 初始化最近项目
         /// </summary>
-        /// <exception cref="NotImplementedException"></exception>
-        private void InitRecentlyProjects()
+        private async Task InitRecentlyProjects()
         {
-            throw new NotImplementedException();
+            var result = await projectService.GetRecentlyFiles(Global.User.UserId);
+            if (result != null && result.Code == ResponseCode.Success)
+            {
+                RecentlyFiles = new ObservableCollection<ProjectFolderDto>(result.Content);
+            }
+
         }
 
 

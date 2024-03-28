@@ -60,5 +60,15 @@ namespace Revit.Service.Services
             request.Route = $"api/{ServiceName}/{projectId}";
             return await client.ExecuteAsync(request);
         }
+
+
+        public async Task<ApiResponse<IEnumerable<ProjectFolderDto>>> GetRecentlyFiles(long userId)
+        {
+            BaseRequest request = new BaseRequest();
+            request.Method = RestSharp.Method.GET;
+            request.Route = $"api/{ServiceName}?userId={userId}";
+            return await client.ExecuteAsync<IEnumerable<ProjectFolderDto>>(request);
+        }
+
     }
 }

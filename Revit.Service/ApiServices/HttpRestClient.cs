@@ -78,7 +78,7 @@ namespace Revit.Service.ApiServices
                 request.AlwaysMultipartFormData = true;
                 foreach (var filePath in baseRequest.FilePaths)
                 {
-                    request.AddFile("icon", filePath);
+                    request.AddFile("files", filePath);
                 }
             }
             if (baseRequest.FormDatas != null && baseRequest.FormDatas.Count() > 0)

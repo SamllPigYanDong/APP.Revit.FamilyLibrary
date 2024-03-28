@@ -4,6 +4,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Revit.Application.Views.ProjectViews"
              x:Class="Revit.Application.Views.ProjectViews.ProjectFileManageView"
+             xmlns:vm="clr-namespace:Revit.Application.ViewModels.ProjectViewModels"
+             xmlns:entity="clr-namespace:Revit.Entity.Entity.Dtos.Project;assembly=Revit.Entity"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             d:DataContext="{d:DesignInstance vm:ProjectFileManageViewModel}"
              mc:Ignorable="d"
              Height="auto"
              Width="auto"
@@ -15,21 +21,39 @@
             <ColumnDefinition Width="200" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <TreeView />
+        <TreeView ItemsSource="{Binding  ProjectFolderTreeNodes}" Name="treeView" >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectedItemChanged">
+                    <i:InvokeCommandAction Command="{Binding ChangeSelectedFolderCommand}" CommandParameter="{Binding ElementName=treeView,Path=SelectedItem}" ></i:InvokeCommandAction>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <TreeView.ItemTemplate > 
+                <HierarchicalDataTemplate DataType="{ x:Type entity:ProjectFolderTreeNode}"
+                                          ItemsSource="{Binding Childs}" >
+                    <TextBlock Text="{Binding Name}"/>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
                 <RowDefinition />
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal">
-                <Button Content="上传文件"></Button>
-                <Button Content="新建文件夹"></Button>
+                <Button Content="上传文件"
+                        Command="{Binding  UploadFilesCommand}"
+                        CommandParameter="{Binding  ElementName=treeView,Path=SelectedItem}"></Button>
+                <Button Content="新建文件夹"
+                        Command="{Binding CreateFolderCommand}"
+                        CommandParameter="{Binding  ElementName=treeView,Path=SelectedItem}"></Button>
                 <Button Content="下载"></Button>
                 <Button Content="分享"></Button>
                 <Button Content="更多"></Button>
             </StackPanel>
             <DataGrid Grid.Row="1"
-                      AutoGenerateColumns="False">
+                      CanUserAddRows="False"
+                      AutoGenerateColumns="False"
+                      ItemsSource="{Binding ProjectFolderDtos}">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn>
                         <DataGridCheckBoxColumn.Header>
@@ -37,12 +61,16 @@
                         </DataGridCheckBoxColumn.Header>
                     </DataGridCheckBoxColumn>
                     <DataGridTextColumn Header="文件名称"
+                                        Binding="{Binding Name}"
                                         Width="*" />
                     <DataGridTextColumn Header="上传人员"
+                                        Binding="{Binding CreatorName}"
                                         Width="*" />
                     <DataGridTextColumn Header="文件大小"
+                                        Binding="{Binding FileSize}"
                                         Width="*" />
                     <DataGridTextColumn Header="上传时间"
+                                        Binding="{Binding CreationTime,StringFormat=yyyy-MM-dd}"
                                         Width="*" />
                 </DataGrid.Columns>
             </DataGrid>

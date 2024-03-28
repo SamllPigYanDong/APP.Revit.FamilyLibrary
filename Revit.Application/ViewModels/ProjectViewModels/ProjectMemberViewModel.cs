@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Revit.Application.ViewModels.ProjectViewModels.ProjectDialogViewModels
+namespace Revit.Application.ViewModels.ProjectViewModels
 {
     public class ProjectMemberViewModel : ViewModelBase
     {

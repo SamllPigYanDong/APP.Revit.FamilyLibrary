@@ -18,24 +18,15 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </ContentControl.Resources>
-    <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <GridSplitter Width="5"
-                          Grid.RowSpan="2"
-                          HorizontalAlignment="Center"
-                          Grid.Column="1"></GridSplitter>
-            <ListView Grid.Column="2"
-                      Name="listBox"
-                      Grid.Row="1"
+    <Grid >
+            <ListView Name="listBox"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   ItemsSource="{Binding RecentlyUserProjects}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Border Width="200"
-                                Height="130">
+                    <Border Width="200"
+                            Style="{StaticResource Border_Panel}"
+                            Height="130">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="80"></RowDefinition>
@@ -43,7 +34,7 @@
                                     <RowDefinition Height="*"></RowDefinition>
                                     <RowDefinition Height="*"></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <Border ></Border>
+                                <Border Style="{StaticResource Border_Panel}"></Border>
                                 <TextBlock Text="{Binding ProjectName}"
                                            Grid.Row="1"
                                            Margin="5,0" />
