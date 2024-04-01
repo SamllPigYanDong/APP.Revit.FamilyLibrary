@@ -70,5 +70,14 @@ namespace Revit.Service.Services
             return await client.ExecuteAsync<IEnumerable<ProjectFolderDto>>(request);
         }
 
+
+        public async Task<ApiResponse<IEnumerable<UserDto>>> GetUsers(long projectId)
+        {
+            BaseRequest request = new BaseRequest();
+            request.Method = RestSharp.Method.GET;
+            request.Route = $"api/{ServiceName}/{projectId}/Users";
+            return await client.ExecuteAsync<IEnumerable<UserDto>>(request);
+        }
+
     }
 }

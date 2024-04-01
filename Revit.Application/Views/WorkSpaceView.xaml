@@ -19,12 +19,12 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/BorderStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style  TargetType="{x:Type TextBlock}">
+            <!--<Style  TargetType="{x:Type TextBlock}">
                 <Setter Property="FontFamily"
                         Value="../Resources/#iconfont" />
                 <Setter Property="Foreground"
                         Value="Gray" />
-            </Style>
+            </Style>-->
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Background="White">
@@ -53,6 +53,7 @@
                                 HorizontalAlignment="Left"
                                 Orientation="Horizontal">
                         <TextBlock Text="&#xe61d;"
+                                   FontFamily="../Resources/#iconfont"
                                    Height="40"
                                    Width="40"
                                    FontSize="40"
@@ -89,6 +90,7 @@
                                      HorizontalAlignment="Center"
                                      VerticalAlignment="Center">
                             <TextBlock Text="&#xe6db;"
+                                       FontFamily="../Resources/#iconfont"
                                        FontSize="40"
                                        Height="40"
                                        Width="40"
@@ -100,6 +102,7 @@
                                      HorizontalAlignment="Center"
                                      VerticalAlignment="Center">
                             <TextBlock Text="&#xe60a;"
+                                       FontFamily="../Resources/#iconfont"
                                        FontSize="40"
                                        Height="40"
                                        Width="40"
@@ -111,7 +114,8 @@
                                      Orientation="Vertical"
                                      HorizontalAlignment="Center"
                                      VerticalAlignment="Center">
-                            <TextBlock Text="&#xe67f;"
+                            <TextBlock Text="&#xE67F;"
+                                       FontFamily="../Resources/#iconfont"
                                        FontSize="40"
                                        Height="40"
                                        Width="40"

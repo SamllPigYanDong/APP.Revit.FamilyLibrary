@@ -121,6 +121,9 @@
   <data name="AboutLogo200" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AboutLogo200.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="iconfont" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconfont.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="RibbonIcon16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RibbonIcon16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
