@@ -18,7 +18,7 @@ namespace Revit.Application.Views
     /// <summary>
     /// DefaultDialog.xaml 的交互逻辑
     /// </summary>
-    public partial class DefaultDialog : Window, IDialogWindow
+    public partial class DefaultDialog : Window/*, IDialogWindow*/
     {
         public DefaultDialog()
         {

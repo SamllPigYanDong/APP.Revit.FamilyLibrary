@@ -35,7 +35,6 @@ namespace Revit.Mvvm
         protected IDataContext DataContext { get => _containerExtension.Resolve<DataContext>(); }//无窗体时拿到Doc和UIDoc
 
         public static Window MainWindow { get; set; }
-        public static List<Window> Windows { get; set; } = new(10);
 
         public abstract Window CreateMainWindow();
         public abstract Result Execute(string message, ElementSet elements);
@@ -101,7 +100,6 @@ namespace Revit.Mvvm
                 var window = CreateMainWindow();
                 if (window != null)//如果为null则该功能无主窗体
                 {
-                    Windows.Add(window);
                     MainWindow = window;
                 }
                 //执行命令
@@ -130,10 +128,10 @@ namespace Revit.Mvvm
 
         private static IContainerExtension CreateContainerExtension()
         {
-            Rules rules = Rules.Default.WithAutoConcreteTypeResolution()
-                .WithDefaultIfAlreadyRegistered(IfAlreadyRegistered.Replace)
-                .With(Made.Of(FactoryMethod.ConstructorWithResolvableArguments));
-
+            //Rules rules = Rules.Default.WithAutoConcreteTypeResolution()
+            //    .WithDefaultIfAlreadyRegistered(IfAlreadyRegistered.Replace)
+            //    .With(Made.Of(FactoryMethod.ConstructorWithResolvableArguments));
+            Rules rules = Rules.Default;
             return new DryIocContainerExtension(new Container(rules));
         }
 
@@ -161,7 +159,7 @@ namespace Revit.Mvvm
             //注册Doucment
 
             registry.RegisterSingleton<IDataContext, DataContext>();
-            registry.RegisterInstance(new HttpRestClient("http://localhost:5177/"));
+            //registry.RegisterInstance(new HttpRestClient("http://localhost:5177/"));
 
 
             registry.Register<ILoginService, LoginService>();

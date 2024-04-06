@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>net472</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<Configurations>Debug;Release;Rvt_20;Rvt_18</Configurations>
+		<Configurations>Debug;Release;RVT_20;RVT_18</Configurations>
 		<LangVersion>10</LangVersion>
 		<PlatformTarget>x64</PlatformTarget>
 	</PropertyGroup>
@@ -18,6 +18,12 @@
 		<TargetFramework>net472</TargetFramework>
 		<RevitVersion>2018</RevitVersion>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Services\WebAPIService\**" />
+	  <EmbeddedResource Remove="Services\WebAPIService\**" />
+	  <None Remove="Services\WebAPIService\**" />
+	</ItemGroup>
 	
 	<ItemGroup>
 	  <Compile Remove="IServices\IProgressBarService.cs" />
@@ -41,7 +47,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Services\WebAPIService\新文件夹\" />
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="Views\" />
 	</ItemGroup>
