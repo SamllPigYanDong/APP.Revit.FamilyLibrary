@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Pathoschild.Http.Client;
 using RestSharp;
 using Revit.Entity;
 using Revit.Entity.Entity;
@@ -15,12 +16,12 @@ namespace Revit.Service.ApiServices
     public class HttpRestClient
     {
         private readonly string apiUrl;
-        protected readonly RestClient client;
+        protected readonly FluentClient client;
 
         public HttpRestClient(string apiUrl)
         {
             this.apiUrl = apiUrl;
-            client = new RestClient();
+            client = new FluentClient(apiUrl);
         }
 
         public async Task<ApiResponse> ExecuteAsync(BaseRequest baseRequest)
@@ -52,9 +53,8 @@ namespace Revit.Service.ApiServices
 
         private async Task<IRestResponse> RequestAsync(BaseRequest baseRequest)
         {
-            var request = new RestRequest(apiUrl + baseRequest.Route, baseRequest.Method);
-            request.AddHeader("Host", "localhost:5177");
-
+            var request =await client.GetAsync(baseRequest.Route).with;
+            request.("Host", "localhost:5177");
             if (!string.IsNullOrWhiteSpace(baseRequest.ContentType))
             {
                 //request.AddHeader("Content-Type", baseRequest.ContentType);
