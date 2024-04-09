@@ -16,12 +16,12 @@ namespace Revit.Service.ApiServices
     public class HttpRestClient
     {
         private readonly string apiUrl;
-        protected readonly FluentClient client;
+        protected readonly RestClient client;
 
         public HttpRestClient(string apiUrl)
         {
             this.apiUrl = apiUrl;
-            client = new FluentClient(apiUrl);
+            client = new RestClient();
         }
 
         public async Task<ApiResponse> ExecuteAsync(BaseRequest baseRequest)
@@ -53,8 +53,8 @@ namespace Revit.Service.ApiServices
 
         private async Task<IRestResponse> RequestAsync(BaseRequest baseRequest)
         {
-            var request =await client.GetAsync(baseRequest.Route).with;
-            request.("Host", "localhost:5177");
+            var request =new RestRequest();
+            request.AddHeader("Host", "localhost:5177");
             if (!string.IsNullOrWhiteSpace(baseRequest.ContentType))
             {
                 //request.AddHeader("Content-Type", baseRequest.ContentType);
