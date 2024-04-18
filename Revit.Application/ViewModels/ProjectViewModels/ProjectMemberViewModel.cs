@@ -46,18 +46,22 @@ namespace Revit.Application.ViewModels.ProjectViewModels
 
         private async void InitProjectUsers()
         {
-            Global.IsDebug = true;
             var result = await projectService.GetUsers(15);
             if (result != null && result.Code == ResponseCode.Success)
             {
                 ProjectUsers = new ObservableCollection<UserDto>(result.Content);
             }
-            Global.IsDebug = false;
         }
 
-        private void DeleteUser(UserDto dto)
+        private async void DeleteUser(UserDto dto)
         {
-            throw new NotImplementedException();
+            Global.IsDebug = true;
+            var result = await projectService.DeleteUser(15,dto.Id);
+            if (result != null && result.Code == ResponseCode.Success)
+            {
+                ProjectUsers = new ObservableCollection<UserDto>(result.Content);
+            }
+            Global.IsDebug = false;
         }
 
     }

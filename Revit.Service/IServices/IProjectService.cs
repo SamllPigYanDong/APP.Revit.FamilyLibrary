@@ -19,5 +19,6 @@ namespace Revit.Service.IServices
         Task<ApiResponse<IEnumerable<ProjectFolderDto>>> GetRecentlyFiles(long userId);
 
         Task<ApiResponse<IEnumerable<UserDto>>> GetUsers(long projectId);
+        Task<ApiResponse> DeleteUser(long projectId, long userId);
     }
 }

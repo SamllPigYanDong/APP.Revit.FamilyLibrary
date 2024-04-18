@@ -7,6 +7,7 @@ using Revit.Service.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,7 +16,7 @@ namespace Revit.Service.Services
 {
     public class ProjectService : BaseService<ProjectDto>, IProjectService
     {
-        public ProjectService(HttpRestClient client) : base(client)
+        public ProjectService(MyHttpClient client) : base(client)
         {
             this.ServiceName = "Projects";
         }
@@ -24,7 +25,7 @@ namespace Revit.Service.Services
         public async Task<ApiResponse<IEnumerable<ProjectDto>>> GetProjects(ProjectQueryParameter queryParameter)
         {
             BaseRequest request = new BaseRequest();
-            request.Method = RestSharp.Method.GET;
+            request.Method = HttpMethod.Get;
             request.Route = $"api/{ServiceName}?pageIndex={queryParameter.PageIndex}" +
                 $"&&pageSize={queryParameter.PageSize}" +
                 $"&&userId={queryParameter.UserId}" +
@@ -36,7 +37,7 @@ namespace Revit.Service.Services
         public async Task<ApiResponse<ProjectDto>> Create(ProjectCreateDto createDto)
         {
             BaseRequest request = new BaseRequest();
-            request.Method = RestSharp.Method.POST;
+            request.Method = HttpMethod.Post;
             request.Route = $"api/{ServiceName}";
             if (!string.IsNullOrWhiteSpace(createDto.Icon))
             {
@@ -56,7 +57,7 @@ namespace Revit.Service.Services
         public async Task<ApiResponse> Delete(long projectId)
         {
             BaseRequest request = new BaseRequest();
-            request.Method = RestSharp.Method.DELETE;
+            request.Method = HttpMethod.Delete;
             request.Route = $"api/{ServiceName}/{projectId}";
             return await client.ExecuteAsync(request);
         }
@@ -65,7 +66,7 @@ namespace Revit.Service.Services
         public async Task<ApiResponse<IEnumerable<ProjectFolderDto>>> GetRecentlyFiles(long userId)
         {
             BaseRequest request = new BaseRequest();
-            request.Method = RestSharp.Method.GET;
+            request.Method = HttpMethod.Get;
             request.Route = $"api/{ServiceName}?userId={userId}";
             return await client.ExecuteAsync<IEnumerable<ProjectFolderDto>>(request);
         }
@@ -74,10 +75,17 @@ namespace Revit.Service.Services
         public async Task<ApiResponse<IEnumerable<UserDto>>> GetUsers(long projectId)
         {
             BaseRequest request = new BaseRequest();
-            request.Method = RestSharp.Method.GET;
+            request.Method = HttpMethod.Get;
             request.Route = $"api/{ServiceName}/{projectId}/Users";
             return await client.ExecuteAsync<IEnumerable<UserDto>>(request);
         }
 
+        public async Task<ApiResponse> DeleteUser(long projectId,long userId)
+        {
+            BaseRequest request = new BaseRequest();
+            request.Method = HttpMethod.Delete;
+            request.Route = $"api/{ServiceName}/{projectId}/Users/{userId}";
+            return await client.ExecuteAsync(request);
+        }
     }
 }

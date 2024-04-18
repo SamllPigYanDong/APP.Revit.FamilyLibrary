@@ -24,6 +24,8 @@ namespace Revit.Entity.Entity.Dtos.Project
 
         public DateTime LastModificationTime { get; set; } = DateTime.Now;
 
+        public string? PhoneNumber { get; set; }
+
         /// <summary>
         /// 用户名
         /// </summary>

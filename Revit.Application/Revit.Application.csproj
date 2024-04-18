@@ -33,6 +33,13 @@
 		<Optimize>false</Optimize>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <Compile Remove="ViewModels\GenernaDialogViewModels\**" />
+	  <EmbeddedResource Remove="ViewModels\GenernaDialogViewModels\**" />
+	  <None Remove="ViewModels\GenernaDialogViewModels\**" />
+	  <Page Remove="ViewModels\GenernaDialogViewModels\**" />
+	</ItemGroup>
+
 
 	<ItemGroup>
 		<Compile Update="Properties\Resources.Designer.cs">
@@ -70,7 +77,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="ViewModels\GenernaDialogViewModels\" />
 	  <Folder Include="Views\UserViews\" />
 	</ItemGroup>
 

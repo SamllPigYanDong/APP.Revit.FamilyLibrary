@@ -5,6 +5,7 @@ using Revit.Service.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,10 +13,10 @@ namespace Revit.Service.Services
 {
     public class LoginService : ILoginService
     {
-        private readonly HttpRestClient client;
+        private readonly MyHttpClient client;
         private readonly string serviceName = "Auths";
 
-        public LoginService(HttpRestClient client)
+        public LoginService(MyHttpClient client)
         {
             this.client = client;
         }
@@ -23,7 +24,7 @@ namespace Revit.Service.Services
         public async Task<ApiResponse<string>> Login(LoginDto user)
         {
             BaseRequest request = new BaseRequest();
-            request.Method = RestSharp.Method.POST;
+            request.Method = HttpMethod.Post;
             request.Route = $"api/{serviceName}/login";
             request.Parameter = user;
             return await client.ExecuteAsync<string>(request);
@@ -32,7 +33,7 @@ namespace Revit.Service.Services
         public async Task<ApiResponse> Resgiter(LoginDto user)
         {
             BaseRequest request = new BaseRequest();
-            request.Method = RestSharp.Method.POST;
+            request.Method = HttpMethod.Post;
             request.Route = $"api/{serviceName}/Resgiter";
             request.Parameter = user;
             return await client.ExecuteAsync(request);

@@ -128,10 +128,10 @@ namespace Revit.Mvvm
 
         private static IContainerExtension CreateContainerExtension()
         {
-            //Rules rules = Rules.Default.WithAutoConcreteTypeResolution()
-            //    .WithDefaultIfAlreadyRegistered(IfAlreadyRegistered.Replace)
-            //    .With(Made.Of(FactoryMethod.ConstructorWithResolvableArguments));
-            Rules rules = Rules.Default;
+            Rules rules = Rules.Default.WithAutoConcreteTypeResolution()
+                .WithDefaultIfAlreadyRegistered(IfAlreadyRegistered.Replace)
+                .With(Made.Of(FactoryMethod.ConstructorWithResolvableArguments));
+            //Rules rules = Rules.Default;
             return new DryIocContainerExtension(new Container(rules));
         }
 
@@ -159,7 +159,7 @@ namespace Revit.Mvvm
             //注册Doucment
 
             registry.RegisterSingleton<IDataContext, DataContext>();
-            //registry.RegisterInstance(new HttpRestClient("http://localhost:5177/"));
+            registry.RegisterInstance(new MyHttpClient("http://localhost:5177/"));
 
 
             registry.Register<ILoginService, LoginService>();
