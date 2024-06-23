@@ -10,6 +10,8 @@ using Revit.Mvvm.Extensions;
 using Revit.Mvvm;
 using Revit.Application.Views.ProjectViews;
 using Revit.Application.ViewModels.ProjectViewModels;
+using Revit.Application.Views.FamilyViews;
+using Revit.Application.ViewModels.FamilyViewModels;
 
 namespace Revit.Application.Commands
 {
@@ -31,7 +33,7 @@ namespace Revit.Application.Commands
                 return Result.Cancelled;
             }
             TransactionStatus transactionStatus = DocumentExtension.NewTransactionGroup(DataContext.Document, "族库管理", () => MainWindow.ShowDialog().Value);
-            return transactionStatus == TransactionStatus.Committed ? Result.Succeeded : Result.Cancelled;
+            return transactionStatus == TransactionStatus.Committed ? Result.Succeeded: Result.Cancelled;
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -44,6 +46,8 @@ namespace Revit.Application.Commands
             containerRegistry.RegisterForNavigation<ProjectFileManageView, ProjectFileManageViewModel>();
             containerRegistry.RegisterForNavigation<ProjectMemberView, ProjectMemberViewModel>();
             containerRegistry.RegisterForNavigation<ProjectView, ProjectViewModel>();
+            containerRegistry.RegisterForNavigation<FamilyLibaryPublicView, FamilyLibraryPublicViewModel>();
+            containerRegistry.RegisterForNavigation<FamilyLibaryManageView, FamilyLibaryManageViewModel>();
             containerRegistry.RegisterForNavigation<WorkSpaceView, WorkSpaceViewModel>();
         }
     }

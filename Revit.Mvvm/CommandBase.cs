@@ -27,6 +27,8 @@ using Prism.Logging;
 using Prism.DryIoc.Ioc;
 using Microsoft.Win32;
 using System.Security.Permissions;
+using Revit.Application.ViewModels.FamilyViewModels;
+using Revit.Entity.Entity.Dtos.Family;
 
 namespace Revit.Mvvm
 {
@@ -159,9 +161,10 @@ namespace Revit.Mvvm
             //注册Doucment
 
             registry.RegisterSingleton<IDataContext, DataContext>();
-            registry.RegisterInstance(new MyHttpClient("http://localhost:5177/"));
+            registry.RegisterInstance(new MyHttpClient(Global.HOST));
 
 
+            registry.Register<IFamilyFileService, FamilyFileService>();
             registry.Register<ILoginService, LoginService>();
             registry.Register<IProjectService, ProjectService>();
             registry.Register<IUserService, UserService>();

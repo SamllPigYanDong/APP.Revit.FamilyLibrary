@@ -6,7 +6,7 @@
              x:Class="Revit.Application.Views.ProjectViews.ProjectFileManageView"
              xmlns:vm="clr-namespace:Revit.Application.ViewModels.ProjectViewModels"
              xmlns:entity="clr-namespace:Revit.Entity.Entity.Dtos.Project;assembly=Revit.Entity"
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              d:DataContext="{d:DesignInstance vm:ProjectFileManageViewModel}"
@@ -15,22 +15,33 @@
              Width="auto"
              HorizontalAlignment="Stretch"
              d:DesignHeight="450"
-             d:DesignWidth="800">
+             d:DesignWidth="800"
+             x:Name="window">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <TreeView ItemsSource="{Binding  ProjectFolderTreeNodes}" Name="treeView" >
+        <TreeView ItemsSource="{Binding  ProjectFolderTreeNodes}" Name="treeView"  >
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected}"></Setter>
+                </Style>
+            </TreeView.ItemContainerStyle>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectedItemChanged">
                     <i:InvokeCommandAction Command="{Binding ChangeSelectedFolderCommand}" CommandParameter="{Binding ElementName=treeView,Path=SelectedItem}" ></i:InvokeCommandAction>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-            <TreeView.ItemTemplate > 
+            <TreeView.ItemTemplate >
                 <HierarchicalDataTemplate DataType="{ x:Type entity:ProjectFolderTreeNode}"
                                           ItemsSource="{Binding Childs}" >
-                    <TextBlock Text="{Binding Name}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xe6db;"
+                                       FontFamily="../Resources/#iconfont"/>
+                        <TextBlock Text="{Binding Name}"/>
+
+                    </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
@@ -41,35 +52,71 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal">
                 <Button Content="上传文件"
+                        Margin="3"
                         Command="{Binding  UploadFilesCommand}"
                         CommandParameter="{Binding  ElementName=treeView,Path=SelectedItem}"></Button>
                 <Button Content="新建文件夹"
+                        Margin="3"
                         Command="{Binding CreateFolderCommand}"
                         CommandParameter="{Binding  ElementName=treeView,Path=SelectedItem}"></Button>
-                <Button Content="下载"></Button>
-                <Button Content="分享"></Button>
-                <Button Content="更多"></Button>
+                <Button Content="下载"
+                         Command="{Binding DownloadFilesCommand}"
+ CommandParameter="{Binding  ElementName=treeView,Path=SelectedItem}"
+                        Margin="3"></Button>
+                <Button Content="分享"
+                        Margin="3"></Button>
+                <Button Content="更多"
+                         Initialized="btnMenu_Initialized"
+                        Name="btnMenu"
+                        Click="MoreButton_Click"
+                        Margin="3"
+                        >
+                    <Button.ContextMenu>
+                        <ContextMenu Name="contextMenu">
+                            <MenuItem Header="更新" />
+                            <MenuItem Header="重命名" />
+                            <MenuItem Header="移动到" />
+                            <MenuItem Header="历史版本" />
+                            <MenuItem Header="收藏" />
+                            <MenuItem Header="删除" />
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
             </StackPanel>
             <DataGrid Grid.Row="1"
                       CanUserAddRows="False"
                       AutoGenerateColumns="False"
                       ItemsSource="{Binding ProjectFolderDtos}">
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn>
+                    <DataGridCheckBoxColumn Binding="{Binding IsChecked}">
                         <DataGridCheckBoxColumn.Header>
                             <CheckBox />
                         </DataGridCheckBoxColumn.Header>
                     </DataGridCheckBoxColumn>
-                    <DataGridTextColumn Header="文件名称"
-                                        Binding="{Binding Name}"
-                                        Width="*" />
+                    <DataGridTemplateColumn Header="文件名称"
+                                         IsReadOnly="True"
+                                        Width="*" >
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Name}"></TextBlock>
+                                    <Button Content="查看轻量化模型"
+                                            Command="{Binding ElementName=window,Path=DataContext.ShowModelInWebSiteCommand}"
+                                            CommandParameter="{Binding}"></Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn Header="上传人员"
+                                        IsReadOnly="True"
                                         Binding="{Binding CreatorName}"
                                         Width="*" />
-                    <DataGridTextColumn Header="文件大小"
+                    <DataGridTextColumn Header="文件大小" 
+                                        IsReadOnly="True"
                                         Binding="{Binding FileSize}"
                                         Width="*" />
-                    <DataGridTextColumn Header="上传时间"
+                    <DataGridTextColumn Header="上传时间" 
+                                        IsReadOnly="True"
                                         Binding="{Binding CreationTime,StringFormat=yyyy-MM-dd}"
                                         Width="*" />
                 </DataGrid.Columns>

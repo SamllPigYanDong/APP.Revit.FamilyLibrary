@@ -20,7 +20,7 @@ namespace Revit.Service.ApiServices
 
         public IEnumerable<string> FilePaths { get; set; }
 
-        public IDictionary<string,object> FormDatas { get; set; } = new Dictionary<string, object>();
+        public IEnumerable<KeyValuePair<string, string>> FormDatas { get; set; } = new Dictionary<string, string>();
     }
 
     public static class ContentType

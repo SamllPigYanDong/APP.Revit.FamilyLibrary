@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Revit.Entity.Project
+namespace Revit.Entity.Entity.Dtos.Project
 {
-    public class ProjectUploadFileDto
+    public class UploadFileDtoBase
     {
         public IEnumerable<string> Files { get; set; }
 

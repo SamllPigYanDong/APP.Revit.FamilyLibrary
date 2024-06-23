@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 
 namespace Revit.Application.Converter
 {
-    public class ImageConverter : IValueConverter
+    public class Bitmap2BitmapImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -36,7 +36,7 @@ namespace Revit.Application.Converter
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return System.Windows.Data.Binding.DoNothing; 
         }
     }
 }

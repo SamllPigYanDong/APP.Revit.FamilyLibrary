@@ -1,7 +1,7 @@
 ﻿using Revit.Entity.Entity;
 using Revit.Entity.Entity.Dtos;
 
-namespace Revit.Service.Services
+namespace Revit.Service.IServices
 {
     public interface IUserService
     {

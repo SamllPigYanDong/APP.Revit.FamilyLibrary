@@ -3,6 +3,8 @@ using Revit.Entity.Entity.Parameters;
 using Revit.Service.ApiServices;
 using Revit.Service.IServices;
 using System.Net.Http;
+using System.Web.Routing;
+using System.Windows.Forms;
 
 namespace Revit.Service.Services
 {
@@ -20,7 +22,7 @@ namespace Revit.Service.Services
         {
             BaseRequest request = new BaseRequest();
             request.Method = HttpMethod.Post;
-            request.Route = $"api/{ServiceName}/Add";
+            request.Route = $"api/{ServiceName}";
             request.Parameter = entity;
             return await client.ExecuteAsync<TEntity>(request);
         }
@@ -29,7 +31,7 @@ namespace Revit.Service.Services
         {
             BaseRequest request = new BaseRequest();
             request.Method = HttpMethod.Delete;
-            request.Route = $"api/{ServiceName}/Delete?id={id}";
+            request.Route = $"api/{ServiceName}/{id}";
             return await client.ExecuteAsync(request);
         }
 
@@ -37,9 +39,10 @@ namespace Revit.Service.Services
         {
             BaseRequest request = new BaseRequest();
             request.Method = HttpMethod.Get;
-            request.Route = $"api/{ServiceName}/GetAll?pageIndex={parameter.PageIndex}" +
+            request.Route = $"api/{ServiceName}?pageIndex={parameter.PageIndex}" +
                 $"&pageSize={parameter.PageSize}" +
                 $"&searchMessage={parameter.SearchMessage}";
+            MessageBox.Show(request.Route);
             return await client.ExecuteAsync<PagedList<TEntity>>(request);
         }
 
@@ -47,7 +50,7 @@ namespace Revit.Service.Services
         {
             BaseRequest request = new BaseRequest();
             request.Method = HttpMethod.Get;
-            request.Route = $"api/{ServiceName}/Get?id={id}";
+            request.Route = $"api/{ServiceName}?id={id}";
             return await client.ExecuteAsync<TEntity>(request);
         }
 
@@ -55,7 +58,7 @@ namespace Revit.Service.Services
         {
             BaseRequest request = new BaseRequest();
             request.Method = HttpMethod.Post;
-            request.Route = $"api/{ServiceName}/Update";
+            request.Route = $"api/{ServiceName}";
             request.Parameter = entity;
             return await client.ExecuteAsync<TEntity>(request);
         }

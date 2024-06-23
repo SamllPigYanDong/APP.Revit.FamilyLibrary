@@ -1,6 +1,9 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:Revit.Application.Converter">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="./BorderStyle" />
+        <ResourceDictionary Source="./BorderStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
+    <converters:Path2UriConverter x:Key="Path2UriConverter" />
 </ResourceDictionary>

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Autodesk.Revit.DB;
+using Newtonsoft.Json;
 using Revit.Entity;
 using Revit.Entity.Entity;
 using System;
@@ -6,22 +7,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using static UIFramework.Widget.CustomControls.NativeMethods;
 
 namespace Revit.Service.ApiServices
 {
     public class MyHttpClient
     {
         private readonly string apiUrl;
-        protected readonly HttpClient client;
+        protected readonly HttpClient client = new HttpClient();
 
         public MyHttpClient(string apiUrl)
         {
             this.apiUrl = apiUrl;
-            client = new HttpClient();
             client.BaseAddress = new Uri(apiUrl);
         }
         public async Task<ApiResponse> ExecuteAsync(BaseRequest baseRequest)
@@ -38,7 +41,7 @@ namespace Revit.Service.ApiServices
                 };
         }
 
-        public async Task<ApiResponse<T>> ExecuteAsync<T>(BaseRequest baseRequest)
+        public async Task<ApiResponse<T>> ExecuteAsync<T>(BaseRequest baseRequest) 
         {
             var response = await RequestAsync(baseRequest);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -51,14 +54,33 @@ namespace Revit.Service.ApiServices
                 };
         }
 
+
+        public async Task<ApiResponse<byte[]>> ExecuteStreamAsync(BaseRequest baseRequest)
+        {
+            var response = await RequestAsync(baseRequest);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var result = await response.Content.ReadAsByteArrayAsync();
+                MessageBox.Show(result.Length.ToString());
+                return new ApiResponse<byte[]>() { Content = result };
+            }
+            else
+                return new ApiResponse<byte[]>()
+                {
+                    Code = ResponseCode.Error,
+                    Message = response.ReasonPhrase
+                };
+        }
+
+
         private async Task<HttpResponseMessage> RequestAsync(BaseRequest baseRequest)
         {
-            var request = new HttpRequestMessage(baseRequest.Method,baseRequest.Route);
+            var request = new HttpRequestMessage(baseRequest.Method, baseRequest.Route);
             request.Headers.Add("Host", "localhost:5177");
 
             if (!string.IsNullOrWhiteSpace(baseRequest.ContentType))
             {
-                //request.AddHeader("Content-Type", baseRequest.ContentType);
+                //request.Headers.Add("Content-Type", baseRequest.ContentType);
             }
             string token = Entity.Global.Token;
             if (!string.IsNullOrWhiteSpace(baseRequest.Token))
@@ -71,29 +93,36 @@ namespace Revit.Service.ApiServices
             }
             if (baseRequest.Parameter != null)
             {
-                var json =new StringContent( JsonConvert.SerializeObject(baseRequest.Parameter), Encoding.UTF8, "application/json");
-                request.Content=json;
+                var json = new StringContent(JsonConvert.SerializeObject(baseRequest.Parameter), Encoding.UTF8, "application/json");
+                request.Content = json;
             }
             if (baseRequest.FilePaths != null && baseRequest.FilePaths.Count() > 0)
             {
-                //request.AlwaysMultipartFormData = true;
+                var formData = new MultipartFormDataContent();
                 foreach (var filePath in baseRequest.FilePaths)
                 {
-                    //request.AddFile("files", filePath);
+                    // 确保文件存在
+                    if (!File.Exists(filePath))
+                        throw new FileNotFoundException("文件未找到。", filePath);
+                    // 添加文件内容
+                    var fileContent = new ByteArrayContent(System.IO.File.ReadAllBytes(filePath));
+                    var fileName = Path.GetFileName(filePath);
+                    formData.Add(fileContent, "files", fileName);
                 }
+                request.Content = formData;
             }
             if (baseRequest.FormDatas != null && baseRequest.FormDatas.Count() > 0)
             {
-                //request.AlwaysMultipartFormData = true;
+                using var multiFormData = new MultipartFormDataContent();
                 foreach (var formData in baseRequest.FormDatas)
                 {
-                    //request.AddParameter(formData.Key, formData.Value);
+                    multiFormData.Add(new StringContent(formData.Value), formData.Key);
                 }
             }
             var response = await client.SendAsync(request);
             if (Global.IsDebug)
             {
-                MessageBox.Show(response.Content.ToString() + response.RequestMessage);
+                MessageBox.Show(response?.RequestMessage + response?.ReasonPhrase);
             }
             return response;
         }

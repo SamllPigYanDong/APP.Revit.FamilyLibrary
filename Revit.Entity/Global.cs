@@ -24,6 +24,8 @@ namespace Revit.Entity
 
 
         private static IContainerExtension _containerExtension;
+        public const  string HOST= "http://localhost:5177/";
+
         public static IContainerExtension ContainerExtension
         {
             get { return _containerExtension; }

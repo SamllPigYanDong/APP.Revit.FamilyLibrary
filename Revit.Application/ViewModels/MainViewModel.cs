@@ -3,11 +3,12 @@ using Revit.Application.Views;
 using Revit.Entity.Interfaces;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Revit.Service.Services;
 using System.Windows;
 using Prism.Regions;
 using Prism.Commands;
 using Revit.Application.Views.ProjectViews;
+using Revit.Application.Views.FamilyViews;
+using Revit.Service.IServices;
 
 namespace Revit.Application.ViewModels
 {

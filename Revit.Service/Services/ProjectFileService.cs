@@ -1,7 +1,6 @@
 ﻿using Revit.Entity.Entity;
 using Revit.Entity.Entity.Dtos;
 using Revit.Entity.Entity.Dtos.Project;
-using Revit.Entity.Project;
 using Revit.Service.ApiServices;
 using Revit.Service.IServices;
 using System;
@@ -19,7 +18,7 @@ namespace Revit.Service.Services
         {
         }
 
-        public async Task<ApiResponse<IEnumerable<ProjectFolderDto>>> UploadFilesAsync(long folderId, ProjectUploadFileDto projectUploadFileDto)
+        public async Task<ApiResponse<IEnumerable<ProjectFolderDto>>> UploadFilesAsync(long folderId, UploadFileDtoBase projectUploadFileDto)
         {
             BaseRequest request = new BaseRequest();
             request.Method = HttpMethod.Post;

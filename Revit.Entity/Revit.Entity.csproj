@@ -46,15 +46,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="Style\RootStyle.xaml" />
+	  <Compile Remove="Style\**" />
+	  <EmbeddedResource Remove="Style\**" />
+	  <None Remove="Style\**" />
+	  <Page Remove="Style\**" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Revit.Extension\Revit.Extension.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Style\" />
 	</ItemGroup>
 
 	<ItemGroup>

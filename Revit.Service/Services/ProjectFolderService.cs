@@ -27,7 +27,16 @@ namespace Revit.Service.Services
             return await client.ExecuteAsync<IEnumerable<ProjectFolderDto>>(request);
         }
 
+        public async Task<ApiResponse<ProjectFolderDto>> CreateFolder(long projectId, ProjectCreateFolderDto projectRequestFolderDto)
+        {
+            BaseRequest request = new BaseRequest();
+            request.Method = HttpMethod.Post;
+            request.Route = $"api/Project/{projectId}/Folder";
+            request.Parameter = projectRequestFolderDto;
+            return await client.ExecuteAsync<ProjectFolderDto>(request);
+        }
 
+      
     }
 
 

@@ -6,7 +6,7 @@ namespace Revit.Application.Converter
 {
 
     [ValueConversion(typeof(bool), typeof(Visibility))]
-    public class BooleanToVisiblityConverter : IValueConverter
+    public class Boolean2VisiblityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

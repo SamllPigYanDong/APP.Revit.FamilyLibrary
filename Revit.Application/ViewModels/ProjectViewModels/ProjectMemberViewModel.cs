@@ -12,6 +12,7 @@ using Revit.Service.IServices;
 using Prism.Commands;
 using Revit.Entity;
 using Autodesk.Revit.DB;
+using System.Windows;
 
 namespace Revit.Application.ViewModels.ProjectViewModels
 {
@@ -32,13 +33,13 @@ namespace Revit.Application.ViewModels.ProjectViewModels
 
         public DelegateCommand<UserDto> DeleteUserCommand { get => _deleteUserCommand ?? new DelegateCommand<UserDto>(DeleteUser); }
 
-        
+
         #endregion
 
 
 
 
-        public ProjectMemberViewModel(IDataContext dataContext,IProjectService projectService) : base(dataContext)
+        public ProjectMemberViewModel(IDataContext dataContext, IProjectService projectService) : base(dataContext)
         {
             this.projectService = projectService;
             InitProjectUsers();
@@ -55,13 +56,19 @@ namespace Revit.Application.ViewModels.ProjectViewModels
 
         private async void DeleteUser(UserDto dto)
         {
-            Global.IsDebug = true;
-            var result = await projectService.DeleteUser(15,dto.Id);
-            if (result != null && result.Code == ResponseCode.Success)
+            var dialogResult = MessageBox.Show("是否确认删除该品？", "提示", MessageBoxButton.YesNo);
+            if (dialogResult == MessageBoxResult.Yes)
             {
-                ProjectUsers = new ObservableCollection<UserDto>(result.Content);
+                var result = await projectService.DeleteUser(13, dto.Id);
+                if (result.Code == ResponseCode.Success)
+                {
+                    MessageBox.Show("成功删除", "提示");
+                }
+                else
+                {
+                    MessageBox.Show("无法删除最后一个成员", "提示");
+                }
             }
-            Global.IsDebug = false;
         }
 
     }

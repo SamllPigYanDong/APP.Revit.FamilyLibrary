@@ -1,13 +1,13 @@
-﻿using Autodesk.Revit.UI;
+﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
 using ImTools;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Revit.Entity;
 using Revit.Entity.Entity;
 using Revit.Entity.Entity.Dtos.Project;
 using Revit.Entity.Interfaces;
-using Revit.Entity.Project;
 using Revit.Service.IServices;
-using Revit.Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,17 +28,41 @@ namespace Revit.Application.ViewModels.ProjectViewModels
         #region Commands
         private DelegateCommand<ProjectFolderTreeNode> _uploadFilesCommand;
 
-        public DelegateCommand<ProjectFolderTreeNode> UploadFilesCommand { get => _uploadFilesCommand ?? new DelegateCommand<ProjectFolderTreeNode>(UploadFiles); }
+        public DelegateCommand<ProjectFolderTreeNode> UploadFilesCommand
+        { get => _uploadFilesCommand ?? new DelegateCommand<ProjectFolderTreeNode>(UploadFiles); }
 
-        private DelegateCommand _createFolderCommand;
+        private DelegateCommand<ProjectFolderTreeNode> _createFolderCommand;
 
-        public DelegateCommand CreateFolderCommand { get => _createFolderCommand ?? new DelegateCommand(CreateFolder); }
+        public DelegateCommand<ProjectFolderTreeNode> CreateFolderCommand { get => _createFolderCommand ?? new DelegateCommand<ProjectFolderTreeNode>(CreateFolder); }
 
         private DelegateCommand<ProjectFolderTreeNode> _changeSelectedFolderCommand;
         public DelegateCommand<ProjectFolderTreeNode> ChangeSelectedFolderCommand
         {
             get => _changeSelectedFolderCommand ?? new DelegateCommand<ProjectFolderTreeNode>(ChangeSelectedFolder);
         }
+
+        private DelegateCommand<ProjectFolderTreeNode> _downloadFilesCommand;
+        public DelegateCommand<ProjectFolderTreeNode> DownloadFilesCommand
+        {
+            get => _downloadFilesCommand ?? new DelegateCommand<ProjectFolderTreeNode>(DownloadFiles);
+        }
+
+        private DelegateCommand<ProjectFolderTreeNode> _deleteFilesCommand;
+        public DelegateCommand<ProjectFolderTreeNode> DeleteFilesCommand
+        {
+            get => _deleteFilesCommand ?? new DelegateCommand<ProjectFolderTreeNode>(DeleteFiles);
+        }
+
+
+        private DelegateCommand<ProjectFolderDto> _showModelInWebSiteCommand;
+        public DelegateCommand<ProjectFolderDto> ShowModelInWebSiteCommand
+        {
+            get => _showModelInWebSiteCommand ?? new DelegateCommand<ProjectFolderDto>(ShowModelInWebSite);
+        }
+
+       
+
+
         #endregion
 
         #region Parameters
@@ -64,6 +88,8 @@ namespace Revit.Application.ViewModels.ProjectViewModels
 
         #endregion
 
+
+
         public ProjectFileManageViewModel(IDataContext dataContext, IProjectFolderService projectFolderService,IProjectFileService projectFileService) : base(dataContext)
         {
             this.projectFolderService = projectFolderService;
@@ -86,7 +112,7 @@ namespace Revit.Application.ViewModels.ProjectViewModels
         private List<ProjectFolderTreeNode> DealFoldersToTreeNode(IEnumerable<ProjectFolderDto> folderDtos)
         {
             var rootFolder = folderDtos.FindFirst(x => x.IsRoot);
-            var root = new ProjectFolderTreeNode() { Name = rootFolder.Name, Value = rootFolder };
+            var root = new ProjectFolderTreeNode() { Name = rootFolder.Name, Value = rootFolder,IsSelected=true };
             root = AddPathToTree(root, folderDtos.Where(x => !x.IsRoot));
             return new List<ProjectFolderTreeNode>() { root };
         }
@@ -106,6 +132,16 @@ namespace Revit.Application.ViewModels.ProjectViewModels
                 }
             }
             return parent;
+        }
+
+
+        private void ShowModelInWebSite(ProjectFolderDto folder)
+        {
+            var folderId = folder.Id;
+            if (folder.FileExtension.Contains("rvt"))
+            {
+                System.Diagnostics.Process.Start($"http://localhost:9527/#/project/index/{folderId}");
+            }
         }
 
         #region CommandMethods
@@ -139,7 +175,7 @@ namespace Revit.Application.ViewModels.ProjectViewModels
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 var filePaths = openFileDialog.FileNames.ToList();
-                var result = await projectFileService.UploadFilesAsync(folderId, new ProjectUploadFileDto() { Files=filePaths});
+                var result = await projectFileService.UploadFilesAsync(folderId, new UploadFileDtoBase() { Files=filePaths});
                 if (result != null && result.Code == ResponseCode.Success)
                 {
                     ProjectFolderDtos = new ObservableCollection<ProjectFolderDto>(ProjectFolderDtos.AddRange(result.Content));
@@ -153,10 +189,33 @@ namespace Revit.Application.ViewModels.ProjectViewModels
 
 
 
-        private void CreateFolder()
+        private async void CreateFolder(ProjectFolderTreeNode projectFolderTreeNode)
         {
-
+            var result = await projectFolderService.CreateFolder(13, new ProjectCreateFolderDto() { FolderName = projectFolderTreeNode.Name,  CreatorId=Global.User.UserId, FolderId= projectFolderTreeNode.Value.Id });
+            if (result != null && result.Code == ResponseCode.Success)
+            {
+                ProjectFolderDtos.Add(result.Content);
+                ProjectFolderDtos = new ObservableCollection<ProjectFolderDto>(ProjectFolderDtos);
+                 AddPathToTree(projectFolderTreeNode, new List<ProjectFolderDto>() { result.Content } );
+            }
+            else
+            {
+                ProjectFolderDtos = new ObservableCollection<ProjectFolderDto>();
+            }
         }
+
+
+        private void DownloadFiles(ProjectFolderTreeNode node)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        private void DeleteFiles(ProjectFolderTreeNode node)
+        {
+            
+        }
+
         #endregion
 
 

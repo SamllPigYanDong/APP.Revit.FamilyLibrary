@@ -44,12 +44,12 @@ namespace Revit.Service.Services
                 request.FilePaths = new List<string>() { createDto.Icon };
             }
             request.ContentType = ContentType.FormData;
-            request.FormDatas = new Dictionary<string, object>
+            request.FormDatas = new Dictionary<string, string>
             {
                 { "ProjectName", createDto.ProjectName },
                 { "ProjectAddress", createDto.ProjectAddress },
                 { "Introduction", createDto.Introduction },
-                { "CreatorId", createDto.CreatorId }
+                { "CreatorId", createDto.CreatorId.ToString() }
             };
             return await client.ExecuteAsync<ProjectDto>(request);
         }

@@ -11,7 +11,6 @@ using Revit.Entity.Interfaces;
 using Revit.Mvvm;
 using Revit.Mvvm.Extensions;
 using Revit.Service.IServices;
-using Revit.Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

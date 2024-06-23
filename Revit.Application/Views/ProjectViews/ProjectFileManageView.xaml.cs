@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -23,6 +24,21 @@ namespace Revit.Application.Views.ProjectViews
         public ProjectFileManageView()
         {
             InitializeComponent();
+        }
+
+        private void MoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            //目标
+            this.contextMenu.PlacementTarget = this.btnMenu;
+            //位置
+            this.contextMenu.Placement = PlacementMode.Top;
+            //显示菜单
+            this.contextMenu.IsOpen = true;
+        }
+
+        private void btnMenu_Initialized(object sender, EventArgs e)
+        {
+            this.btnMenu.ContextMenu = null;
         }
     }
 }
