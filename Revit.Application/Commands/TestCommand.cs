@@ -19,7 +19,7 @@ namespace Revit.Application.Commands
 
         public override Window CreateMainWindow()
         {
-            return Container.Resolve<TestView, TestViewModel>();
+            return/* Container.Resolve<TestView, TestViewModel>()*/null;
         }
 
         public override Result Execute(string message, ElementSet elements)

@@ -1,19 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Revit.Application.UI;
 using System;
 using System.Collections.ObjectModel;
 using Revit.Service.IServices;
-using Revit.Entity.Entity.Parameters;
 using Revit.Entity.Entity;
 using Prism.Commands;
-using Revit.Entity.Entity.Dtos.Project;
 using Prism.Services.Dialogs;
-using Revit.Entity;
-using Revit.Entity.Entity.Dtos;
 using Prism.Regions;
 using Revit.Application.Views.ProjectViews;
 using System.Windows;
 using System.Linq;
+using Revit.Entity.Entity.UI;
+using Revit.Shared.Entity.Commons;
+using Revit.Project.Dto;
 
 namespace Revit.Application.ViewModels.ProjectViewModels
 {
@@ -73,7 +71,7 @@ namespace Revit.Application.ViewModels.ProjectViewModels
             {
                 if (res.Result == ButtonResult.OK)
                 {
-                    var projectDto = res.Parameters.GetValue<ProjectCreateDto>("createProject");
+                    var projectDto = res.Parameters.GetValue<ProjectPostPutDto>("createProject");
 
                     var apiResult = await this._projectService.Create(projectDto);
                     if (apiResult.Code == ResponseCode.Success && apiResult.Content != null)
@@ -125,7 +123,7 @@ namespace Revit.Application.ViewModels.ProjectViewModels
 
         private async void InitRecentlyUserProjects()
         {
-            var apiResult = await _projectService.GetProjects(new ProjectQueryParameter() { PageIndex = 1, PageSize = 50000, UserId = 1 });
+            var apiResult = await _projectService.GetProjects(new ProjectPageRequestDto() { PageIndex = 1, PageSize = 50000, UserId = 1 });
             if (apiResult.Code == ResponseCode.Success && apiResult.Content != null)
             {
                 this.RecentlyUserProjects = new ObservableCollection<ProjectDto>(apiResult.Content);

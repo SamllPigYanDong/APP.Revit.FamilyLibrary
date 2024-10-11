@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Windows.Media.Imaging;
 using System.IO.Packaging;
 
-namespace Revit.Extension
+namespace Revit.Application.Converter
 {
     public static class FamilyImageExtension
     {
@@ -20,7 +20,7 @@ namespace Revit.Extension
         /// </summary>
         /// <param name="filePath"></param>
         /// <param name="imageSavePath"></param>
-        public static  void  GetImage(string filePath, string imageSavePath)
+        public static void GetImage(string filePath, string imageSavePath)
         {
             StorageInfo storageRoot = (StorageInfo)InvokeStorageRootMethod(null,
                 "Open",
@@ -31,7 +31,7 @@ namespace Revit.Extension
 
             if (storageRoot == null)
             {
-                return ;
+                return;
             }
 
             byte[] preViewData = null;
@@ -52,7 +52,7 @@ namespace Revit.Extension
                 using (Bitmap newBitmap = new Bitmap(100, 100))
                 {
                     newBitmap.Save(imageSavePath);
-                    return ;
+                    return;
                 }
             }
 
@@ -63,7 +63,7 @@ namespace Revit.Extension
                 using (Bitmap newBitmap = new Bitmap(100, 100))
                 {
                     newBitmap.Save(imageSavePath);
-                    return ;
+                    return;
                 }
             }
 
@@ -90,13 +90,13 @@ namespace Revit.Extension
             }
 
             // 如果解码的数据有效
-            if ((decoderData != null) && (decoderData.Length > 0))
+            if (decoderData != null && decoderData.Length > 0)
             {
                 // 使用另一个内存流创建Bitmap
                 // 然后是一张图片Bitmap
                 using (MemoryStream ms = new MemoryStream(decoderData))
                 {
-                    using (Bitmap newBitmap = new Bitmap((ms)))
+                    using (Bitmap newBitmap = new Bitmap(ms))
                     {
                         newBitmap.Save(imageSavePath);
                         return;
@@ -186,7 +186,7 @@ namespace Revit.Extension
                     switch (currentValue)
                     {
                         case 80:   // 0x50
-                            if (markerFound && (previousValue == 137))
+                            if (markerFound && previousValue == 137)
                             {
                                 previousValue = currentValue;
                                 continue;
@@ -195,7 +195,7 @@ namespace Revit.Extension
                             break;
 
                         case 78:   // 0x4E
-                            if (markerFound && (previousValue == 80))
+                            if (markerFound && previousValue == 80)
                             {
                                 previousValue = currentValue;
                                 continue;
@@ -204,7 +204,7 @@ namespace Revit.Extension
                             break;
 
                         case 71:   // 0x47
-                            if (markerFound && (previousValue == 78))
+                            if (markerFound && previousValue == 78)
                             {
                                 previousValue = currentValue;
                                 continue;
@@ -213,7 +213,7 @@ namespace Revit.Extension
                             break;
 
                         case 13:   // 0x0D
-                            if (markerFound && (previousValue == 71))
+                            if (markerFound && previousValue == 71)
                             {
                                 previousValue = currentValue;
                                 continue;
@@ -222,11 +222,11 @@ namespace Revit.Extension
                             break;
 
                         case 10:   // 0x0A
-                            if (markerFound && (previousValue == 26))
+                            if (markerFound && previousValue == 26)
                             {
                                 return startingOffset;
                             }
-                            if (markerFound && (previousValue == 13))
+                            if (markerFound && previousValue == 13)
                             {
                                 previousValue = currentValue;
                                 continue;
@@ -235,7 +235,7 @@ namespace Revit.Extension
                             break;
 
                         case 26:   // 0x1A
-                            if (markerFound && (previousValue == 10))
+                            if (markerFound && previousValue == 10)
                             {
                                 previousValue = currentValue;
                                 continue;

@@ -1,0 +1,173 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\common.props"></Import>
+  <PropertyGroup>
+	  <TargetFrameworks>netstandard2;net472;</TargetFrameworks>
+	  <LangVersion>8</LangVersion>
+    <RootNamespace>Revit</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net472'">
+    <PackageReference Include="Abp.Web.Common" Version="7.3.0" />
+	  <PackageReference Include="AutoMapper" Version="7.0.1" />
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+	  <PackageReference Include="Prism.DryIoc" Version="7.2.0.1422" />
+	  <PackageReference Include="FluentValidation" Version="10.4.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.1.1" />
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)'=='netstandard2'">
+		<PackageReference Include="Abp.Web.Common" Version="7.3.0" />
+		<PackageReference Include="AutoMapper" Version="7.0.1" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+		<PackageReference Include="FluentValidation" Version="10.4.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.1.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="Authorization\Users\Delegation\**" />
+	  <Compile Remove="Authorization\Users\Profile\**" />
+	  <Compile Remove="Caching\**" />
+	  <Compile Remove="Chat\**" />
+	  <Compile Remove="Common\**" />
+	  <Compile Remove="Configuration\**" />
+	  <Compile Remove="DemoUiComponents\**" />
+	  <Compile Remove="Demo\**" />
+	  <Compile Remove="DynamicEntityProperties\**" />
+	  <Compile Remove="DynamicEntityPropertyValues\**" />
+	  <Compile Remove="Editions\**" />
+	  <Compile Remove="Friendships\**" />
+	  <Compile Remove="Localization\**" />
+	  <Compile Remove="Logging\**" />
+	  <Compile Remove="MultiTenancy\**" />
+	  <Compile Remove="Notifications\**" />
+	  <Compile Remove="Organizations\**" />
+	  <Compile Remove="Sessions\**" />
+	  <Compile Remove="Tenants\**" />
+	  <Compile Remove="Timing\**" />
+	  <Compile Remove="UiCustomization\**" />
+	  <Compile Remove="Version\**" />
+	  <Compile Remove="WebHooks\**" />
+	  <EmbeddedResource Remove="Authorization\Users\Delegation\**" />
+	  <EmbeddedResource Remove="Authorization\Users\Profile\**" />
+	  <EmbeddedResource Remove="Caching\**" />
+	  <EmbeddedResource Remove="Chat\**" />
+	  <EmbeddedResource Remove="Common\**" />
+	  <EmbeddedResource Remove="Configuration\**" />
+	  <EmbeddedResource Remove="DemoUiComponents\**" />
+	  <EmbeddedResource Remove="Demo\**" />
+	  <EmbeddedResource Remove="DynamicEntityProperties\**" />
+	  <EmbeddedResource Remove="DynamicEntityPropertyValues\**" />
+	  <EmbeddedResource Remove="Editions\**" />
+	  <EmbeddedResource Remove="Friendships\**" />
+	  <EmbeddedResource Remove="Localization\**" />
+	  <EmbeddedResource Remove="Logging\**" />
+	  <EmbeddedResource Remove="MultiTenancy\**" />
+	  <EmbeddedResource Remove="Notifications\**" />
+	  <EmbeddedResource Remove="Organizations\**" />
+	  <EmbeddedResource Remove="Sessions\**" />
+	  <EmbeddedResource Remove="Tenants\**" />
+	  <EmbeddedResource Remove="Timing\**" />
+	  <EmbeddedResource Remove="UiCustomization\**" />
+	  <EmbeddedResource Remove="Version\**" />
+	  <EmbeddedResource Remove="WebHooks\**" />
+	  <None Remove="Authorization\Users\Delegation\**" />
+	  <None Remove="Authorization\Users\Profile\**" />
+	  <None Remove="Caching\**" />
+	  <None Remove="Chat\**" />
+	  <None Remove="Common\**" />
+	  <None Remove="Configuration\**" />
+	  <None Remove="DemoUiComponents\**" />
+	  <None Remove="Demo\**" />
+	  <None Remove="DynamicEntityProperties\**" />
+	  <None Remove="DynamicEntityPropertyValues\**" />
+	  <None Remove="Editions\**" />
+	  <None Remove="Friendships\**" />
+	  <None Remove="Localization\**" />
+	  <None Remove="Logging\**" />
+	  <None Remove="MultiTenancy\**" />
+	  <None Remove="Notifications\**" />
+	  <None Remove="Organizations\**" />
+	  <None Remove="Sessions\**" />
+	  <None Remove="Tenants\**" />
+	  <None Remove="Timing\**" />
+	  <None Remove="UiCustomization\**" />
+	  <None Remove="Version\**" />
+	  <None Remove="WebHooks\**" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="AppFrameworkSharedModule.cs" />
+	  <Compile Remove="Auditing\Dto\AuditLogListDto.cs" />
+	  <Compile Remove="Auditing\Dto\EntityChangeDto.cs" />
+	  <Compile Remove="Auditing\Dto\EntityChangeListDto.cs" />
+	  <Compile Remove="Auditing\Dto\EntityPropertyChangeDto.cs" />
+	  <Compile Remove="Auditing\Dto\GetAuditLogsInput.cs" />
+	  <Compile Remove="Auditing\Dto\GetEntityChangeInput.cs" />
+	  <Compile Remove="Authorization\Accounts\Dto\ActivateEmailInput.cs" />
+	  <Compile Remove="Authorization\Accounts\Dto\CurrentTenantInfoDto.cs" />
+	  <Compile Remove="Authorization\Accounts\Dto\DelegatedImpersonateInput.cs" />
+	  <Compile Remove="Authorization\Accounts\Dto\ImpersonateOutput.cs" />
+	  <Compile Remove="Authorization\Accounts\Dto\ImpersonateTenantInput.cs" />
+	  <Compile Remove="Authorization\Accounts\Dto\ImpersonateUserInput.cs" />
+	  <Compile Remove="Authorization\Accounts\Dto\IsTenantAvailableInput.cs" />
+	  <Compile Remove="Authorization\Accounts\Dto\IsTenantAvailableOutput.cs" />
+	  <Compile Remove="Authorization\Accounts\Dto\RefreshTokenResult.cs" />
+	  <Compile Remove="Authorization\Accounts\Dto\RegisterInput.cs" />
+	  <Compile Remove="Authorization\Accounts\Dto\RegisterOutput.cs" />
+	  <Compile Remove="Authorization\Accounts\Dto\ResetPasswordInput.cs" />
+	  <Compile Remove="Authorization\Accounts\Dto\ResetPasswordOutput.cs" />
+	  <Compile Remove="Authorization\Accounts\Dto\ResolveTenantInput.cs" />
+	  <Compile Remove="Authorization\Accounts\Dto\SendEmailActivationLinkInput.cs" />
+	  <Compile Remove="Authorization\Accounts\Dto\SendPasswordResetCodeInput.cs" />
+	  <Compile Remove="Authorization\Accounts\Dto\SwitchToLinkedAccountInput.cs" />
+	  <Compile Remove="Authorization\Accounts\Dto\SwitchToLinkedAccountOutput.cs" />
+	  <Compile Remove="Authorization\Accounts\Dto\TenantAvailabilityState.cs" />
+	  <Compile Remove="Authorization\Accounts\IAccountAppService.cs" />
+	  <Compile Remove="Authorization\Permissions\Dto\FlatPermissionDto.cs" />
+	  <Compile Remove="Authorization\Permissions\Dto\FlatPermissionWithLevelDto.cs" />
+	  <Compile Remove="Authorization\Roles\Dto\CreateOrUpdateRoleInput.cs" />
+	  <Compile Remove="Authorization\Roles\Dto\GetRoleForEditOutput.cs" />
+	  <Compile Remove="Authorization\Roles\Dto\GetRolesInput.cs" />
+	  <Compile Remove="Authorization\Roles\Dto\RoleEditDto.cs" />
+	  <Compile Remove="Authorization\Roles\Dto\RoleListDto.cs" />
+	  <Compile Remove="Authorization\Users\Dto\ChangeUserLanguageDto.cs" />
+	  <Compile Remove="Authorization\Users\Dto\CreateOrUpdateUserInput.cs" />
+	  <Compile Remove="Authorization\Users\Dto\GetLinkedUsersInput.cs" />
+	  <Compile Remove="Authorization\Users\Dto\GetLoginAttemptsInput.cs" />
+	  <Compile Remove="Authorization\Users\Dto\GetUserForEditOutput.cs" />
+	  <Compile Remove="Authorization\Users\Dto\GetUserPermissionsForEditOutput.cs" />
+	  <Compile Remove="Authorization\Users\Dto\GetUsersInput.cs" />
+	  <Compile Remove="Authorization\Users\Dto\GetUsersToExcelInput.cs" />
+	  <Compile Remove="Authorization\Users\Dto\IGetLoginAttemptsInput.cs" />
+	  <Compile Remove="Authorization\Users\Dto\IGetUsersInput.cs" />
+	  <Compile Remove="Authorization\Users\Dto\ImportUsersFromExcelJobArgs.cs" />
+	  <Compile Remove="Authorization\Users\Dto\LinkedUserDto.cs" />
+	  <Compile Remove="Authorization\Users\Dto\LinkToUserInput.cs" />
+	  <Compile Remove="Authorization\Users\Dto\UnlinkUserInput.cs" />
+	  <Compile Remove="Authorization\Users\Dto\UpdateUserPermissionsInput.cs" />
+	  <Compile Remove="Authorization\Users\Dto\UserEditDto.cs" />
+	  <Compile Remove="Authorization\Users\Dto\UserListDto.cs" />
+	  <Compile Remove="Authorization\Users\Dto\UserListRoleDto.cs" />
+	  <Compile Remove="Authorization\Users\Dto\UserLoginAttemptDto.cs" />
+	  <Compile Remove="Authorization\Users\Dto\UserRoleDto.cs" />
+	  <Compile Remove="Authorization\Users\IUserLinkAppService.cs" />
+	  <Compile Remove="Authorization\Users\IUserLoginAppService.cs" />
+	  <Compile Remove="Commons\R_Entity.cs" />
+	  <Compile Remove="Commons\R_File.cs" />
+	  <Compile Remove="Dto\PagedAndFilteredInputDto.cs" />
+	  <Compile Remove="Dto\PagedAndSortedInputDto.cs" />
+	  <Compile Remove="Dto\PagedInputDto.cs" />
+	  <Compile Remove="Dto\PagedSortedAndFilteredInputDto.cs" />
+	  <Compile Remove="Family\R_Category.cs" />
+	  <Compile Remove="Family\R_Family.cs" />
+	  <Compile Remove="Family\R_FamilyCategory.cs" />
+	  <Compile Remove="Family\R_FamilyUser.cs" />
+	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Revit.Core.Shared\Revit.Core.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Auditing\Dto\" />
+    <Folder Include="Authorization\Permissions\Dto\" />
+    <Folder Include="Categories\Dto\" />
+    <Folder Include="Entity\Parameters\" />
+  </ItemGroup>
+</Project>

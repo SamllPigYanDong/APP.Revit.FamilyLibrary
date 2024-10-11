@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Revit.Application.ViewModels.ProjectViewModels.ProjectDialogViewModel
+namespace Revit.Application.ViewModels.ProjectViewModels.ProjectDialogViewModels
 {
     public class ProjectEditDialogViewModel : ViewModelBase, IDialogAware
     {
-        public ProjectEditDialogViewModel(IDataContext dataContext) : base(dataContext)
+        public ProjectEditDialogViewModel( )
         {
         }
 

@@ -1,21 +1,15 @@
-﻿using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
-using ImTools;
-using Newtonsoft.Json;
+﻿using ImTools;
 using Prism.Commands;
 using Revit.Entity;
 using Revit.Entity.Entity;
-using Revit.Entity.Entity.Dtos.Project;
 using Revit.Entity.Interfaces;
+using Revit.Project.Dto;
 using Revit.Service.IServices;
+using Revit.Shared.Entity.Commons;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.UI.WebControls;
-using System.Windows;
 using System.Windows.Forms;
 
 namespace Revit.Application.ViewModels.ProjectViewModels
@@ -90,7 +84,7 @@ namespace Revit.Application.ViewModels.ProjectViewModels
 
 
 
-        public ProjectFileManageViewModel(IDataContext dataContext, IProjectFolderService projectFolderService,IProjectFileService projectFileService) : base(dataContext)
+        public ProjectFileManageViewModel(IProjectFolderService projectFolderService, IProjectFileService projectFileService)
         {
             this.projectFolderService = projectFolderService;
             this.projectFileService = projectFileService;
@@ -100,7 +94,7 @@ namespace Revit.Application.ViewModels.ProjectViewModels
         #region PrivateMethods
         private async void InitFolders()
         {
-            var result = await projectFolderService.GetFolders(13, new Entity.Entity.Dtos.Project.ProjectRequestFolderDto() { RequestPath = "" });
+            var result = await projectFolderService.GetFolders(13, new ProjectGetFoldersDto() { RequestPath = "" });
             if (result != null && result.Code == ResponseCode.Success)
             {
                 ProjectFolderDtos = new ObservableCollection<ProjectFolderDto>(result.Content.Where(x => !x.IsRoot));
@@ -152,7 +146,7 @@ namespace Revit.Application.ViewModels.ProjectViewModels
             {
                 return;
             }
-            var result = await projectFolderService.GetFolders(13, new Entity.Entity.Dtos.Project.ProjectRequestFolderDto() { RequestPath = selectedFolder.Value.RelativePath });
+            var result = await projectFolderService.GetFolders(13, new ProjectGetFoldersDto() { RequestPath = selectedFolder.Value.RelativePath });
             ProjectFolderDtos.Clear();
             if (result != null && result.Code == ResponseCode.Success)
             {
@@ -175,7 +169,7 @@ namespace Revit.Application.ViewModels.ProjectViewModels
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 var filePaths = openFileDialog.FileNames.ToList();
-                var result = await projectFileService.UploadFilesAsync(folderId, new UploadFileDtoBase() { Files=filePaths});
+                var result = await projectFileService.UploadFilesAsync(folderId, new UploadFileDtoBase() { FilesPath=filePaths});
                 if (result != null && result.Code == ResponseCode.Success)
                 {
                     ProjectFolderDtos = new ObservableCollection<ProjectFolderDto>(ProjectFolderDtos.AddRange(result.Content));

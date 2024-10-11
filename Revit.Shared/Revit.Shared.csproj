@@ -1,0 +1,90 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+	  <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\Auth\**" />
+    <Compile Remove="Models\Configuration\**" />
+    <Compile Remove="Models\Navigation\**" />
+    <Compile Remove="Services\Chat\**" />
+    <Compile Remove="Services\Localization\**" />
+    <Compile Remove="Services\Session\**" />
+    <EmbeddedResource Remove="Models\Auth\**" />
+    <EmbeddedResource Remove="Models\Configuration\**" />
+    <EmbeddedResource Remove="Models\Navigation\**" />
+    <EmbeddedResource Remove="Services\Chat\**" />
+    <EmbeddedResource Remove="Services\Localization\**" />
+    <EmbeddedResource Remove="Services\Session\**" />
+    <None Remove="Models\Auth\**" />
+    <None Remove="Models\Configuration\**" />
+    <None Remove="Models\Navigation\**" />
+    <None Remove="Services\Chat\**" />
+    <None Remove="Services\Localization\**" />
+    <None Remove="Services\Session\**" />
+    <Page Remove="Models\Auth\**" />
+    <Page Remove="Models\Configuration\**" />
+    <Page Remove="Models\Navigation\**" />
+    <Page Remove="Services\Chat\**" />
+    <Page Remove="Services\Localization\**" />
+    <Page Remove="Services\Session\**" />
+  </ItemGroup>
+
+
+
+  <ItemGroup Condition="'$(TargetFramework)'=='net472'">
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.10" />
+    <PackageReference Include="NLog" Version="5.1.2" />
+    <PackageReference Include="NLog.Schema" Version="5.1.2" />
+    <PackageReference Include="Prism.DryIoc" Version="7.2.0.1422" />
+    <!--<PackageReference Include="AutoMapper" Version="11.0.1" />-->
+    <PackageReference Include="FluentValidation" Version="10.4.0" />
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
+    <PackageReference Include="Prism.Core" Version="7.2.0.1422" /> 
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <Compile Remove="Converters\BoolToYesNoStrConverter.cs" />
+    <Compile Remove="Converters\InverseBoolToYesNoStrConverter.cs" />
+    <Compile Remove="Extensions\LocalTranslationHelper.cs" />
+    <Compile Remove="Extensions\Threading\ExceptionHandler.cs" />
+    <Compile Remove="Extensions\Threading\WebRequest.cs" />
+    <Compile Remove="ProgressBarService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Revit.Application.Client\Revit.Application.Client.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Themes\generic.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Themes\Templates\FileTemplate.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\Templates\ImageTemplate.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\Templates\LinkTemplate.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\Templates\TextTemplate.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

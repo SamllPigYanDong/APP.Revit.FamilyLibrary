@@ -20,24 +20,36 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Services\WebAPIService\**" />
-	  <EmbeddedResource Remove="Services\WebAPIService\**" />
-	  <None Remove="Services\WebAPIService\**" />
+	  <Compile Remove="Services\Account\**" />
+	  <Compile Remove="Services\Features\**" />
+	  <Compile Remove="Services\Permission\**" />
+	  <Compile Remove="Services\Update\**" />
+	  <Compile Remove="WebServices\WebAPIService\**" />
+	  <EmbeddedResource Remove="Services\Account\**" />
+	  <EmbeddedResource Remove="Services\Features\**" />
+	  <EmbeddedResource Remove="Services\Permission\**" />
+	  <EmbeddedResource Remove="Services\Update\**" />
+	  <EmbeddedResource Remove="WebServices\WebAPIService\**" />
+	  <None Remove="Services\Account\**" />
+	  <None Remove="Services\Features\**" />
+	  <None Remove="Services\Permission\**" />
+	  <None Remove="Services\Update\**" />
+	  <None Remove="WebServices\WebAPIService\**" />
 	</ItemGroup>
 	
 	<ItemGroup>
+	  <Compile Remove="ApiServices\HttpRestClient.cs" />
+	  <Compile Remove="Behaviors\ChatMessageListViewBehavior.cs" />
+	  <Compile Remove="Behaviors\PasswordBehavior.cs" />
 	  <Compile Remove="IServices\IProgressBarService.cs" />
-	  <Compile Remove="Services\ProgressBarService.cs" />
-	  <Compile Remove="ViewModels\ProgressBarViewModel.cs" />
-	  <Compile Remove="Views\ProgressBarDialog.xaml.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Remove="Views\ProgressBarDialog.xaml" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Revit.Entity\Revit.Entity.csproj" />
+	  <Compile Remove="Validations\EditionValidator.cs" />
+	  <Compile Remove="Validations\OrganizationUnitValidator.cs" />
+	  <Compile Remove="Validations\SettingsValidator.cs" />
+	  <Compile Remove="Validations\TenantValidator.cs" />
+	  <Compile Remove="Validations\UserValidator.cs" />
+	  <Compile Remove="Validations\VersionValidator.cs" />
+	  <Compile Remove="WebServices\FamilyWebService.cs" />
+	  <Compile Remove="WebServices\ProgressBarService.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -47,15 +59,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="ViewModels\" />
-	  <Folder Include="Views\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	  <PackageReference Include="Pathoschild.Http.FluentClient" Version="4.3.0" />
 	  <PackageReference Include="RestSharp" Version="106.12.0" />
 	  <PackageReference Include="System.Net.Http.Json" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Revit.Admin\Revit.Admin.csproj" />
+	  <ProjectReference Include="..\Revit.Entities\Revit.Entity.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Behaviors\" />
 	</ItemGroup>
 
 </Project>

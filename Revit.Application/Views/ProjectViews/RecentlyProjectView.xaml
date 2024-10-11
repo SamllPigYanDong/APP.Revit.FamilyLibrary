@@ -25,7 +25,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                     <Border Width="200"
-                            Style="{StaticResource Border_Panel}"
+                            
                             Height="130">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -34,7 +34,7 @@
                                     <RowDefinition Height="*"></RowDefinition>
                                     <RowDefinition Height="*"></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <Border Style="{StaticResource Border_Panel}"></Border>
+                                <Border ></Border>
                                 <TextBlock Text="{Binding ProjectName}"
                                            Grid.Row="1"
                                            Margin="5,0" />

@@ -1,18 +1,11 @@
-﻿using Revit.Entity.Entity.Dtos.Project;
-using Revit.Entity.Entity;
+﻿using Revit.Entity.Entity;
 using Revit.Entity.Interfaces;
-using Revit.Service.Services;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Revit.Service.IServices;
 using Prism.Commands;
-using Revit.Entity;
-using Autodesk.Revit.DB;
 using System.Windows;
+using Revit.Shared.Entity.Commons;
+using Revit.Authorization.Users.Dto;
 
 namespace Revit.Application.ViewModels.ProjectViewModels
 {
@@ -39,7 +32,7 @@ namespace Revit.Application.ViewModels.ProjectViewModels
 
 
 
-        public ProjectMemberViewModel(IDataContext dataContext, IProjectService projectService) : base(dataContext)
+        public ProjectMemberViewModel( IProjectService projectService)
         {
             this.projectService = projectService;
             InitProjectUsers();

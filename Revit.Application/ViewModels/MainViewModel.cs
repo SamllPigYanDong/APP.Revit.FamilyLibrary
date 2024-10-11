@@ -1,5 +1,4 @@
-﻿using Revit.Application.UI;
-using Revit.Application.Views;
+﻿using Revit.Application.Views;
 using Revit.Entity.Interfaces;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,6 +8,9 @@ using Prism.Commands;
 using Revit.Application.Views.ProjectViews;
 using Revit.Application.Views.FamilyViews;
 using Revit.Service.IServices;
+using Revit.Entity.Entity.UI;
+using Revit.Entity;
+using Revit.Accounts.Dto;
 
 namespace Revit.Application.ViewModels
 {
@@ -27,7 +29,13 @@ namespace Revit.Application.ViewModels
         }
 
 
-        private readonly IUserService _userService;
+        public LoginedUserDto User
+        {
+            get { return Global.User; }
+        }
+
+
+        private readonly IAccountService _userService;
         private DelegateCommand<MenuBar> _navigateCommand;
         public DelegateCommand<MenuBar> NavigateCommand
         {
@@ -36,7 +44,7 @@ namespace Revit.Application.ViewModels
 
       
 
-        public MainViewModel(IDataContext dataContext, IRegionManager regionManager, IUserService userService) : base(dataContext)
+        public MainViewModel( IRegionManager regionManager, IAccountService userService) 
         {
             this._regionManager = regionManager;
             this._userService = userService;
@@ -50,7 +58,6 @@ namespace Revit.Application.ViewModels
         {
             if (navigation != null && !string.IsNullOrWhiteSpace(navigation.NameSpace))
             {
-                MessageBox.Show(this._regionManager.Regions["MainContent"].Views.Count().ToString());
                 this._regionManager.RequestNavigate("MainContent", navigation.NameSpace);
             }
         }

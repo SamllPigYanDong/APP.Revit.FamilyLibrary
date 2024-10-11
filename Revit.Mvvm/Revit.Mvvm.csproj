@@ -30,12 +30,14 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Prism.DryIoc" Version="7.2.0.1422" />
+	
 	</ItemGroup>
 
 
 	<ItemGroup>
-		<ProjectReference Include="..\Revit.Entity\Revit.Entity.csproj" />
-		<ProjectReference Include="..\Revit.Service\Revit.Service.csproj" />
+	  <ProjectReference Include="..\Revit.Shared\Revit.Shared.csproj" />
+		<PackageReference Include="Revit_API_x64" Version="2018.0.0" />
+		<PackageReference Include="Tuna.Revit.Extension" Version="2018.2.18" />
 	</ItemGroup>
 
 	<ItemGroup>

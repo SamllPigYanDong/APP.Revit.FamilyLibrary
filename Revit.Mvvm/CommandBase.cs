@@ -10,11 +10,7 @@ using Revit.Entity;
 using Revit.Entity.Interfaces;
 using Revit.Service.ApiServices;
 using Revit.Service.IServices;
-using System.Threading.Tasks;
-using RestSharp;
 using System;
-using Revit.Entity.Entity;
-using System.Collections.Generic;
 using Prism.Modularity;
 using Prism.Mvvm;
 using Prism.Regions.Behaviors;
@@ -22,13 +18,20 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Controls;
 using Prism.Events;
 using Prism.Services.Dialogs;
-using CommonServiceLocator;
 using Prism.Logging;
 using Prism.DryIoc.Ioc;
-using Microsoft.Win32;
-using System.Security.Permissions;
 using Revit.Application.ViewModels.FamilyViewModels;
-using Revit.Entity.Entity.Dtos.Family;
+using CommonServiceLocator;
+using Revit.Authorization.Roles;
+using Revit.Application;
+using Abp.Dependency;
+using Revit.ApiClient;
+using Revit.Authorization.Permissions;
+using Revit.Families;
+using Revit.Authorization.Users;
+using Revit.Categories;
+using Revit.Shared.Models;
+using System.Windows.Forms;
 
 namespace Revit.Mvvm
 {
@@ -59,7 +62,6 @@ namespace Revit.Mvvm
             try
             {
                 ViewModelLocationProvider.SetDefaultViewModelFactory((view, type) => Container.Resolve(type));
-
                 _containerExtension.RegisterInstance(commandData);
                 _containerExtension.RegisterInstance(_containerExtension);
                 _containerExtension.RegisterInstance(_moduleCatalog);
@@ -70,6 +72,7 @@ namespace Revit.Mvvm
                 _containerExtension.FinalizeExtension();
 
                 ServiceLocator.SetLocatorProvider(() => Container.Resolve<IServiceLocator>());
+
 
                 ConfigureModuleCatalog(_moduleCatalog);
 
@@ -107,9 +110,10 @@ namespace Revit.Mvvm
                 //执行命令
                 Execute(message, elements);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                System.Windows.MessageBox.Show(e.Message + e.InnerException?.Message);
+                return Result.Cancelled;
             }
 
             return Result.Succeeded;
@@ -159,17 +163,27 @@ namespace Revit.Mvvm
             registry.RegisterSingleton<IServiceLocator, DryIocServiceLocatorAdapter>();
 
             //注册Doucment
-
             registry.RegisterSingleton<IDataContext, DataContext>();
             registry.RegisterInstance(new MyHttpClient(Global.HOST));
+            registry.RegisterInstance(new AbpApiClient());
 
-
-            registry.Register<IFamilyFileService, FamilyFileService>();
             registry.Register<ILoginService, LoginService>();
+            registry.Register<IAccountService, AccountService>();
+
+            registry.Register<ICategoryService, CategoryService>();
+            registry.Register<ICategoryAppService, CategoryAppService>();
+            registry.Register<IFamilyService, FamilyService>();
+            registry.Register<IFamilyAppService, FamilyAppService>();
+
             registry.Register<IProjectService, ProjectService>();
-            registry.Register<IUserService, UserService>();
             registry.Register<IProjectFolderService, ProjectFolderService>();
             registry.Register<IProjectFileService, ProjectFileService>();
+
+            registry.Register<IRoleAppService, RoleAppService>();
+            registry.Register<IPermissionAppService, PermissionAppService>();
+            registry.Register<IUserAppService, ProxyUsersAppService>();
+           
+
         }
 
     }

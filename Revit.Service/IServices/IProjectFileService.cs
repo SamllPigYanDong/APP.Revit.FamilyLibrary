@@ -1,5 +1,6 @@
 ﻿using Revit.Entity.Entity;
-using Revit.Entity.Entity.Dtos.Project;
+using Revit.Shared.Entity.Commons;
+using Revit.Shared.Entity.Project;
 
 namespace Revit.Service.IServices
 {

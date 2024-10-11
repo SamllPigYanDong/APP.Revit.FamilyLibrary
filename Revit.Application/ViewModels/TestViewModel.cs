@@ -11,7 +11,7 @@ namespace Revit.Application.ViewModels
     public class TestViewModel : ViewModelBase
     {
 
-        public TestViewModel(IDataContext dataContext) : base(dataContext)
+        public TestViewModel()
         {
             IExternalEventHandler externalEventHandler = new ExternalEventHandler();
             externalEvent = ExternalEvent.Create(externalEventHandler);

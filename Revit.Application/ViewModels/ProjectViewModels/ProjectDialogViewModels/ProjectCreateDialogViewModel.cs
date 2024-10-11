@@ -1,25 +1,19 @@
 ﻿using Prism.Commands;
 using Prism.Services.Dialogs;
 using Revit.Entity;
-using Revit.Entity.Entity.Dtos.Project;
 using Revit.Entity.Interfaces;
+using Revit.Project.Dto;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Forms;
 
-namespace Revit.Application.ViewModels.ProjectViewModels.ProjectDialogViewModel
+namespace Revit.Application.ViewModels.ProjectViewModels.ProjectDialogViewModels
 {
     public class ProjectCreateDialogViewModel : ViewModelBase, IDialogAware
     {
 
-        private ProjectCreateDto _projectDto=new ProjectCreateDto() { CreatorId=Global.User.UserId};
+        private ProjectPostPutDto _projectDto = new ProjectPostPutDto() { CreatorId = Global.User.UserId };
 
-        public ProjectCreateDto ProjectDto
+        public ProjectPostPutDto ProjectDto
         {
             get { return _projectDto; }
             set { SetProperty(ref _projectDto, value); }
@@ -32,7 +26,7 @@ namespace Revit.Application.ViewModels.ProjectViewModels.ProjectDialogViewModel
         private DelegateCommand _selecteProjectIconCommand;
         public DelegateCommand SelecteProjectIconCommand { get => _selecteProjectIconCommand ?? new DelegateCommand(SelecteProjectIcon); }
 
-        private  void SelecteProjectIcon()
+        private void SelecteProjectIcon()
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -44,7 +38,7 @@ namespace Revit.Application.ViewModels.ProjectViewModels.ProjectDialogViewModel
             }
         }
 
-        public ProjectCreateDialogViewModel(IDataContext dataContext) : base(dataContext)
+        public ProjectCreateDialogViewModel( ) 
         {
         }
 
@@ -52,10 +46,10 @@ namespace Revit.Application.ViewModels.ProjectViewModels.ProjectDialogViewModel
 
         public event Action<IDialogResult> RequestClose;
 
-        public  void CloseDialog(string result)
+        public void CloseDialog(string result)
         {
             ButtonResult buttonResult = ButtonResult.None;
-            if (result=="True")
+            if (result == "True")
             {
                 buttonResult = ButtonResult.OK;
             }

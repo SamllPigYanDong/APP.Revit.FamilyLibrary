@@ -1,7 +1,9 @@
 ﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
 using Newtonsoft.Json;
 using Revit.Entity;
 using Revit.Entity.Entity;
+using Revit.Shared.Entity.Commons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +38,7 @@ namespace Revit.Service.ApiServices
                 return new ApiResponse()
                 {
                     Code = ResponseCode.Error,
-                    Result = null,
+                    Content = null,
                     Message = response.ReasonPhrase
                 };
         }
@@ -44,13 +46,30 @@ namespace Revit.Service.ApiServices
         public async Task<ApiResponse<T>> ExecuteAsync<T>(BaseRequest baseRequest) 
         {
             var response = await RequestAsync(baseRequest);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                return JsonConvert.DeserializeObject<ApiResponse<T>>(await response.Content.ReadAsStringAsync());
+            if (response != null && response.Content != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                try
+                {
+                    var result= JsonConvert.DeserializeObject<ApiResponse<T>>(await response.Content.ReadAsStringAsync());
+                    //MessageBox.Show(JsonConvert.SerializeObject(result));
+                    return result;
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message+e.InnerException?.Message);
+
+                    return new ApiResponse<T>()
+                    {
+                        Code = ResponseCode.Error,
+                        Message = response.ReasonPhrase
+                    };
+                }
+            }
             else
                 return new ApiResponse<T>()
                 {
                     Code = ResponseCode.Error,
-                    Message = response.ReasonPhrase
+                    Message = response?.ReasonPhrase
                 };
         }
 
@@ -58,17 +77,27 @@ namespace Revit.Service.ApiServices
         public async Task<ApiResponse<byte[]>> ExecuteStreamAsync(BaseRequest baseRequest)
         {
             var response = await RequestAsync(baseRequest);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (response!=null&& response.Content != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                var result = await response.Content.ReadAsByteArrayAsync();
-                MessageBox.Show(result.Length.ToString());
-                return new ApiResponse<byte[]>() { Content = result };
+                try
+                {
+                    var result = await response.Content.ReadAsByteArrayAsync();
+                    return new ApiResponse<byte[]>() { Content = result };
+                }
+                catch (Exception)
+                {
+                    return new ApiResponse<byte[]>()
+                    {
+                        Code = ResponseCode.Error,
+                        Message = response.ReasonPhrase
+                    };
+                }
             }
             else
                 return new ApiResponse<byte[]>()
                 {
                     Code = ResponseCode.Error,
-                    Message = response.ReasonPhrase
+                    Message = response?.ReasonPhrase
                 };
         }
 
@@ -76,6 +105,10 @@ namespace Revit.Service.ApiServices
         private async Task<HttpResponseMessage> RequestAsync(BaseRequest baseRequest)
         {
             var request = new HttpRequestMessage(baseRequest.Method, baseRequest.Route);
+            if (request==null)
+            {
+                return null;
+            }
             request.Headers.Add("Host", "localhost:5177");
 
             if (!string.IsNullOrWhiteSpace(baseRequest.ContentType))
@@ -119,10 +152,21 @@ namespace Revit.Service.ApiServices
                     multiFormData.Add(new StringContent(formData.Value), formData.Key);
                 }
             }
-            var response = await client.SendAsync(request);
-            if (Global.IsDebug)
+            HttpResponseMessage response = null;
+            try
             {
-                MessageBox.Show(response?.RequestMessage + response?.ReasonPhrase);
+                response = await client.SendAsync(request);
+            }
+            catch (Exception)
+            {
+                return response;
+            }
+            finally 
+            {
+                if (Global.IsDebug)
+                {
+                    MessageBox.Show(response?.RequestMessage + response?.ReasonPhrase,"标头");
+                }
             }
             return response;
         }

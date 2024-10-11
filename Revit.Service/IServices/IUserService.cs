@@ -1,10 +1,12 @@
 ﻿using Revit.Entity.Entity;
-using Revit.Entity.Entity.Dtos;
+using Revit.Shared.Entity.Commons;
+using Revit.Shared.Entity.Commons.Page;
+using Revit.Shared.Entity.Users;
 
 namespace Revit.Service.IServices
 {
     public interface IUserService
     {
-        Task<ApiResponse<LoginedUserDto>> GetLoginedUser(string content);
+        Task<ApiResponse<PagedList<UserDto>>> GetUsers(UserPageRequestDto pageRequestDto);
     }
 }

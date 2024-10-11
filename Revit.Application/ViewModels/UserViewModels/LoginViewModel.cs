@@ -1,23 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using Prism.Commands;
-using Prism.Ioc;
-using Prism.Mvvm;
-using Prism.Regions;
-using Prism.Services.Dialogs;
+using Revit.Accounts.Dto;
 using Revit.Entity;
 using Revit.Entity.Entity;
-using Revit.Entity.Entity.Dtos;
 using Revit.Entity.Interfaces;
-using Revit.Mvvm;
-using Revit.Mvvm.Extensions;
 using Revit.Service.IServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Revit.Shared.Entity.Commons;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Shapes;
 
 namespace Revit.Application.ViewModels.UserViewModels
 {
@@ -42,12 +31,12 @@ namespace Revit.Application.ViewModels.UserViewModels
 
         private AsyncRelayCommand<Window> _loginCommand;
         private readonly ILoginService _loginService;
-        private readonly IUserService _userService;
+        private readonly IAccountService _userService;
 
         public AsyncRelayCommand<Window> LoginCommand { get => _loginCommand ?? new AsyncRelayCommand<Window>(Login); }
 
 
-        public LoginViewModel(IDataContext dataContext, ILoginService loginService,IUserService userService) : base(dataContext)
+        public LoginViewModel( ILoginService loginService, IAccountService userService)
         {
             this._loginService = loginService;
             this._userService = userService;

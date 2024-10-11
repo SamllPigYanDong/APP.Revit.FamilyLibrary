@@ -1,7 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Regions;
-using Revit.Application.UI;
 using Revit.Application.Views.ProjectViews;
+using Revit.Entity.Entity.UI;
 using Revit.Entity.Interfaces;
 using System.Collections.ObjectModel;
 
@@ -31,7 +31,7 @@ namespace Revit.Application.ViewModels
         }
 
 
-        public MainProjectViewModel(IDataContext dataContext, IRegionManager regionManager) : base(dataContext)
+        public MainProjectViewModel( IRegionManager regionManager) 
         {
             this.regionManager = regionManager;
             regionManager.RegisterViewWithRegion("ProjectContent", typeof(RecentlyProjectView));

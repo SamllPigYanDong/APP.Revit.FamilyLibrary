@@ -1,0 +1,17 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:Revit.Application.Converter">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="./BorderStyles.xaml" />
+        <ResourceDictionary Source="./TextBlock.xaml" />
+        <ResourceDictionary Source="./ButtonStyles.xaml" />
+        <ResourceDictionary Source="./DefaultStyles.xaml" />
+        <ResourceDictionary Source="./ListStyles.xaml" />
+        <ResourceDictionary Source="./ComboboxStyles.xaml" />
+        <ResourceDictionary Source="./TextBoxStyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <converters:Path2UriConverter x:Key="Path2UriConverter" />
+    <converters:Bytes2BitmapImageConverter x:Key="Bytes2BitmapImageConverter" />
+    <converters:Uri2BitMapConverter x:Key="Uri2BitMapConverter" />
+</ResourceDictionary>

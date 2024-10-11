@@ -44,7 +44,6 @@ namespace Revit.Application.Commands
             containerRegistry.RegisterForNavigation<ProjectFileManageView, ProjectFileManageViewModel>();
             containerRegistry.RegisterForNavigation<ProjectMemberView, ProjectMemberViewModel>();
             containerRegistry.RegisterForNavigation<ProjectView, ProjectViewModel>();
-            containerRegistry.RegisterForNavigation<WorkSpaceView, WorkSpaceViewModel>();
         }
     }
 }

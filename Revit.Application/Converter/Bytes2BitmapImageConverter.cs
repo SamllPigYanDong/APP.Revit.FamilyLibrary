@@ -20,7 +20,7 @@ namespace Revit.Application.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is byte[] bytes)
+            if (value!=null&&value is byte[] bytes&&bytes.Length>0)
             {
                 BitmapImage bmp = null;
                 try
@@ -36,7 +36,7 @@ namespace Revit.Application.Converter
                 }
                 return bmp; 
             }
-            return new BitmapImage(new Uri(""));
+            return null;
         }
 
         public System.Drawing.Image ReturnPhoto(byte[] streamByte)

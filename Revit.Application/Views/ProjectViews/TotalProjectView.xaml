@@ -55,7 +55,7 @@
                 <DataTemplate>
                     <Border Width="200"
                             Height="130"
-                            Style="{StaticResource Border_Panel}">
+                            >
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="80"></RowDefinition>
@@ -64,7 +64,7 @@
                                 <RowDefinition Height="*"></RowDefinition>
                             </Grid.RowDefinitions>
                             <Border 
-                                    Style="{StaticResource Border_Panel}"
+                                    
                                     ></Border>
                             <TextBlock Text="{Binding ProjectName}"
                                        Grid.Row="1"

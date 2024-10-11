@@ -1,9 +1,9 @@
-﻿using Revit.Application.UI;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Revit.Entity.Interfaces;
 using Revit.Application.Views.ProjectViews;
 using Prism.Commands;
 using Prism.Regions;
+using Revit.Entity.Entity.UI;
 
 namespace Revit.Application.ViewModels.ProjectViewModels
 {
@@ -29,7 +29,7 @@ namespace Revit.Application.ViewModels.ProjectViewModels
             }
         }
 
-        public ProjectViewModel(IDataContext dataContext,IRegionManager regionManager) : base(dataContext)
+        public ProjectViewModel(IRegionManager regionManager)
         {
             this.regionManager = regionManager;
             //初始文件管理

@@ -1,9 +1,10 @@
-﻿using Revit.Entity;
+﻿using Revit.Accounts.Dto;
+using Revit.Entity;
 using Revit.Entity.Entity;
-using Revit.Entity.Entity.Dtos;
-using Revit.Entity.Entity.Dtos.Project;
 using Revit.Entity.Interfaces;
+using Revit.Project.Dto;
 using Revit.Service.IServices;
+using Revit.Shared.Entity.Commons;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace Revit.Application.ViewModels
     public class WorkSpaceViewModel : ViewModelBase
     {
         private LoginedUserDto _loginUserDto;
-        private readonly IUserService _userService;
+        private readonly IAccountService _userService;
         private readonly IProjectService projectService;
 
         public LoginedUserDto LoginUserDto
@@ -54,7 +55,7 @@ namespace Revit.Application.ViewModels
         //[ObservableProperty]
         //public ObservableCollection<string> _recentlyTasks = new ObservableCollection<string>() { "123", "456" };
 
-        public WorkSpaceViewModel(IDataContext dataContext, IUserService userService, IProjectService projectService) : base(dataContext)
+        public WorkSpaceViewModel(IAccountService userService, IProjectService projectService)
         {
             this._userService = userService;
             this.projectService = projectService;

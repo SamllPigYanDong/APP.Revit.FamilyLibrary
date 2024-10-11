@@ -9,7 +9,7 @@ namespace Revit.Application.Styles
 {
     internal class StylesDictionary : ResourceDictionary
     {
-        private const string DictionaryUri = "pack://application:,,,/Revit.Application;component/Styles/BorderStyle.xaml";
+        private const string DictionaryUri = "pack://application:,,,/Revit.Application;component/Styles/Styles.xaml";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StylesDictionary"/> class.

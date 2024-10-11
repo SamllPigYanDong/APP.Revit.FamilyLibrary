@@ -1,5 +1,5 @@
 ﻿using Prism.Ioc;
-using Revit.Application.ViewModels.ProjectViewModels.ProjectDialogViewModel;
+using Revit.Application.ViewModels.ProjectViewModels.ProjectDialogViewModels;
 using Revit.Application.ViewModels.UserViewModels;
 using Revit.Application.Views.ProjectViews.ProjectDialogs;
 using Revit.Application.Views.UserViews;
