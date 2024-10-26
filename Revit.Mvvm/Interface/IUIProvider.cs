@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Revit.Entity.Interfaces
+namespace Revit.Mvvm.Interface
 {
     public interface IUIProvider//插件的上下文
     {

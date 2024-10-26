@@ -1,8 +1,8 @@
 ﻿using Autodesk.Revit.DB;
 using Prism.Services.Dialogs;
 using Revit.Authorization.Users.Dto;
-using Revit.Entity.Interfaces;
 using Revit.Service.Services;
+using Revit.Shared;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,9 +13,9 @@ using System.Windows.Forms;
 
 namespace Revit.Application.ViewModels.UserViewModels
 {
-    internal class EditUserDialogViewModel : ViewModelBase, IDialogAware
+    internal class AddUserDialogViewModel : ViewModelBase, IDialogAware
     {
-        public EditUserDialogViewModel() 
+        public AddUserDialogViewModel() 
         {
         }
 
@@ -43,7 +43,7 @@ namespace Revit.Application.ViewModels.UserViewModels
             
         }
 
-        protected override void Submit()
+        protected  void Submit()
         {
             if (string.IsNullOrWhiteSpace(User.UserName) || string.IsNullOrWhiteSpace(User.Password))
             {

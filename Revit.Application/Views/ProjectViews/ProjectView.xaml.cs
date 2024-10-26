@@ -16,7 +16,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Wpf.Ui.Controls;
 using Prism.Ioc;
-using Revit.Mvvm;
+using Revit.Shared.Base;
+using Revit.Shared;
 
 namespace Revit.Application.Views.ProjectViews
 {
@@ -28,7 +29,7 @@ namespace Revit.Application.Views.ProjectViews
         public ProjectView()
         {
             InitializeComponent(); 
-            RegionManager.SetRegionManager(this, CommandBase.Instance.Container.Resolve<IRegionManager>());
+            RegionManager.SetRegionManager(this, SharedModule.Instance.Container.Resolve<IRegionManager>());
             RegionManager.UpdateRegions();
         }
     }

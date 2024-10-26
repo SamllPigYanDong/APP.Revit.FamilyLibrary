@@ -1,16 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Revit.Accounts.Dto;
 using Revit.Entity;
-using Revit.Entity.Entity;
-using Revit.Entity.Interfaces;
 using Revit.Service.IServices;
+using Revit.Shared;
 using Revit.Shared.Entity.Commons;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace Revit.Application.ViewModels.UserViewModels
 {
-    internal class LoginViewModel : ViewModelBase
+    public partial class LoginViewModel : ViewModelBase
     {
 
         private Visibility _progressBarVisibility = Visibility.Hidden;
@@ -28,12 +27,9 @@ namespace Revit.Application.ViewModels.UserViewModels
             get { return _loginDto; }
             set { _loginDto = value; }
         }
-
-        private AsyncRelayCommand<Window> _loginCommand;
         private readonly ILoginService _loginService;
         private readonly IAccountService _userService;
 
-        public AsyncRelayCommand<Window> LoginCommand { get => _loginCommand ?? new AsyncRelayCommand<Window>(Login); }
 
 
         public LoginViewModel( ILoginService loginService, IAccountService userService)
@@ -41,10 +37,11 @@ namespace Revit.Application.ViewModels.UserViewModels
             this._loginService = loginService;
             this._userService = userService;
         }
-
+        [RelayCommand]
         private async Task Login(Window window)
         {
             var result = await _loginService.Login(new LoginDto() { UserName = "admin", PassWord = "Abc123@" });
+            ProgressBarVisibility = Visibility.Visible;
             if (result.Code == ResponseCode.Success)
             {
                 var getUserResponse = await _userService.GetLoginedUser(result.Content);
@@ -55,6 +52,7 @@ namespace Revit.Application.ViewModels.UserViewModels
                     window.DialogResult = true;
                 }
             }
+            ProgressBarVisibility = Visibility.Hidden;
         }
 
 

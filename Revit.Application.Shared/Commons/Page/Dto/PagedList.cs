@@ -8,15 +8,15 @@
     public class PagedList<T> : IPagedList<T>
     {
 
-        public int PageIndex { get; set; }
+        public int PageIndex { get; set; } = 0;
 
-        public int PageSize { get; set; }
+        public int PageSize { get; set; } = 0;
 
-        public int TotalCount { get; set; }
+        public int TotalCount { get; set; } = 0;
 
-        public int TotalPages { get; set; }
+        public int TotalPages { get; set; } = 0;
 
-        public int IndexFrom { get; set; }
+        public int IndexFrom { get; set; } = 0;
 
 
         public IList<T> Items { get; set; }

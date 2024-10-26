@@ -9,21 +9,9 @@ namespace Revit.Application.Styles.Converter
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             double num = 1.0;
-            foreach (object obj in values)
+            for (int i = 0; i < values.Length; i++)
             {
-                double num2=0;
-                bool flag;
-                if (obj is double)
-                {
-                    num2 = (double)obj;
-                    flag = true;
-                }
-                else
-                {
-                    flag = false;
-                }
-                bool flag2 = flag;
-                if (flag2)
+                if (values[i] is double num2)
                 {
                     num *= num2;
                 }

@@ -2,6 +2,7 @@
 using FluentValidation;
 using FluentValidation.Validators;
 using Prism.Ioc;
+using Revit.Shared.Consts;
 
 namespace Revit.Shared.Validations
 {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Revit.Entity.Entity.UI
+namespace Revit.Shared
 {
     /// <summary>
     /// 系统导航菜单实体类

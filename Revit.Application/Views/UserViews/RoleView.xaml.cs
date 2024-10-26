@@ -10,20 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Revit.Application.Views.UserViews.DialogViews
+namespace Revit.Application.Views.UserViews
 {
     /// <summary>
-    /// UserEditView.xaml 的交互逻辑
+    /// RoleManagerView.xaml 的交互逻辑
     /// </summary>
-    public partial class EditUserDialogView : UserControl
+    public partial class RoleView : UserControl
     {
-        public EditUserDialogView()
+        public RoleView()
         {
             InitializeComponent();
         }
-
-        
     }
 }

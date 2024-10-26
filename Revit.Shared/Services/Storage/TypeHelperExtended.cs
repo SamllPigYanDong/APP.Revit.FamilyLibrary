@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Revit.Shared.Services
+namespace Revit.Shared.Services.Storage
 {
     public class TypeHelperExtended
     {

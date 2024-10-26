@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Prism.Ioc;
 using Revit.Shared.Services;
 using CommunityToolkit.Mvvm.Input;
-using Revit.Entity.Interfaces;
+using Revit.Shared.Interfaces;
 
 namespace Revit.Shared
 {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace Revit.Entity.Interfaces
+namespace Revit.Shared.Interfaces
 {
     public interface IAppMapper
     {

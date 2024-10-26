@@ -1,6 +1,6 @@
 ﻿using Hardcodet.Wpf.TaskbarNotification;
 
-namespace Revit.Shared
+namespace Revit.Shared.Services.App
 {
     public interface IAppTaskBar
     {

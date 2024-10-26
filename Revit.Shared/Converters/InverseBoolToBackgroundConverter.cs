@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace Revit.Converters
+namespace Revit.Shared.Converters
 {
     public class InverseBoolToBackgroundConverter : IValueConverter
     {

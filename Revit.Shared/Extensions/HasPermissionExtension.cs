@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Prism.Ioc;
+using Revit.Shared.Services.Permission;
 using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Markup;
 
-namespace Revit.Shared
+namespace Revit.Shared.Extensions
 {
     public class HasPermissionExtension : MarkupExtension
     {

@@ -1,15 +1,16 @@
-﻿namespace Revit.Shared
+﻿namespace Revit.Shared.ViewModels
 {
     using Prism.Commands;
     using Prism.Regions;
     using System.Threading.Tasks;
-    using Revit.Entity.Interfaces;
+    using Revit.Shared.Interfaces;
+    using Prism.Ioc;
 
     public class NavigationViewModel : ViewModelBase, INavigationAware
     {
         public NavigationViewModel()
         {
-            //dialog = CommandBase.Instance.Container.Resolve<IHostDialogService>();
+            dialog = SharedModule.Instance.Container.Resolve<IHostDialogService>();
             RefreshCommand = new DelegateCommand(async () => await OnNavigatedToAsync());
         }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Data;
 
-namespace Revit.Converters
+namespace Revit.Shared.Converters
 {
     public class InverseBooleanConverter : IValueConverter
     {

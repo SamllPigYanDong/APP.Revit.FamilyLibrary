@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Markup;
 
-namespace Revit.Shared
+namespace Revit.Shared.Extensions
 {
     /// <summary>
     /// 字符串多语言转换扩展

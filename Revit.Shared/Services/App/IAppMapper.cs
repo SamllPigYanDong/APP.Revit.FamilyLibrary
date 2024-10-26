@@ -1,6 +1,6 @@
-﻿using AutoMapper; 
+﻿using AutoMapper;
 
-namespace Revit.Shared.Services.Mapper
+namespace Revit.Shared.Services.App
 {
     public interface IAppMapper
     {

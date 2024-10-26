@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.InteropServices;
 
-namespace Revit.Shared
+namespace Revit.Shared.Extensions
 {
     public class IniFileHelper
     {
@@ -30,20 +30,20 @@ namespace Revit.Shared
 
         public void SetValue(string Section, string Key, string Value)
         {
-            WritePrivateProfileString(Section, Key, Value, this.iniPath);
+            WritePrivateProfileString(Section, Key, Value, iniPath);
         }
 
         public string GetValue(string Section, string Key)
         {
             STRINGBUFFER RetVal;
-            GetPrivateProfileString(Section, Key, null, out RetVal, 4096, this.iniPath);
+            GetPrivateProfileString(Section, Key, null, out RetVal, 4096, iniPath);
             string temp = RetVal.szText;
             return temp.Trim();
         }
 
         public void RemoveValue(string Section, string Key)
         {
-            WritePrivateProfileString(Section, Key, null, this.iniPath);
+            WritePrivateProfileString(Section, Key, null, iniPath);
         }
 
         private void CreateIniFile()

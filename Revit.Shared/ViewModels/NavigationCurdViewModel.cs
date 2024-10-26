@@ -2,10 +2,12 @@
 {
     using Prism.Ioc;
     using Prism.Services.Dialogs;
-    using Prism.Commands; 
+    using Prism.Commands;
     using Revit.Shared.Services.Permission;
-    using Revit.Shared.Services;
     using CommunityToolkit.Mvvm.Input;
+    using System.Windows;
+    using Revit.Shared.Services.Datapager;
+    using Revit.Shared.ViewModels;
 
     public partial class NavigationCurdViewModel : NavigationViewModel
     {
@@ -15,8 +17,8 @@
             //dataPager = CommandBase.Instance.Container.Resolve<IDataPagerService>();
             //proxyService = CommandBase.Instance.Container.Resolve<IPermissionPorxyService>();
               
-            ExecuteCommand = new DelegateCommand<string>(proxyService.Execute);
-            proxyService.Generate(CreatePermissionItems());
+            //ExecuteCommand = new DelegateCommand<string>(proxyService.Execute);
+            //proxyService.Generate(CreatePermissionItems());
         }
          
         public DelegateCommand<string> ExecuteCommand { get; private set; }
@@ -29,9 +31,19 @@
         [RelayCommand]
         public async void Add()
         {
-            var dialogResult = await dialog.ShowDialogAsync(GetPageName("Details"));
-            if (dialogResult.Result == ButtonResult.OK)
-                await OnNavigatedToAsync();
+            MessageBox.Show(GetPageName("Add"));
+            try
+            {
+                var dialogResult = await dialog.ShowDialogAsync(GetPageName("Add"));
+                if (dialogResult.Result == ButtonResult.OK)
+                    await OnNavigatedToAsync();
+            }
+            catch (System.Exception e )
+            {
+
+                MessageBox.Show(e.Message+e.InnerException.Message);
+            }
+          
         }
 
         /// <summary>
@@ -42,7 +54,7 @@
             DialogParameters param = new DialogParameters();
             param.Add("Value", dataPager.SelectedItem);
 
-            var dialogResult = await dialog.ShowDialogAsync(GetPageName("Details"), param);
+            var dialogResult = await dialog.ShowDialogAsync(GetPageName("Edit"), param);
             if (dialogResult.Result == ButtonResult.OK)
                 await OnNavigatedToAsync();
         }
@@ -52,7 +64,11 @@
         /// </summary>
         /// <param name="methodName"></param>
         /// <returns></returns>
-        private string GetPageName(string methodName) => GetType().Name.Replace("ViewModel", $"{methodName}View");
+        private string GetPageName(string methodName)
+        {
+
+            return methodName + GetType().Name.Replace("ViewModel", $"DialogView");
+        }
 
         /// <summary>
         /// 创建模块具备的默认权限选项清单

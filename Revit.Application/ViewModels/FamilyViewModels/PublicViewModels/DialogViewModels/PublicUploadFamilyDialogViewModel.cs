@@ -1,5 +1,4 @@
-﻿using Revit.Entity.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Prism.Services.Dialogs;
@@ -8,6 +7,7 @@ using System.Collections.ObjectModel;
 using Revit.Service.Services;
 using Revit.Shared.Entity.Family;
 using Revit.Families;
+using Revit.Shared;
 
 namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels.DialogViewModels
 {

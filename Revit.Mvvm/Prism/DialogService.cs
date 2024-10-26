@@ -5,6 +5,8 @@ using System.Windows;
 using Prism.Common;
 using Prism.Ioc;
 using Prism.Services.Dialogs;
+using Revit.Shared;
+using Revit.Shared.Base;
 
 namespace Revit.Mvvm.Prism
 {

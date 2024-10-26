@@ -1,6 +1,6 @@
 ﻿using Prism.Services.Dialogs;
 
-namespace Revit.Shared
+namespace Revit.Shared.ViewModels
 {
     public class HostMessageViewModel : HostDialogViewModel
     {
@@ -11,7 +11,7 @@ namespace Revit.Shared
             get { return message; }
             set { message = value; OnPropertyChanged(); }
         }
-         
+
         public override void OnDialogOpened(IDialogParameters parameters)
         {
             if (parameters.ContainsKey("Title"))

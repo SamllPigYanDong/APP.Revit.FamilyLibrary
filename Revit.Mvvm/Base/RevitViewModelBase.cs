@@ -5,15 +5,15 @@ using CommunityToolkit.Mvvm.Input;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
-using Revit.Entity.Entity.UI;
-using Revit.Entity.Interfaces;
+using Revit.Mvvm.Interface;
+using Revit.Shared;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Windows;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 
-namespace Revit.Application.ViewModels
+namespace Revit.Shared.Base
 {
     public abstract class RevitViewModelBase : BindableBase
     {
@@ -50,7 +50,7 @@ namespace Revit.Application.ViewModels
 
         protected virtual void Submit()
         {
-          
+
         }
 
         protected virtual void ChangePreviousPage()

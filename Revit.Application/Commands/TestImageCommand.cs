@@ -7,13 +7,14 @@ using Revit.Application.ViewModels;
 using Revit.Application.Views;
 using Revit.Extension;
 using Revit.Mvvm.Extensions;
-using Revit.Mvvm;
 using Revit.Application.Views.ProjectViews;
 using Revit.Application.ViewModels.ProjectViewModels;
 using Revit.Application.Views.FamilyViews;
 using Revit.Application.ViewModels.FamilyViewModels;
 using Tuna.Revit.Extension;
 using System.Linq;
+using Revit.Shared.Base;
+using Revit.Shared;
 
 namespace Revit.Application.Commands
 {
@@ -25,7 +26,7 @@ namespace Revit.Application.Commands
 
         public override Window CreateMainWindow()
         {
-            return Container.Resolve<MainView,MainViewModel>();
+            return SharedModule.Instance.Container.Resolve<MainView,MainViewModel>();
         }
 
         public override Result Execute(string message, ElementSet elements)

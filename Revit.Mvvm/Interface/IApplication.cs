@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Revit.Entity.Interfaces
+namespace Revit.Mvvm.Interface
 {
     public interface IApplication//注册rinbbon界面的UI内容
     {

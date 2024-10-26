@@ -1,8 +1,9 @@
-﻿using Abp.Runtime.Security;  
+﻿using Abp.Runtime.Security;
 using Newtonsoft.Json;
+using Revit.Shared.Extensions;
 using System;
 
-namespace Revit.Shared.Services
+namespace Revit.Shared.Services.Storage
 {
     public class DataStorageService : IDataStorageService
     {
@@ -28,18 +29,18 @@ namespace Revit.Shared.Services
             iniFile.SetValue(Section, key, JsonConvert.SerializeObject(value));
         }
 
-        private T GetPrimitive<T>(string key, T defaultValue = default(T))
+        private T GetPrimitive<T>(string key, T defaultValue = default)
         {
             return (T)Convert.ChangeType(iniFile.GetValue(Section, key), typeof(T));
         }
 
-        private T RetrieveObject<T>(string key, T defaultValue = default(T))
+        private T RetrieveObject<T>(string key, T defaultValue = default)
         {
             var json = iniFile.GetValue(Section, key);
             return JsonConvert.DeserializeObject<T>(json);
         }
 
-        public T GetValue<T>(string key, T defaultValue = default(T), bool shouldDecrpyt = false)
+        public T GetValue<T>(string key, T defaultValue = default, bool shouldDecrpyt = false)
         {
             var value = TypeHelperExtended.IsPrimitive(typeof(T), false) ?
                 GetPrimitive(key, defaultValue) :

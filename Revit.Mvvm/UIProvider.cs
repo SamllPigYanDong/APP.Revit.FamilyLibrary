@@ -1,7 +1,7 @@
 ﻿using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using Revit.Entity.Interfaces;
+using Revit.Mvvm.Interface;
 using System;
 
 namespace Revit.Mvvm

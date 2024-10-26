@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Results;
 
-namespace Revit.Entity.Interfaces
+namespace Revit.Shared.Interfaces
 {
     public interface IGlobalValidator
     {

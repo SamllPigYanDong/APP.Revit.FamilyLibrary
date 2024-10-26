@@ -1,4 +1,4 @@
-﻿namespace Revit.Shared
+﻿namespace Revit.Shared.Services.Permission
 {
     public class AppPermissions
     {

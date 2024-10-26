@@ -1,8 +1,7 @@
-﻿using Revit.Shared.Services.Permission;
-using System; 
-using System.Collections.ObjectModel; 
+﻿using System;
+using System.Collections.ObjectModel;
 
-namespace Revit.Shared
+namespace Revit.Shared.Services.Permission
 {
     public interface IPermissionPorxyService
     {

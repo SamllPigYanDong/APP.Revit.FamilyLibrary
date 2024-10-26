@@ -1,10 +1,10 @@
 ﻿using Abp.Notifications;
-using System; 
-using System.Globalization; 
+using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Revit.Converters
+namespace Revit.Shared.Converters
 {
     public class StateToVisibilityConverter : IValueConverter
     {
@@ -12,7 +12,7 @@ namespace Revit.Converters
         {
             if (value != null)
             {
-                var state = Enum.Parse( typeof(UserNotificationState),value.ToString());
+                var state = Enum.Parse(typeof(UserNotificationState), value.ToString());
                 if ((UserNotificationState)state == UserNotificationState.Unread) return Visibility.Visible;
             }
             return Visibility.Collapsed;

@@ -10,6 +10,9 @@
         <ResourceDictionary Source="./ListStyles.xaml" />
         <ResourceDictionary Source="./ComboboxStyles.xaml" />
         <ResourceDictionary Source="./TextBoxStyles.xaml" />
+        <ResourceDictionary Source="./TabControlStyles.xaml" />
+        <ResourceDictionary Source="./StaticStyles.xaml" />
+        <ResourceDictionary Source="./StaticStyles/StaticColor.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <converters:Path2UriConverter x:Key="Path2UriConverter" />
     <converters:Bytes2BitmapImageConverter x:Key="Bytes2BitmapImageConverter" />

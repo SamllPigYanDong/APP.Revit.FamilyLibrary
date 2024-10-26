@@ -1,9 +1,10 @@
 ﻿using DryIoc;
 using Prism.Ioc;
 using Revit.Entity;
-using Revit.Entity.Interfaces;
-using Revit.Mvvm;
+using Revit.Mvvm.Interface;
 using Revit.Service.Services;
+using Revit.Shared.Base;
+using Revit.Shared.Interfaces;
 
 namespace Revit.Application.UI
 {

@@ -4,9 +4,11 @@ using Prism.DryIoc;
 using DryIoc;
 using System;
 using Revit.Entity;
-using Revit.Entity.Interfaces;
+using Revit.Shared.Interfaces;
+using Revit.Mvvm.Interface;
+using Revit.Mvvm;
 
-namespace Revit.Mvvm
+namespace Revit.Shared.Base
 {
     public abstract class ApplicationBase : IExternalApplication
     {
@@ -43,13 +45,8 @@ namespace Revit.Mvvm
 
         private void RegisterMethod(UIControlledApplication application)
         {
-            
             _containerExtension.Register<IUIProvider, UIProvider>();
             RegisterTypes(_containerExtension);
         }
-
-
-
-
     }
 }

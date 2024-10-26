@@ -29,6 +29,11 @@
 
 
 	<ItemGroup>
+	  <Compile Remove="Host.cs" />
+	</ItemGroup>
+
+
+	<ItemGroup>
 	  <PackageReference Include="Prism.DryIoc" Version="7.2.0.1422" />
 	
 	</ItemGroup>

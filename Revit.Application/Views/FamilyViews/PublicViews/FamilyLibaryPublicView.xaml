@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Revit.Application.Views.FamilyViews.Public.FamilyLibaryPublicView"
+    x:Class="Revit.Application.Views.FamilyViews.PublicViews.FamilyLibaryPublicView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -271,26 +271,7 @@
                     Grid.Row="3"
                     Margin="0,5"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center" />
-                <!--<StackPanel
-              Grid.Row="2"
-              HorizontalAlignment="Center"
-              Orientation="Horizontal">
-              <Button Width="50" Command="{Binding ChangePreviousPageCommand}">
-                  <TextBlock
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      Text="上一页" />
-              </Button>
-              <TextBlock IsEnabled="{Binding PagedList.HasNextPage}" Text="{Binding PagedList.PageIndex, StringFormat={}{0}/}" />
-              <TextBlock IsEnabled="{Binding PagedList.HasPreviousPage}" Text="{Binding PagedList.TotalPages, StringFormat={}}" />
-              <Button Command="{Binding ChangeNextPageCommand}">
-                  <TextBlock
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      Text="下一页" />
-              </Button>
-          </StackPanel>-->
+                    VerticalAlignment="Center"  />
             </Grid>
         </Grid>
     </uiModel:RvtContentSection>

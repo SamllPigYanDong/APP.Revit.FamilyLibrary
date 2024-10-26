@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Revit.Entity.Interfaces
+namespace Revit.Shared.Interfaces
 {
     public interface IEventManager
     {

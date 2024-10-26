@@ -7,7 +7,7 @@ using Revit.Application.ViewModels;
 using Revit.Application.Views;
 using Revit.Extension;
 using Revit.Mvvm.Extensions;
-using Revit.Mvvm;
+using Revit.Shared.Base;
 
 namespace Revit.Application.Commands
 {

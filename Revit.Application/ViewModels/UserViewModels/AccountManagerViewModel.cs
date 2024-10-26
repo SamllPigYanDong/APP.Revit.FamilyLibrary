@@ -1,6 +1,4 @@
-﻿using Revit.Entity.Entity;
-using Revit.Entity.Interfaces;
-using Revit.Service.IServices;
+﻿using Revit.Service.IServices;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.Input;
@@ -19,11 +17,13 @@ using System.Windows;
 using Autodesk.Revit.UI;
 using Revit.Authorization.Users.Dto;
 using Revit.Authorization.Roles.Dto;
+using Revit.Shared;
+using Revit.Shared.Extensions.Threading;
 
 
 namespace Revit.Application.ViewModels.UserViewModels
 {
-    public class UserManageViewModel : ViewModelBase
+    public partial class AccountManagerViewViewModel : ViewModelBase
     {
         private readonly IUserAppService userAppService;
         private readonly IRoleAppService roleService;
@@ -43,7 +43,6 @@ namespace Revit.Application.ViewModels.UserViewModels
             set { SetProperty(ref _roles, value); }
         }
 
-
         private ObservableCollection<PermissionDto> _permissions = new ObservableCollection<PermissionDto>();
         public ObservableCollection<PermissionDto> Permissions
         {
@@ -51,27 +50,11 @@ namespace Revit.Application.ViewModels.UserViewModels
             set { SetProperty(ref _permissions, value); }
         }
 
-        public PagedList<UserDto> UserPage { get; set; }
-
-        private AsyncRelayCommand _getUsersCommand;
-
-        public AsyncRelayCommand GetUsersCommand { get => _getUsersCommand ?? new AsyncRelayCommand(GetUsers); }
-
-
-        private AsyncRelayCommand _addUsersCommand;
-
-        public AsyncRelayCommand AddUsersCommand { get => _addUsersCommand ?? new AsyncRelayCommand(AddUser); }
-
-
-        private AsyncRelayCommand<UserDto> _deleteUsersCommand;
-
-        public AsyncRelayCommand<UserDto> DeleteUserCommand { get => _deleteUsersCommand ?? new AsyncRelayCommand<UserDto>(DeleteUser); }
+        public PagedList<UserDto> PagedList { get; set; }
 
 
 
-        private AsyncRelayCommand<RoleDto> _getRolePermissionsCommand;
 
-        public AsyncRelayCommand<RoleDto> GetRolePermissionsCommand { get => _getRolePermissionsCommand ?? new AsyncRelayCommand<RoleDto>(GetRolePermissions); }
 
         private static UserPageRequestDto _userQueryParameter = new UserPageRequestDto() { PageIndex = 1, PageSize = 10, SearchMessage = "" };
         public UserPageRequestDto UserQueryParameter
@@ -88,18 +71,11 @@ namespace Revit.Application.ViewModels.UserViewModels
         }
 
 
-        protected override void ChangeNextPage()
+       
+        [RelayCommand]
+        private async Task AddUsers()
         {
-            UserQueryParameter.Next();
-        }
-
-        protected override void ChangePreviousPage()
-        {
-        }
-
-        private async Task AddUser()
-        {
-            dialogService.ShowDialog(nameof(EditUserDialogView), null, async (IDialogResult result) =>
+            dialogService.ShowDialog(nameof(AddUserDialogView), null, async (IDialogResult result) =>
             {
                 if (result.Result == ButtonResult.OK)
                 {
@@ -114,7 +90,7 @@ namespace Revit.Application.ViewModels.UserViewModels
             });
         }
 
-
+        [RelayCommand]
         private async Task DeleteUser(UserDto user)
         {
             if (MessageBox.Show("删除用户后不可恢复，请是否确认删除！", "提示", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
@@ -123,7 +99,7 @@ namespace Revit.Application.ViewModels.UserViewModels
                 await userAppService.DeleteUser(new Abp.Application.Services.Dto.EntityDto<long>(user.Id)).WebAsync(async () => { await GetUsers(); });
             }
         }
-
+        [RelayCommand]
         private async Task GetRolePermissions(RoleDto role)
         {
             var result = await roleService.GetRolePermissions(role.Id);
@@ -139,19 +115,19 @@ namespace Revit.Application.ViewModels.UserViewModels
             await GetRoles();
         }
 
-
+        [RelayCommand]
         private async Task GetUsers()
         {
             await userAppService.GetUsers(UserQueryParameter).WebAsync(successCallback: async (result) =>
             {
                 if (result != null)
                 {
-                    UserPage = result;
-                    Users = new ObservableCollection<UserDto>(UserPage.Items);
+                    PagedList = result;
+                    Users = new ObservableCollection<UserDto>(PagedList.Items);
                 }
             });
         }
-
+        [RelayCommand]
         private async Task GetRoles()
         {
             var result = await roleService.GetRoles(RoleQueryParameter);
@@ -161,7 +137,7 @@ namespace Revit.Application.ViewModels.UserViewModels
             }
 
         }
-
+        [RelayCommand]
         private async Task GetPermissions()
         {
             var result = await permissionService.GetAllPermissions();
@@ -173,7 +149,7 @@ namespace Revit.Application.ViewModels.UserViewModels
         }
 
 
-        public UserManageViewModel( IUserAppService userAppService, IRoleAppService roleService, IPermissionAppService permissionService, IDialogService dialogService)
+        public AccountManagerViewViewModel( IUserAppService userAppService, IRoleAppService roleService, IPermissionAppService permissionService, IDialogService dialogService)
         {
             this.userAppService = userAppService;
             this.roleService = roleService;

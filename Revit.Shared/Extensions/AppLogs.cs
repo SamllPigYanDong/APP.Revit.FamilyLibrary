@@ -1,7 +1,7 @@
 ﻿using System;
 using NLog;
 
-namespace Revit.Shared
+namespace Revit.Shared.Extensions
 {
     public static class AppLogs
     {

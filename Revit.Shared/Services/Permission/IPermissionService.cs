@@ -1,4 +1,4 @@
-﻿namespace Revit.Shared
+﻿namespace Revit.Shared.Services.Permission
 {
     /// <summary>
     /// 权限验证接口

@@ -1,8 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Regions;
 using Revit.Application.Views.ProjectViews;
-using Revit.Entity.Entity.UI;
-using Revit.Entity.Interfaces;
+using Revit.Shared;
 using System.Collections.ObjectModel;
 
 namespace Revit.Application.ViewModels
@@ -21,7 +20,7 @@ namespace Revit.Application.ViewModels
             set { SetProperty(ref _menuBars, value); }
         }
 
-        protected override void Navigate(MenuBar menuBar)
+        protected  void Navigate(MenuBar menuBar)
         {
             if (menuBar != null && !string.IsNullOrWhiteSpace(menuBar.NameSpace))
             {

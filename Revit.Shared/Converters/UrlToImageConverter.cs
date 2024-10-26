@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
-namespace Revit.Converters
+namespace Revit.Shared.Converters
 {
     public class UrlToImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value!=null)
+            if (value != null)
             {
-                var url = AppConsts.DocumentPath+value.ToString();
+                var url = AppConsts.DocumentPath + value.ToString();
                 var bytes = File.ReadAllBytes(url);
                 MemoryStream ms = new MemoryStream(bytes);
                 BitmapImage img = new BitmapImage();

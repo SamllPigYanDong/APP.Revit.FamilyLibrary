@@ -1,5 +1,7 @@
 ﻿using Prism.Ioc;
 using Prism.Regions;
+using Revit.Shared;
+using Revit.Shared.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +18,7 @@ namespace Revit.Mvvm.Extensions
         {
             var view = container.Resolve<TView>();
             view.DataContext = container.Resolve<TViewModel>();
-            RegionManager.SetRegionManager(view, CommandBase.Instance.Container.Resolve<IRegionManager>());
+            RegionManager.SetRegionManager(view, SharedModule.Instance.Container.Resolve<IRegionManager>());
             RegionManager.UpdateRegions();
             return view;
         }

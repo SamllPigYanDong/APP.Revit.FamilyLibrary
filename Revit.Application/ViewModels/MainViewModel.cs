@@ -1,5 +1,4 @@
 ﻿using Revit.Application.Views;
-using Revit.Entity.Interfaces;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -8,9 +7,9 @@ using Prism.Commands;
 using Revit.Application.Views.ProjectViews;
 using Revit.Application.Views.FamilyViews;
 using Revit.Service.IServices;
-using Revit.Entity.Entity.UI;
 using Revit.Entity;
 using Revit.Accounts.Dto;
+using Revit.Shared;
 
 namespace Revit.Application.ViewModels
 {

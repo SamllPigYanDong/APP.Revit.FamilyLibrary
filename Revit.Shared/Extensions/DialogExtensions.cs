@@ -1,15 +1,16 @@
 ﻿using Revit.Shared.Services;
 using Prism.Services.Dialogs;
 using System.Threading.Tasks;
-using Revit.Entity.Interfaces;
+using Revit.Shared.Interfaces;
+using Revit.Shared.Consts;
 
-namespace Revit.Shared
+namespace Revit.Shared.Extensions
 {
     /// <summary>
     /// 会话窗口扩展服务
     /// </summary>
     public static class DialogExtensions
-    { 
+    {
         /// <summary>
         /// 询问窗口
         /// </summary>
@@ -21,7 +22,7 @@ namespace Revit.Shared
             string message,
             string IdentifierName = AppSharedConsts.RootIdentifier)
         {
-            return await Question(hostDialogService, /*Local.Localize(*/"AreYouSure"/*)*/, message, IdentifierName);
+            return await hostDialogService.Question("AreYouSure"/*)*/, message, IdentifierName);
         }
 
         /// <summary>

@@ -3,6 +3,7 @@ using Prism.Commands;
 using Revit.Families;
 using Revit.Service.IServices;
 using Revit.Service.Services;
+using Revit.Shared;
 using Revit.Shared.Entity.Commons.Page;
 using Revit.Shared.Entity.Family;
 using Revit.Shared.Models;
@@ -94,7 +95,7 @@ namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels
         /// <summary>
         /// 搜索
         /// </summary>
-        protected override async void Search()
+        protected  async void Search()
         {
             QueryParameter.SetSearchMessage();
             LoadFamilies(QueryParameter);
@@ -103,7 +104,7 @@ namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels
         /// <summary>
         /// 下一页
         /// </summary>
-        protected override async void ChangeNextPage()
+        protected  async void ChangeNextPage()
         {
             if (!PagedList.HasNextPage)
             {
@@ -116,7 +117,7 @@ namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels
         /// <summary>
         /// 翻上一页
         /// </summary>
-        protected override void ChangePreviousPage()
+        protected  void ChangePreviousPage()
         {
             if (!PagedList.HasPreviousPage)
             {

@@ -1,6 +1,6 @@
-﻿using System; 
+﻿using System;
 
-namespace Revit.Shared
+namespace Revit.Shared.Extensions
 {
     public static class DateTimeExtensions
     {
@@ -17,7 +17,7 @@ namespace Revit.Shared
             if (date == null)
                 throw new ArgumentNullException(nameof(date));
 
-            return Convert.ToDateTime((Convert.ToDateTime(date).AddDays(1).ToString("D"))).AddSeconds(-1);
+            return Convert.ToDateTime(Convert.ToDateTime(date).AddDays(1).ToString("D")).AddSeconds(-1);
         }
     }
 }

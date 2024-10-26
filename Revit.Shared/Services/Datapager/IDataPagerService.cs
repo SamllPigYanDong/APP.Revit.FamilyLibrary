@@ -3,7 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
-namespace Revit.Shared.Services
+namespace Revit.Shared.Services.Datapager
 {
     public class PageIndexChangedEventArgs : EventArgs
     {

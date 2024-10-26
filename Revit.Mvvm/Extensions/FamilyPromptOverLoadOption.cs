@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Revit.Entity.Entity.APIEntity
+namespace Revit.Mvvm.Extensions
 {
     /// <summary>
     /// 载入族时发现重复，覆盖族选项
@@ -18,7 +18,7 @@ namespace Revit.Entity.Entity.APIEntity
             return true;
         }
 
-        public bool OnSharedFamilyFound(Autodesk.Revit.DB.Family sharedFamily, bool familyInUse, out FamilySource source, out bool overwriteParameterValues)
+        public bool OnSharedFamilyFound(Family sharedFamily, bool familyInUse, out FamilySource source, out bool overwriteParameterValues)
         {
             source = FamilySource.Project;
             overwriteParameterValues = true;

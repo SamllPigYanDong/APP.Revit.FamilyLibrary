@@ -1,0 +1,67 @@
+﻿<UserControl
+    x:Class="Revit.Application.Views.UserViews.DialogViews.AddRoleDialogView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Revit.Application.Views.UserViews.DialogViews"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:uiModel="clr-namespace:Revit.Application.Styles.UIModel"
+    xmlns:vm="clr-namespace:Revit.Application.ViewModels.UserViewModels"
+    Width="400"
+    Height="450"
+    d:DataContext="{d:DesignInstance vm:AddUserDialogViewModel}"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Revit.Application;component/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style
+                x:Key="{x:Type Button}"
+                BasedOn="{StaticResource Button_Normal}"
+                TargetType="{x:Type Button}">
+                <Setter Property="FontFamily" Value="{StaticResource icon}" />
+                <Setter Property="Height" Value="23" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <uiModel:RvtContentSection MainWindowHeader="添加用户">
+        <Grid Margin="0,15,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <TabControl Margin="10,0">
+                <TabItem Background="Transparent" Header="用户信息">
+                    <ScrollViewer DataContext="{Binding User}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="5,0">
+                            <TextBlock Text="角色名称" />
+                            <TextBox Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
+                            <CheckBox Content="新建角色是否默认拥有此角色" />
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
+
+            <UniformGrid
+                Grid.Row="1"
+                Margin="15"
+                Columns="2"
+                Rows="1">
+                <Button
+                    Margin="0,0,10,0"
+                    Padding="5"
+                    Command="{Binding CloseCommand}"
+                    Content="取消" />
+                <Button
+                    Padding="5"
+                    Command="{Binding SubmitCommand}"
+                    Content="保存" />
+            </UniformGrid>
+        </Grid>
+    </uiModel:RvtContentSection>
+
+</UserControl>

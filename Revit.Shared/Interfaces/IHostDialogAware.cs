@@ -2,7 +2,7 @@
 using Prism.Services.Dialogs;
 using System.Threading.Tasks;
 
-namespace Revit.Entity.Interfaces
+namespace Revit.Shared.Interfaces
 {
     /// <summary>
     /// 对话主机ViewModel基类

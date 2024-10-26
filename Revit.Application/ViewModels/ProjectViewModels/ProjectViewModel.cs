@@ -1,9 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using Revit.Entity.Interfaces;
 using Revit.Application.Views.ProjectViews;
 using Prism.Commands;
 using Prism.Regions;
-using Revit.Entity.Entity.UI;
+using Revit.Shared;
 
 namespace Revit.Application.ViewModels.ProjectViewModels
 {
@@ -21,7 +20,7 @@ namespace Revit.Application.ViewModels.ProjectViewModels
         private readonly IRegionManager regionManager;
 
 
-        protected override void Navigate(MenuBar menuBar)
+        protected  void Navigate(MenuBar menuBar)
         {
             if (menuBar != null && !string.IsNullOrWhiteSpace(menuBar.NameSpace))
             {

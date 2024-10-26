@@ -1,12 +1,12 @@
 ﻿using Abp.Notifications;
 using Revit.Shared;
 using Newtonsoft.Json;
-using System; 
-using System.Globalization; 
-using System.Text; 
+using System;
+using System.Globalization;
+using System.Text;
 using System.Windows.Data;
 
-namespace Revit.Converters
+namespace Revit.Shared.Converters
 {
     public class NotificationMessage
     {

@@ -1,6 +1,7 @@
 ﻿using Prism.Ioc;
 using Prism.Regions;
-using Revit.Mvvm;
+using Revit.Shared;
+using Revit.Shared.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace Revit.Application.Views
         public MainProjectView()
         {
             InitializeComponent();
-            RegionManager.SetRegionManager(this, CommandBase.Instance.Container.Resolve<IRegionManager>());
+            RegionManager.SetRegionManager(this, SharedModule.Instance.Container.Resolve<IRegionManager>());
             RegionManager.UpdateRegions();
 
             //regionManager.RegisterViewWithRegion("ProjectContent", typeof(ProjectView));

@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 
-namespace Revit.Shared.Services
+namespace Revit.Shared.Services.Theme
 {
     public interface IThemeService
     {

@@ -1,6 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using Revit.Entity.Interfaces;
-using Revit.Application.ViewModels;
 using Revit.Application.ViewModels.FamilyViewModels;
 using Revit.Shared.Entity.Family;
 using Revit.Categories;
@@ -9,14 +7,16 @@ using Revit.Shared.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using Revit.Service.Services;
+using Revit.Shared;
 
-namespace Revit.Service.Services
+namespace Revit.Mvvm.Services
 {
     public class CategoryService : ViewModelBase, ICategoryService
     {
         private readonly ICategoryAppService categoryWebService;
 
-        public CategoryService( ICategoryAppService categoryWebService) : base()
+        public CategoryService(ICategoryAppService categoryWebService) : base()
         {
             this.categoryWebService = categoryWebService;
         }
@@ -25,9 +25,9 @@ namespace Revit.Service.Services
         {
             var result = await categoryWebService.GetAllCategories();
             var root = new ViewCategoryDto() { Name = "全部", Id = 0, ParentId = 0 };
-            if (result!=null&&result.Any())
+            if (result != null && result.Any())
             {
-                GroupCategories(root, result.ToList().ConvertAll(x=>new ViewCategoryDto(x) ));
+                GroupCategories(root, result.ToList().ConvertAll(x => new ViewCategoryDto(x)));
             }
             return root;
         }
@@ -47,7 +47,7 @@ namespace Revit.Service.Services
 
         public IEnumerable<long> GetCategoryChildIds(ViewCategoryDto root)
         {
-            var results = new List<long>() { root.Id};
+            var results = new List<long>() { root.Id };
             foreach (var child in root.Childs)
             {
                 results.Add(child.Id);

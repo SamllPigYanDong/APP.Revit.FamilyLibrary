@@ -4,7 +4,8 @@ using Revit.Application.ViewModels.UserViewModels;
 using Revit.Application.Views.ProjectViews.ProjectDialogs;
 using Revit.Application.Views.UserViews;
 using Revit.Entity;
-using Revit.Mvvm;
+using Revit.Shared;
+using Revit.Shared.Base;
 
 namespace Revit.Application.Commands
 {
@@ -27,7 +28,7 @@ namespace Revit.Application.Commands
             }
             else
             {
-                var loginView =CommandBase.Instance.Container.Resolve<LoginView>();
+                var loginView = SharedModule.Instance.Container.Resolve<LoginView>();
                 if (loginView!=null)
                 {
                     return loginView.ShowDialog().Value;

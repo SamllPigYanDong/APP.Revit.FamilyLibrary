@@ -1,10 +1,9 @@
 ﻿using ImTools;
 using Prism.Commands;
 using Revit.Entity;
-using Revit.Entity.Entity;
-using Revit.Entity.Interfaces;
 using Revit.Project.Dto;
 using Revit.Service.IServices;
+using Revit.Shared;
 using Revit.Shared.Entity.Commons;
 using System;
 using System.Collections.Generic;

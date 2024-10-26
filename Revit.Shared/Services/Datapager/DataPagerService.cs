@@ -1,12 +1,12 @@
 ﻿using Abp.Application.Services.Dto;
-using Revit.Shared.Services.Mapper;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Revit.Shared.Services.App;
 
-namespace Revit.Shared.Services
+namespace Revit.Shared.Services.Datapager
 {
     /// <summary>
     /// 数据分页服务
@@ -42,7 +42,7 @@ namespace Revit.Shared.Services
         {
             get { return pageIndex; }
             set
-            { 
+            {
                 //分页组件的索引被UI当中变更,触发查询事件, 记录当前需要跳过的总数,以及当前的索引变化
                 OnPageIndexChangedEventhandler?.Invoke(this, new PageIndexChangedEventArgs()
                 {
@@ -116,9 +116,9 @@ namespace Revit.Shared.Services
 
         public async Task SetList<T>(IListResult<T> listResult)
         {
-            await SetList<T>(new PagedResultDto<T>()
+            await SetList(new PagedResultDto<T>()
             {
-                Items=listResult.Items
+                Items = listResult.Items
             });
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Hardcodet.Wpf.TaskbarNotification;
+using Revit.Shared.Services.App;
 
-namespace Revit.Shared
+namespace Revit.Shared.Extensions
 {
     public static class DialogHelper
     {

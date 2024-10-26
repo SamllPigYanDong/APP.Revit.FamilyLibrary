@@ -2,10 +2,10 @@
 using Revit.ApiClient.Models;
 using System.Threading.Tasks;
 
-namespace Revit.Shared.Services
+namespace Revit.Shared.Services.Storage
 {
     public interface IAccountStorageService
-    { 
+    {
         Task StoreAccessTokenAsync(string newAccessToken);
 
         Task StoreAuthenticateResultAsync(AbpAuthenticateResultModel authenticateResultModel);

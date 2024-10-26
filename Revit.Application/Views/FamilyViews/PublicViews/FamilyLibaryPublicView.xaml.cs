@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Revit.Application.Views.FamilyViews.Public
+namespace Revit.Application.Views.FamilyViews.PublicViews
 {
     /// <summary>
     /// FamilyLibaryView.xaml 的交互逻辑

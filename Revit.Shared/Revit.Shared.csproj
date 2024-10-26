@@ -61,30 +61,29 @@
     <Compile Remove="ProgressBarService.cs" />
   </ItemGroup>
 
+
+
+  <ItemGroup>
+    <Page Remove="Themes\FontIcons.xaml" />
+    <Page Remove="Themes\generic.xaml" />
+    <Page Remove="Themes\Templates\FileTemplate.xaml" />
+    <Page Remove="Themes\Templates\ImageTemplate.xaml" />
+    <Page Remove="Themes\Templates\TextTemplate.xaml" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Revit.Application.Client\Revit.Application.Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Themes\generic.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
-    <Page Update="Themes\Templates\FileTemplate.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Themes\Templates\ImageTemplate.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Themes\Templates\LinkTemplate.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\Templates\TextTemplate.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Themes\Templates\" />
   </ItemGroup>
 
 </Project>

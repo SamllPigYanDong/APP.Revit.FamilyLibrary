@@ -12,7 +12,7 @@
     <Color x:Key="ClrConfiguratorOver">#658d30</Color>
     <Color x:Key="ClrDwgExporter">#dd2222</Color>
     <Color x:Key="ClrDwgExporterOver">#a61a1a</Color>
-    <Color x:Key="ClrApplicationHeader">#3b4453</Color>
+    <Color x:Key="ClrApplicationHeader">CadetBlue</Color>
     <Color x:Key="ClrSideMenu">#f9f9f9</Color>
     <Color x:Key="ClrSideMenuButtonsMouseOver">#f0f0f0</Color>
     <Color x:Key="ClrDarkText">#373737</Color>

@@ -50,11 +50,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Services\Themes\SkinManagerExtensions.cs" />
+	  <Compile Remove="Services\Themes\ThemeService.cs" />
 	  <Compile Remove="ViewModels\TestViewModel.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<None Remove="Resources\iconfont.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Remove="Themes\Border.xaml" />
+	  <Page Remove="Themes\Button.xaml" />
+	  <Page Remove="Themes\DataGrid.xaml" />
+	  <Page Remove="Themes\Generic.xaml" />
+	  <Page Remove="Themes\Host\DialogHost.xaml" />
 	</ItemGroup>
 
 
@@ -74,6 +84,9 @@
 		</Compile>
 		<Compile Update="Views\FamilyViews\PublicViews\FamilyLibaryPublicUploadView.xaml.cs">
 			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Views\UserViews\DialogViews\AddRoleDialogView.xaml.cs">
+		  <SubType>Code</SubType>
 		</Compile>
 	</ItemGroup>
 
@@ -96,6 +109,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Services\Themes\" />
 		<Folder Include="Styles\Converter\" />
 		<Folder Include="ViewModels\FamilyViewModels\PrivateViewModels\" />
 	</ItemGroup>

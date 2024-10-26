@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Revit.Application.Views.UserViews
 {
     /// <summary>
-    /// UeserManageView.xaml 的交互逻辑
+    /// AccountManagerView.xaml 的交互逻辑
     /// </summary>
-    public partial class UeserManageView : UserControl
+    public partial class UserView : UserControl
     {
-        public UeserManageView()
+        public UserView()
         {
             InitializeComponent();
         }

@@ -2,16 +2,15 @@
 using System;
 using System.Collections.ObjectModel;
 using Revit.Service.IServices;
-using Revit.Entity.Entity;
 using Prism.Commands;
 using Prism.Services.Dialogs;
 using Prism.Regions;
 using Revit.Application.Views.ProjectViews;
 using System.Windows;
 using System.Linq;
-using Revit.Entity.Entity.UI;
 using Revit.Shared.Entity.Commons;
 using Revit.Project.Dto;
+using Revit.Shared;
 
 namespace Revit.Application.ViewModels.ProjectViewModels
 {

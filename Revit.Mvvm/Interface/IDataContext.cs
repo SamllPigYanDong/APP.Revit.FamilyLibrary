@@ -1,7 +1,7 @@
 ﻿using Autodesk.Revit.UI;
 using Document = Autodesk.Revit.DB.Document;
 
-namespace Revit.Entity.Interfaces
+namespace Revit.Mvvm.Interface
 {
     public interface IDataContext
     {

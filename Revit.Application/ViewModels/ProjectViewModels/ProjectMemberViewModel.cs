@@ -1,11 +1,10 @@
-﻿using Revit.Entity.Entity;
-using Revit.Entity.Interfaces;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Revit.Service.IServices;
 using Prism.Commands;
 using System.Windows;
 using Revit.Shared.Entity.Commons;
 using Revit.Authorization.Users.Dto;
+using Revit.Shared;
 
 namespace Revit.Application.ViewModels.ProjectViewModels
 {
