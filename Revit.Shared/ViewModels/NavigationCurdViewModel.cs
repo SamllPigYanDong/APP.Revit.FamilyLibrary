@@ -1,8 +1,8 @@
 ﻿namespace Revit.Shared
 {
-    using Prism.Ioc;
-    using Prism.Services.Dialogs;
-    using Prism.Commands;
+    using global::Prism.Ioc;
+    using global::Prism.Services.Dialogs;
+    using global::Prism.Commands;
     using Revit.Shared.Services.Permission;
     using CommunityToolkit.Mvvm.Input;
     using System.Windows;
@@ -11,10 +11,10 @@
 
     public partial class NavigationCurdViewModel : NavigationViewModel
     {
-        public NavigationCurdViewModel()
+        public NavigationCurdViewModel() 
         { 
             //数据分页服务
-            //dataPager = CommandBase.Instance.Container.Resolve<IDataPagerService>();
+            dataPager = SharedModule.Instance.Container.Resolve<IDataPagerService>();
             //proxyService = CommandBase.Instance.Container.Resolve<IPermissionPorxyService>();
               
             //ExecuteCommand = new DelegateCommand<string>(proxyService.Execute);
@@ -31,19 +31,13 @@
         [RelayCommand]
         public async void Add()
         {
-            MessageBox.Show(GetPageName("Add"));
-            try
-            {
-                var dialogResult = await dialog.ShowDialogAsync(GetPageName("Add"));
+                IDialogResult dialogResult =new DialogResult(ButtonResult.Cancel);
+                dialogService.ShowDialog("AddRoleDialogView", new DialogParameters(), (result => {
+                    dialogResult= result;
+                }));
+                //GetPageName("Add")
                 if (dialogResult.Result == ButtonResult.OK)
                     await OnNavigatedToAsync();
-            }
-            catch (System.Exception e )
-            {
-
-                MessageBox.Show(e.Message+e.InnerException.Message);
-            }
-          
         }
 
         /// <summary>
@@ -54,7 +48,10 @@
             DialogParameters param = new DialogParameters();
             param.Add("Value", dataPager.SelectedItem);
 
-            var dialogResult = await dialog.ShowDialogAsync(GetPageName("Edit"), param);
+            var dialogResult = new DialogResult(ButtonResult.Cancel);
+            dialogService.ShowDialog(GetPageName("Add"), param, (result => {
+                dialogResult = new DialogResult(result.Result);
+            }));
             if (dialogResult.Result == ButtonResult.OK)
                 await OnNavigatedToAsync();
         }

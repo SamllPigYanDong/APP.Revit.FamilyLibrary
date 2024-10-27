@@ -28,7 +28,7 @@ namespace Revit.Application.Commands
             }
             else
             {
-                var loginView = SharedModule.Instance.Container.Resolve<LoginView>();
+                var loginView = CommandBase.Instance.Container.Resolve<LoginView>();
                 if (loginView!=null)
                 {
                     return loginView.ShowDialog().Value;

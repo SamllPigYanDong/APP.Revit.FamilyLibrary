@@ -1,42 +1,22 @@
 ﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System.Windows;
-using Revit.Service.Services;
 using Prism.Ioc;
-using Prism.Regions;
-using Prism.DryIoc;
 using DryIoc;
 using Revit.Entity;
-using Revit.Service.ApiServices;
-using Revit.Service.IServices;
 using System;
-using Prism.Modularity;
-using Prism.Mvvm;
-using Prism.Regions.Behaviors;
-using System.Windows.Controls.Primitives;
-using System.Windows.Controls;
-using Prism.Events;
-using Prism.Services.Dialogs;
-using Prism.Logging;
-using Prism.DryIoc.Ioc;
-using CommonServiceLocator;
-using Revit.Authorization.Roles;
-using Revit.Application;
-using Revit.ApiClient;
-using Revit.Authorization.Permissions;
-using Revit.Families;
-using Revit.Authorization.Users;
-using Revit.Categories;
 using Revit.Mvvm.Interface;
-using System.ComponentModel;
+using Prism.Modularity;
 
 namespace Revit.Shared.Base
 {
-    public abstract class CommandBase : IExternalCommand
+    public abstract class CommandBase : SharedModule, IExternalCommand
     {
-        protected IDataContext DataContext { get => SharedModule.Instance.Container.Resolve<DataContext>(); }//无窗体时拿到Doc和UIDoc
+        protected IDataContext DataContext { get => Container.Resolve<DataContext>(); }//无窗体时拿到Doc和UIDoc
 
-        public static Window MainWindow { get; set; }
+        public CommandBase():base()
+        {
+        }
 
         public abstract Window CreateMainWindow();
 
@@ -47,7 +27,8 @@ namespace Revit.Shared.Base
         {
             try
             {
-                SharedModule.Instance.PrismInit((contanier => {
+                PrismInit((contanier =>
+                {
                     contanier.RegisterInstance(commandData);
                     contanier.RegisterSingleton<IDataContext, DataContext>();
                     RegisterTypes(contanier);
@@ -74,5 +55,6 @@ namespace Revit.Shared.Base
         /// 用来注册需要使用的类别
         /// </summary>
         protected abstract void RegisterTypes(IContainerRegistry containerRegistry);
+       
     }
 }

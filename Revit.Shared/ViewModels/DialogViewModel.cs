@@ -2,10 +2,11 @@
 using Prism.Commands;
 using Prism.Services.Dialogs;
 using System;
+using System.Threading.Tasks;
 
 namespace Revit.Shared
 {
-    public partial class  DialogViewModel: ViewModelBase, IDialogAware
+    public partial class DialogViewModel : ViewModelBase, IDialogAware
     {
         public string Title { get; set; }
 
@@ -15,7 +16,11 @@ namespace Revit.Shared
         public virtual void Cancel() => OnDialogClosed(ButtonResult.Cancel);
 
         [RelayCommand]
-        public virtual void Save() => OnDialogClosed(ButtonResult.OK);
+        public virtual async Task Save()
+        {
+            OnDialogClosed(ButtonResult.OK);
+            await Task.CompletedTask;
+        }
 
         public virtual bool CanCloseDialog() => true;
 

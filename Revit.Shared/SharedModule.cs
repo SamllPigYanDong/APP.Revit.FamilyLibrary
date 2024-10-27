@@ -18,11 +18,14 @@ using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
 using System.Windows.Controls;
 using System.Windows;
+using System.ComponentModel;
+using Container = DryIoc.Container;
 
 namespace Revit.Shared
 {
-    public class SharedModule
+    public class SharedModule:IModule
     {
+        public static Window MainWindow { get; set; }
 
         public static SharedModule Instance { get; private set; }
 
@@ -84,9 +87,10 @@ namespace Revit.Shared
         /// <summary>
         ///  配置模Prism块化类别 <see cref="IModuleCatalog"/> .
         /// </summary>
-        protected virtual void ConfigureModuleCatalog(IModuleCatalog moduleCatalog) 
+        protected virtual void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-        
+
+
         }
 
         private static IContainerExtension CreateContainerExtension()
@@ -101,7 +105,7 @@ namespace Revit.Shared
         {
             // 基础WPF应用类的注册
             container.RegisterSingleton<ILoggerFacade, TextLogger>();
-            container.RegisterSingleton<IDialogService, DialogService>();
+            container.RegisterSingleton<IDialogService, Revit.Shared.Prism.DialogService>();
             container.RegisterSingleton<IModuleInitializer, ModuleInitializer>();
             container.RegisterSingleton<IModuleManager, ModuleManager>();
             container.RegisterSingleton<RegionAdapterMappings>();
@@ -118,10 +122,36 @@ namespace Revit.Shared
             container.RegisterSingleton<IRegionNavigationContentLoader, RegionNavigationContentLoader>();
             container.RegisterSingleton<IServiceLocator, DryIocServiceLocatorAdapter>();
 
-            
+            SharedModuleExtensions.AddSharedServices(container);
+        }
 
+        public void RegisterTypes(IContainerRegistry container)
+        {
+            // 基础WPF应用类的注册
+            container.RegisterSingleton<ILoggerFacade, TextLogger>();
+            container.RegisterSingleton<IDialogService, Revit.Shared.Prism.DialogService>();
+            container.RegisterSingleton<IModuleInitializer, ModuleInitializer>();
+            container.RegisterSingleton<IModuleManager, ModuleManager>();
+            container.RegisterSingleton<RegionAdapterMappings>();
+            container.RegisterSingleton<IRegionManager, RegionManager>();
+            container.RegisterSingleton<IEventAggregator, EventAggregator>();
+            container.RegisterSingleton<IRegionViewRegistry, RegionViewRegistry>();
+            container.RegisterSingleton<IRegionBehaviorFactory, RegionBehaviorFactory>();
+            container.Register<IRegionNavigationJournalEntry, RegionNavigationJournalEntry>();
+            container.Register<IRegionNavigationJournal, RegionNavigationJournal>();
+            container.Register<IRegionNavigationService, RegionNavigationService>();
+            container.Register<IDialogWindow, DialogWindow>(); //default dialog host
+
+            // WPF应用类的注册
+            container.RegisterSingleton<IRegionNavigationContentLoader, RegionNavigationContentLoader>();
+            container.RegisterSingleton<IServiceLocator, DryIocServiceLocatorAdapter>();
 
             SharedModuleExtensions.AddSharedServices(container);
+        }
+
+        public void OnInitialized(IContainerProvider containerProvider)
+        {
+           
         }
     }
 }

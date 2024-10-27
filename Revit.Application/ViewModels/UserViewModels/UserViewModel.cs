@@ -1,4 +1,5 @@
-﻿using Revit.Shared;
+﻿using Prism.Services.Dialogs;
+using Revit.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,10 @@ using System.Threading.Tasks;
 
 namespace Revit.Application.ViewModels.UserViewModels
 {
-    public class UserViewModel:NavigationCurdViewModel
+    public class UserViewModel : NavigationCurdViewModel
     {
+        public UserViewModel() 
+        {
+        }
     }
 }

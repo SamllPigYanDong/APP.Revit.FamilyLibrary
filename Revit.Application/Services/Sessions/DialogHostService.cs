@@ -56,8 +56,7 @@ namespace Revit.Application.Services.Sessions
 
             var eventHandler = GetDialogOpenedEventHandler(viewModel, parameters);
 
-            var dialogResult = await DialogHost.Show(dialogContent, IdentifierName, eventHandler);
-
+           var dialogResult = await DialogHost.Show(dialogContent, IdentifierName, eventHandler);
             if (dialogResult == null)
                 return new DialogResult(ButtonResult.Cancel);
 

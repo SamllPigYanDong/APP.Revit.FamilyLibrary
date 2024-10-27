@@ -16,9 +16,9 @@ using Revit.Authorization.Users;
 using System.Windows;
 using Autodesk.Revit.UI;
 using Revit.Authorization.Users.Dto;
-using Revit.Authorization.Roles.Dto;
 using Revit.Shared;
 using Revit.Shared.Extensions.Threading;
+using Revit.Shared.Entity.Roles;
 
 
 namespace Revit.Application.ViewModels.UserViewModels
@@ -99,6 +99,7 @@ namespace Revit.Application.ViewModels.UserViewModels
                 await userAppService.DeleteUser(new Abp.Application.Services.Dto.EntityDto<long>(user.Id)).WebAsync(async () => { await GetUsers(); });
             }
         }
+
         [RelayCommand]
         private async Task GetRolePermissions(RoleDto role)
         {
@@ -112,7 +113,6 @@ namespace Revit.Application.ViewModels.UserViewModels
         public async void Init()
         {
             await GetUsers();
-            await GetRoles();
         }
 
         [RelayCommand]
@@ -127,16 +127,7 @@ namespace Revit.Application.ViewModels.UserViewModels
                 }
             });
         }
-        [RelayCommand]
-        private async Task GetRoles()
-        {
-            var result = await roleService.GetRoles(RoleQueryParameter);
-            if (result != null && result.Items != null && result.Items.Any())
-            {
-                Roles = new ObservableCollection<RoleDto>(result.Items);
-            }
-
-        }
+       
         [RelayCommand]
         private async Task GetPermissions()
         {

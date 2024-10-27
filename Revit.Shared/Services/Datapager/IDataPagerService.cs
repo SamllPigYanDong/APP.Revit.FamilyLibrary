@@ -1,5 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -66,7 +68,7 @@ namespace Revit.Shared.Services.Datapager
         /// <typeparam name="T"></typeparam>
         /// <param name="listResult"></param>
         /// <returns></returns>
-        Task SetList<T>(IListResult<T> listResult);
+        Task SetList<T>(IEnumerable<T> listResult);
 
         /// <summary>
         /// 页面索引改变事件

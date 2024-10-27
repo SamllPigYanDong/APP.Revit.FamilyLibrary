@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:vm="clr-namespace:Revit.Application.ViewModels.UserViewModels"
-    d:DataContext="{d:DesignInstance vm:RoleViewMdoel}"
+    d:DataContext="{d:DesignInstance vm:RoleViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     prism:ViewModelLocator.AutoWireViewModel="True"
@@ -45,7 +45,8 @@
                 AutoGenerateColumns="False"
                 BorderBrush="Transparent"
                 CanUserAddRows="False"
-                ItemsSource="{Binding Roles}">
+                ItemsSource="{Binding dataPager.GridModelList}"
+                SelectedItem="{Binding dataPager.SelectedItem}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding GetRolePermissionsCommand}" CommandParameter="{Binding ElementName=roles, Path=SelectedItem}" />

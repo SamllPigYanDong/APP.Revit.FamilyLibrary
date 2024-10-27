@@ -1,6 +1,6 @@
 ﻿using Prism.Services.Dialogs;
 
-namespace Revit.Mvvm.Prism
+namespace Revit.Shared.Prism
 {
     /// <summary>
     /// <see cref="IDialogWindow"/> extensions.

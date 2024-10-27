@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows;
 using Prism.Mvvm;
 
-namespace Revit.Mvvm.Prism
+namespace Revit.Shared.Prism
 {
     /// <summary>
     /// Helper class for MVVM.

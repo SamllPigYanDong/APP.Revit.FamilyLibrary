@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
-using Revit.Authorization.Roles.Dto;
 using Revit.Shared.Entity.Commons.Page;
 using Revit.Shared.Entity.Permissions;
+using Revit.Shared.Entity.Roles;
 
 namespace Revit.Authorization.Roles
 {
@@ -13,14 +13,14 @@ namespace Revit.Authorization.Roles
     /// </summary>
     public interface IRoleAppService : IApplicationService
     {
-        Task<PagedList<RoleDto>> GetRoles(RolePageRequestDto input);
+        Task<IEnumerable<RoleDto>> GetAllRoles();
 
-        //Task<GetRoleForEditOutput> GetRoleForEdit(NullableIdDto input);
-
-        //Task CreateOrUpdateRole(CreateOrUpdateRoleInput input);
+        Task<GetRoleForEditOutput> GetRole(long? input);
 
         Task DeleteRole(EntityDto input);
 
         Task<List<PermissionDto>> GetRolePermissions(long id);
+
+        Task<RoleCreateDto> PostRole(RoleCreateDto role);
     }
 }

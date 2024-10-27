@@ -1,4 +1,5 @@
-﻿using Revit.Authorization.Roles.Dto;
+﻿using Revit.Shared.Entity.Roles;
+using Revit.Shared.Entity.Users;
 using System;
 using System.Collections.Generic;
 

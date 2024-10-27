@@ -85,4 +85,7 @@
     <Folder Include="Authorization\Accounts\" />
     <Folder Include="Category\" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
 </Project>

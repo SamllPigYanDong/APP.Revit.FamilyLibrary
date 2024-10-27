@@ -29,7 +29,7 @@ namespace Revit.Application.Views.ProjectViews
         public ProjectView()
         {
             InitializeComponent(); 
-            RegionManager.SetRegionManager(this, SharedModule.Instance.Container.Resolve<IRegionManager>());
+            RegionManager.SetRegionManager(this, CommandBase.Instance.Container.Resolve<IRegionManager>());
             RegionManager.UpdateRegions();
         }
     }

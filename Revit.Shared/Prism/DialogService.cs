@@ -6,9 +6,8 @@ using Prism.Common;
 using Prism.Ioc;
 using Prism.Services.Dialogs;
 using Revit.Shared;
-using Revit.Shared.Base;
 
-namespace Revit.Mvvm.Prism
+namespace Revit.Shared.Prism
 {
     /// <summary>
     /// Implements <see cref="IDialogService"/> to show modal and non-modal dialogs.
@@ -129,7 +128,7 @@ namespace Revit.Mvvm.Prism
             window.DataContext = viewModel;
             if (window.Owner == null)
             {
-                window.Owner = CommandBase.MainWindow;
+                window.Owner = SharedModule.MainWindow;
             }
         }
     }

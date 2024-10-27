@@ -26,7 +26,7 @@ namespace Revit.Application.Commands
 
         public override Window CreateMainWindow()
         {
-            return SharedModule.Instance.Container.Resolve<MainView,MainViewModel>();
+            return Instance.Container.Resolve<MainView,MainViewModel>();
         }
 
         public override Result Execute(string message, ElementSet elements)

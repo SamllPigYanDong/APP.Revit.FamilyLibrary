@@ -123,11 +123,6 @@
 	  <Compile Remove="Authorization\Accounts\IAccountAppService.cs" />
 	  <Compile Remove="Authorization\Permissions\Dto\FlatPermissionDto.cs" />
 	  <Compile Remove="Authorization\Permissions\Dto\FlatPermissionWithLevelDto.cs" />
-	  <Compile Remove="Authorization\Roles\Dto\CreateOrUpdateRoleInput.cs" />
-	  <Compile Remove="Authorization\Roles\Dto\GetRoleForEditOutput.cs" />
-	  <Compile Remove="Authorization\Roles\Dto\GetRolesInput.cs" />
-	  <Compile Remove="Authorization\Roles\Dto\RoleEditDto.cs" />
-	  <Compile Remove="Authorization\Roles\Dto\RoleListDto.cs" />
 	  <Compile Remove="Authorization\Users\Dto\ChangeUserLanguageDto.cs" />
 	  <Compile Remove="Authorization\Users\Dto\CreateOrUpdateUserInput.cs" />
 	  <Compile Remove="Authorization\Users\Dto\GetLinkedUsersInput.cs" />
@@ -162,12 +157,15 @@
 	  <Compile Remove="Family\R_FamilyUser.cs" />
 	</ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\webapi-revitor\Revit.Shared.Entity\Revit.Shared.Entity.csproj" />
     <ProjectReference Include="..\Revit.Core.Shared\Revit.Core.Shared.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Auditing\Dto\" />
     <Folder Include="Authorization\Permissions\Dto\" />
     <Folder Include="Categories\Dto\" />
+    <Folder Include="Commons\Page\" />
     <Folder Include="Entity\Parameters\" />
+    <Folder Include="Family\" />
   </ItemGroup>
 </Project>

@@ -1,20 +1,21 @@
-﻿namespace Revit.Shared
+﻿
+using Revit.Shared.Validations;
+using CommunityToolkit.Mvvm.ComponentModel;
+using FluentValidation.Results;
+using System;
+using System.Text;
+using System.Threading.Tasks;
+using Revit.Shared.Services.App;
+using Prism.Ioc;
+namespace Revit.Shared
 {
-    using Revit.Shared.Validations;
-    using CommunityToolkit.Mvvm.ComponentModel;
-    using FluentValidation.Results;
-    using Prism.Ioc;
-    using System;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Revit.Shared.Services.App;
-
     [INotifyPropertyChanged]
     public partial class ViewModelBase 
     {
         public ViewModelBase()
         {
-                
+            mapper = SharedModule.Instance.Container.Resolve<IAppMapper>();
+            //validator = SharedModule.Instance.Container.Resolve<IGlobalValidator>();
         }
 
         public ViewModelBase(IAppMapper appMapper, IGlobalValidator globalValidator)

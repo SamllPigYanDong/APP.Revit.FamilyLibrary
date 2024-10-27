@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Revit.Shared.Services.App;
+using Abp.Net.Mail;
+using System.Linq;
 
 namespace Revit.Shared.Services.Datapager
 {
@@ -114,11 +116,11 @@ namespace Revit.Shared.Services.Datapager
             await Task.CompletedTask;
         }
 
-        public async Task SetList<T>(IListResult<T> listResult)
+        public async Task SetList<T>(IEnumerable<T> listResult)
         {
             await SetList(new PagedResultDto<T>()
             {
-                Items = listResult.Items
+                Items = listResult.ToList()
             });
         }
     }

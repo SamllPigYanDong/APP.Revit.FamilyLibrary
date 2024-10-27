@@ -1,20 +1,22 @@
 ﻿namespace Revit.Shared.ViewModels
 {
-    using Prism.Commands;
-    using Prism.Regions;
+    using global::Prism.Commands;
+    using global::Prism.Regions;
     using System.Threading.Tasks;
     using Revit.Shared.Interfaces;
-    using Prism.Ioc;
+    using global::Prism.Ioc;
+    using global::Prism.Services.Dialogs;
 
     public class NavigationViewModel : ViewModelBase, INavigationAware
     {
         public NavigationViewModel()
         {
-            dialog = SharedModule.Instance.Container.Resolve<IHostDialogService>();
+            this.dialogService = SharedModule.Instance.Container.Resolve<IDialogService>();
             RefreshCommand = new DelegateCommand(async () => await OnNavigatedToAsync());
         }
 
         private string title;
+        public readonly IDialogService dialogService;
 
         public string Title
         {
@@ -22,7 +24,6 @@
             set { title = value; OnPropertyChanged(); }
         }
 
-        public readonly IHostDialogService dialog;
 
         public DelegateCommand RefreshCommand { get; private set; }
 

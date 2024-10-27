@@ -11,7 +11,7 @@
     xmlns:vm="clr-namespace:Revit.Application.ViewModels.UserViewModels"
     Width="400"
     Height="450"
-    d:DataContext="{d:DesignInstance vm:AddUserDialogViewModel}"
+    d:DataContext="{d:DesignInstance vm:AddRoleDialogViewModel}"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -36,11 +36,10 @@
             </Grid.RowDefinitions>
             <TabControl Margin="10,0">
                 <TabItem Background="Transparent" Header="用户信息">
-                    <ScrollViewer DataContext="{Binding User}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer DataContext="{Binding Role}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                         <StackPanel Margin="5,0">
                             <TextBlock Text="角色名称" />
-                            <TextBox Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
-                            <CheckBox Content="新建角色是否默认拥有此角色" />
+                            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
                         </StackPanel>
                     </ScrollViewer>
                 </TabItem>
@@ -54,11 +53,11 @@
                 <Button
                     Margin="0,0,10,0"
                     Padding="5"
-                    Command="{Binding CloseCommand}"
+                    Command="{Binding  CancelCommand}"
                     Content="取消" />
                 <Button
                     Padding="5"
-                    Command="{Binding SubmitCommand}"
+                    Command="{Binding  SaveCommand}"
                     Content="保存" />
             </UniformGrid>
         </Grid>

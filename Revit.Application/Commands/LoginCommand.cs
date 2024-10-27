@@ -9,6 +9,8 @@ using Revit.Mvvm.Extensions;
 using System;
 using Revit.Shared.Base;
 using Revit.Shared;
+using Revit.Shared.Interfaces;
+using Revit.Application.Services;
 
 
 
@@ -45,7 +47,7 @@ namespace Revit.Application.Commands
                 return null;
             }
             
-            return SharedModule.Instance.Container.Resolve<MainView,MainViewModel>();
+            return Container.Resolve<MainView,MainViewModel>();
         }
 
         public override Result Execute(string message, ElementSet elements)
@@ -55,9 +57,9 @@ namespace Revit.Application.Commands
             {
 #if !NETCOREAPP
                 //ResolveHelper.BeginAssemblyResolve(GetType()); objecttype
-                
+
 #endif
-                transactionStatus = DocumentExtension.NewTransactionGroup(DataContext.Document, "族库管理", () => MainWindow.ShowDialog().Value);
+              transactionStatus = DocumentExtension.NewTransactionGroup(DataContext.Document, "族库管理", () => MainWindow.ShowDialog().Value);
             }
             catch (Exception exception)
             {
@@ -75,8 +77,8 @@ namespace Revit.Application.Commands
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterLoginTypes();
-
             ViewsExtension.AddViews(containerRegistry);
+            ServiceExtensions.AddServices(containerRegistry);
         }
     }
 }
