@@ -59,6 +59,8 @@
     <Compile Remove="Extensions\Threading\ExceptionHandler.cs" />
     <Compile Remove="Extensions\Threading\WebRequest.cs" />
     <Compile Remove="ProgressBarService.cs" />
+    <Compile Remove="ViewModels\ValidatorDialogViewModel.cs" />
+    <Compile Remove="ViewModels\ValidatorViewModelBase.cs" />
   </ItemGroup>
 
 

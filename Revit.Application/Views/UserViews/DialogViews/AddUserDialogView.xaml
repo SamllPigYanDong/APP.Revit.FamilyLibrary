@@ -72,15 +72,53 @@
                         </ScrollViewer>
                     </Grid>
                 </TabItem>
-                <TabItem Header="角色" />
+                <TabItem Header="设置角色">
+                    <ListView
+                        Grid.Row="1"
+                        ItemsSource="{Binding Roles}"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridView.Columns>
+                                    <GridViewColumn Width="{Binding ElementName=col1, Path=ActualWidth}" Header="操作">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding IsAssigned}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="{Binding ElementName=col2, Path=ActualWidth}" Header="角色名称">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Name}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="{Binding ElementName=col3, Path=ActualWidth}" Header="创建日期">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding CreationTime}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView.Columns>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </TabItem>
                 <TabItem Header="组织" />
             </TabControl>
             <UniformGrid
                 Grid.Row="1"
                 Columns="2"
                 Rows="1">
-                <Button Command="{Binding CloseCommand}" Content="取消" />
-                <Button Command="{Binding SubmitCommand}" Content="保存" />
+                <Button Command="{Binding CancelCommand}" Content="取消" />
+                <Button Command="{Binding SaveCommand}" Content="保存" />
             </UniformGrid>
         </Grid>
 

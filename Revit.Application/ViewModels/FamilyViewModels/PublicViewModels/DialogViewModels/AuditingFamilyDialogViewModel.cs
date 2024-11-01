@@ -9,6 +9,7 @@ using Revit.Families;
 using Revit.Shared.Models;
 using Revit.Service.Services;
 using Revit.Shared;
+using Revit.Categories;
 
 namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels.DialogViewModels
 {
@@ -16,7 +17,6 @@ namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels.DialogV
     {
 
         #region Parameters
-        private readonly ICategoryService categoryService;
 
         public event Action<IDialogResult> RequestClose;
 
@@ -40,6 +40,7 @@ namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels.DialogV
 
         #region Commands
         private DelegateCommand<string> _submitCommand;
+        private ICategoryAppService categoryAppService;
 
         public DelegateCommand<string> SubmitCommand
         {
@@ -106,9 +107,9 @@ namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels.DialogV
         #endregion
 
 
-        public AuditingFamilyDialogViewModel( ICategoryService categoryService) 
+        public AuditingFamilyDialogViewModel( ICategoryAppService categoryAppService) 
         {
-            this.categoryService = categoryService;
+            this.categoryAppService = categoryAppService;
         }
     }
 }

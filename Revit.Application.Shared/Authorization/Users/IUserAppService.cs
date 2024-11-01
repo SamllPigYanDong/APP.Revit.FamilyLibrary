@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
-using Revit.Authorization.Users.Dto;
 using Revit.Dto;
 using Revit.Shared.Entity.Commons;
 using Revit.Shared.Entity.Commons.Page;
+using Revit.Shared.Entity.Users;
 
 namespace Revit.Authorization.Users
 {

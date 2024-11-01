@@ -40,6 +40,8 @@
                         <StackPanel Margin="5,0">
                             <TextBlock Text="角色名称" />
                             <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
+                            <TextBlock Text="角色描述" />
+                            <TextBox Text="{Binding Remark, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
                         </StackPanel>
                     </ScrollViewer>
                 </TabItem>
@@ -53,11 +55,11 @@
                 <Button
                     Margin="0,0,10,0"
                     Padding="5"
-                    Command="{Binding  CancelCommand}"
+                    Command="{Binding CancelCommand}"
                     Content="取消" />
                 <Button
                     Padding="5"
-                    Command="{Binding  SaveCommand}"
+                    Command="{Binding SaveCommand}"
                     Content="保存" />
             </UniformGrid>
         </Grid>

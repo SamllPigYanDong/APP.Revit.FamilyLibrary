@@ -15,7 +15,7 @@ namespace Revit.Shared
         public ViewModelBase()
         {
             mapper = SharedModule.Instance.Container.Resolve<IAppMapper>();
-            //validator = SharedModule.Instance.Container.Resolve<IGlobalValidator>();
+            validator = SharedModule.Instance.Container.Resolve<IGlobalValidator>();
         }
 
         public ViewModelBase(IAppMapper appMapper, IGlobalValidator globalValidator)

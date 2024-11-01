@@ -25,10 +25,12 @@ namespace Revit.Shared
     {
         public static void AddSharedServices(this IContainerRegistry registry)
         {
+            registry.RegisterSingleton<IGlobalValidator, GlobalValidator>();
             registry.RegisterSingleton<AbpApiClient>();
             registry.RegisterSingleton<AbpAuthenticateModel>();
             registry.RegisterInstance(new MyHttpClient(Global.HOST));
             registry.RegisterInstance(new AbpApiClient());
+
             registry.Register<IDataPagerService, DataPagerService>();
             registry.Register<IPermissionAppService, PermissionAppService>();
             registry.Register<ILoginService, LoginService>();
@@ -36,6 +38,9 @@ namespace Revit.Shared
             registry.Register<IProjectService, ProjectService>();
             registry.Register<IProjectFolderService, ProjectFolderService>();
             registry.Register<IProjectFileService, ProjectFileService>();
+
+            //旧service
+
 
             registry.Register<IAuditLogAppService, AuditLogAppService>();
             registry.Register<IPermissionAppService, PermissionAppService>();

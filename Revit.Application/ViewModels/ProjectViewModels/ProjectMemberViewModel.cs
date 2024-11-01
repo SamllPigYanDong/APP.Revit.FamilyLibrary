@@ -3,8 +3,9 @@ using Revit.Service.IServices;
 using Prism.Commands;
 using System.Windows;
 using Revit.Shared.Entity.Commons;
-using Revit.Authorization.Users.Dto;
+using Revit.Shared.Entity.Users;
 using Revit.Shared;
+using Revit.Shared.Entity.Users;
 
 namespace Revit.Application.ViewModels.ProjectViewModels
 {

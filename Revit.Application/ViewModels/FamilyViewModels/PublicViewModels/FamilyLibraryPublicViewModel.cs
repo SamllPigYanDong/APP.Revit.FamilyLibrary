@@ -1,31 +1,37 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
+using CommunityToolkit.Mvvm.Input;
 using Prism.Commands;
+using Prism.Regions;
+using Revit.Categories;
 using Revit.Families;
+using Revit.Mvvm.Extensions;
+using Revit.Mvvm.Interface;
 using Revit.Service.IServices;
 using Revit.Service.Services;
 using Revit.Shared;
 using Revit.Shared.Entity.Commons.Page;
 using Revit.Shared.Entity.Family;
+using Revit.Shared.Extensions.Threading;
 using Revit.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
+using Tuna.Revit.Extension;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels
 {
-    internal class FamilyLibraryPublicViewModel : ViewModelBase
+    internal class FamilyLibraryPublicViewModel : NavigationCurdViewModel
     {
         #region Commands
 
-        private DelegateCommand _initDataCommand;
 
-        public DelegateCommand InitDataCommand
-        {
-            get => _initDataCommand ?? new DelegateCommand(Initial);
-        }
 
         private AsyncRelayCommand<FamilyDto> _promptForFamilyInstancePlacementCommand;
 
@@ -42,8 +48,9 @@ namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels
         #endregion
 
         #region Properties
-        private readonly IFamilyService _familySerivce;
-        private readonly ICategoryService categoryService;
+        private readonly IFamilyAppService familyAppSerivce;
+        private readonly ICategoryAppService categoryAppService;
+        private readonly IDataContext dataContext;
 
         /// <summary>
         /// 树形分类
@@ -85,17 +92,18 @@ namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels
         }
         #endregion
 
-        public FamilyLibraryPublicViewModel(IFamilyService familySerivce, ICategoryService categoryService)
+        public FamilyLibraryPublicViewModel(IFamilyAppService familyAppSerivce, ICategoryAppService categoryAppService, IDataContext dataContext)
         {
-            _familySerivce = familySerivce;
-            this.categoryService = categoryService;
+            this.familyAppSerivce = familyAppSerivce;
+            this.categoryAppService = categoryAppService;
+            this.dataContext = dataContext;
         }
 
         #region CommandMethods
         /// <summary>
         /// 搜索
         /// </summary>
-        protected  async void Search()
+        protected async void Search()
         {
             QueryParameter.SetSearchMessage();
             LoadFamilies(QueryParameter);
@@ -104,7 +112,7 @@ namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels
         /// <summary>
         /// 下一页
         /// </summary>
-        protected  async void ChangeNextPage()
+        protected async void ChangeNextPage()
         {
             if (!PagedList.HasNextPage)
             {
@@ -117,7 +125,7 @@ namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels
         /// <summary>
         /// 翻上一页
         /// </summary>
-        protected  void ChangePreviousPage()
+        protected void ChangePreviousPage()
         {
             if (!PagedList.HasPreviousPage)
             {
@@ -133,45 +141,138 @@ namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels
         /// <param name="queryParameter"></param>
         private async void LoadFamilies(FamilyPageRequestDto queryParameter)
         {
-            await _familySerivce.LoadFamilies(queryParameter, (result) =>
-             {
-                 var list = new List<FamilyDto>();
-                 if (result.Items != null)
-                 {
-                     list = result.Items.ToList();
-                 }
-                 Families = new ObservableCollection<FamilyDto>(list);
-                 PagedList = result;
-             });
+            await familyAppSerivce.GetPageListAsync(queryParameter).WebAsync(successCallback: async (result) =>
+            {
+                var list = new List<FamilyDto>();
+                if (result.Items != null)
+                {
+                    list = result.Items.ToList();
+                }
+                Families = new ObservableCollection<FamilyDto>(list);
+                PagedList = result;
+            });
         }
 
-        /// <summary>
-        /// 初始化族列表
-        /// </summary>
-        private async void Initial()
+
+
+        public override async Task OnNavigatedToAsync(NavigationContext navigationContext = null)
         {
             LoadFamilies(_queryParameter);
-            var categoryRoot = await categoryService.GetTreeViewCategories();
+            var categoryRoot = await categoryAppService.GetTreeViewCategories();
             Categories = new ObservableCollection<ViewCategoryDto>(new List<ViewCategoryDto>() { categoryRoot });
-            CategoriesTags = new ObservableCollection<ViewCategoryDto>(categoryService.GetCategories(categoryRoot));
+            CategoriesTags = new ObservableCollection<ViewCategoryDto>(categoryAppService.GetCategories(categoryRoot));
         }
 
-        /// <summary>
-        /// 布置族功能
-        /// </summary>
-        /// <param name="familyDto"></param>
-        /// <returns></returns>
-        private async Task PromptForFamilyInstancePlacement(FamilyDto familyDto)
-        {
-            await _familySerivce.PromptForFamilyInstancePlacement(familyDto);
-        }
+
 
 
         private async Task CategorySelectionChanged(ViewCategoryDto category)
         {
-            var ids = categoryService.GetCategoryChildIds(category);
+            var ids = categoryAppService.GetCategoryChildIds(category);
             QueryParameter.CategoriesIds = new List<long>(ids);
             LoadFamilies(QueryParameter);
+        }
+
+        /// <summary>
+        /// 放置族
+        /// </summary>
+        /// <param name="familyDto"></param>
+        /// <returns></returns>
+        public async Task PromptForFamilyInstancePlacement(FamilyDto familyDto)
+        {
+            var familyName = Path.GetFileNameWithoutExtension(familyDto.Name);
+            //查验本项目中是否存在同名族，询问是否直接放置或者依旧载入
+            Family family = dataContext.Document.GetElements<Family>().FirstOrDefault(x => x.Name == familyName);
+
+            if (family == null)
+            {
+                return;
+            }
+            var selectResult = MessageBox.Show("存在同名称族，选择是：使用已有族放置，选择否：依旧重新载入", "提示", MessageBoxButtons.YesNo);
+            if (selectResult == DialogResult.Yes)
+            {
+                try
+                {
+                    dataContext.GetUIDocument().PromptForFamilyInstancePlacement(family.GetFamilySymbols().FirstOrDefault());
+                    return;
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+            }
+            //下载族
+            string filePath = await DownLoadFamily(familyDto);
+            //载入族
+            LoadFamily(filePath);
+        }
+
+        /// <summary>
+        /// 载入族
+        /// </summary>
+        /// <param name="filePath"></param>
+        private void LoadFamily(string filePath)
+        {
+            Family family = null;
+            if (File.Exists(filePath))
+            {
+                dataContext.Document.NewTransaction(() =>
+                {
+                    //如果文档内存在相同的族会传输失败
+                    var loadResult = dataContext.Document.LoadFamily(filePath, new FamilyPromptOverLoadOption(), out family);
+                    if (!loadResult)
+                    {
+                        family = dataContext.Document.GetElements<Family>().FirstOrDefault(x => x.Name == Path.GetFileNameWithoutExtension(filePath));
+                    }
+                }, "放置族");
+                if (family != null)
+                {
+                    try
+                    {
+                        dataContext.GetUIDocument().PromptForFamilyInstancePlacement(family.GetFamilySymbols().FirstOrDefault());
+                    }
+                    catch (Exception)
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("载入失败", "提示");
+                }
+            }
+            else
+            {
+                MessageBox.Show("载入失败", "提示");
+            }
+        }
+
+
+        /// <summary>
+        /// 下载族
+        /// </summary>
+        /// <param name="familyDto"></param>
+        /// <returns></returns>
+        private async Task<string> DownLoadFamily(FamilyDto familyDto)
+        {
+            //var result = await _familyAppSerivce.DownLoadFamily(familyDto.Id);
+            //string filePath = "";
+            //if (result.Code == ResponseCode.Success)
+            //{
+            //    var direction = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+            //    if (!Directory.Exists(direction))
+            //    {
+            //        Directory.CreateDirectory(direction);
+            //    }
+            //    filePath = Path.Combine(direction, familyDto.Name);
+            //    using (var fileStream = new FileStream(filePath, FileMode.CreateNew))
+            //    {
+            //        await fileStream.WriteAsync(result.Content, 0, result.Content.Length);
+            //    }
+            //}
+
+            return "filePath";
+            //return filePath;
         }
 
         #endregion

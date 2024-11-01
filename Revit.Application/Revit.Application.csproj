@@ -44,16 +44,89 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Compile Remove="Models\Auditlogs\**" />
+		<Compile Remove="Models\Dashboard\**" />
+		<Compile Remove="Models\DynamicProperty\**" />
+		<Compile Remove="Models\Edition\**" />
+		<Compile Remove="Models\Filters\**" />
+		<Compile Remove="Models\Language\**" />
+		<Compile Remove="Models\Organizations\**" />
+		<Compile Remove="Models\Roles\**" />
+		<Compile Remove="Models\Tenants\**" />
+		<Compile Remove="Models\Update\**" />
+		<Compile Remove="Models\Users\**" />
+		<Compile Remove="Services\Account\**" />
+		<Compile Remove="Services\Features\**" />
+		<Compile Remove="Services\Navigation\**" />
+		<Compile Remove="Services\Notification\**" />
+		<Compile Remove="Services\Sessions\**" />
+		<Compile Remove="Services\Themes\**" />
+		<Compile Remove="Services\Update\**" />
+		<Compile Remove="ViewModels\FamilyViewModels\PrivateViewModels\**" />
 		<Compile Remove="ViewModels\GenernaDialogViewModels\**" />
+		<EmbeddedResource Remove="Models\Auditlogs\**" />
+		<EmbeddedResource Remove="Models\Dashboard\**" />
+		<EmbeddedResource Remove="Models\DynamicProperty\**" />
+		<EmbeddedResource Remove="Models\Edition\**" />
+		<EmbeddedResource Remove="Models\Filters\**" />
+		<EmbeddedResource Remove="Models\Language\**" />
+		<EmbeddedResource Remove="Models\Organizations\**" />
+		<EmbeddedResource Remove="Models\Roles\**" />
+		<EmbeddedResource Remove="Models\Tenants\**" />
+		<EmbeddedResource Remove="Models\Update\**" />
+		<EmbeddedResource Remove="Models\Users\**" />
+		<EmbeddedResource Remove="Services\Account\**" />
+		<EmbeddedResource Remove="Services\Features\**" />
+		<EmbeddedResource Remove="Services\Navigation\**" />
+		<EmbeddedResource Remove="Services\Notification\**" />
+		<EmbeddedResource Remove="Services\Sessions\**" />
+		<EmbeddedResource Remove="Services\Themes\**" />
+		<EmbeddedResource Remove="Services\Update\**" />
+		<EmbeddedResource Remove="ViewModels\FamilyViewModels\PrivateViewModels\**" />
 		<EmbeddedResource Remove="ViewModels\GenernaDialogViewModels\**" />
+		<None Remove="Models\Auditlogs\**" />
+		<None Remove="Models\Dashboard\**" />
+		<None Remove="Models\DynamicProperty\**" />
+		<None Remove="Models\Edition\**" />
+		<None Remove="Models\Filters\**" />
+		<None Remove="Models\Language\**" />
+		<None Remove="Models\Organizations\**" />
+		<None Remove="Models\Roles\**" />
+		<None Remove="Models\Tenants\**" />
+		<None Remove="Models\Update\**" />
+		<None Remove="Models\Users\**" />
+		<None Remove="Services\Account\**" />
+		<None Remove="Services\Features\**" />
+		<None Remove="Services\Navigation\**" />
+		<None Remove="Services\Notification\**" />
+		<None Remove="Services\Sessions\**" />
+		<None Remove="Services\Themes\**" />
+		<None Remove="Services\Update\**" />
+		<None Remove="ViewModels\FamilyViewModels\PrivateViewModels\**" />
 		<None Remove="ViewModels\GenernaDialogViewModels\**" />
+		<Page Remove="Models\Auditlogs\**" />
+		<Page Remove="Models\Dashboard\**" />
+		<Page Remove="Models\DynamicProperty\**" />
+		<Page Remove="Models\Edition\**" />
+		<Page Remove="Models\Filters\**" />
+		<Page Remove="Models\Language\**" />
+		<Page Remove="Models\Organizations\**" />
+		<Page Remove="Models\Roles\**" />
+		<Page Remove="Models\Tenants\**" />
+		<Page Remove="Models\Update\**" />
+		<Page Remove="Models\Users\**" />
+		<Page Remove="Services\Account\**" />
+		<Page Remove="Services\Features\**" />
+		<Page Remove="Services\Navigation\**" />
+		<Page Remove="Services\Notification\**" />
+		<Page Remove="Services\Sessions\**" />
+		<Page Remove="Services\Themes\**" />
+		<Page Remove="Services\Update\**" />
+		<Page Remove="ViewModels\FamilyViewModels\PrivateViewModels\**" />
 		<Page Remove="ViewModels\GenernaDialogViewModels\**" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Services\Sessions\DialogHostService.cs" />
-	  <Compile Remove="Services\Themes\SkinManagerExtensions.cs" />
-	  <Compile Remove="Services\Themes\ThemeService.cs" />
 	  <Compile Remove="ViewModels\TestViewModel.cs" />
 	</ItemGroup>
 
@@ -107,13 +180,6 @@
 			<Generator>SettingsSingleFileGenerator</Generator>
 			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
 		</None>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Services\Sessions\" />
-		<Folder Include="Services\Themes\" />
-		<Folder Include="Styles\Converter\" />
-		<Folder Include="ViewModels\FamilyViewModels\PrivateViewModels\" />
 	</ItemGroup>
 
 	<ItemGroup>

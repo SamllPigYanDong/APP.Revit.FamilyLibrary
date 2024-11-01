@@ -5,10 +5,7 @@
     /// </summary>
     public class AccountDto
     {
-        /// <summary>
-        /// 角色列表
-        /// </summary>
-        public string[] Roles { get; set; }
+        public string Account { get; set; }
 
         /// <summary>
         /// 头像
@@ -20,11 +17,11 @@
         /// </summary>
         public string Introduction { get; set; }
 
-
+        /// <summary>
+        /// 角色列表
+        /// </summary>
+        public string[] Roles { get; set; }
         public long UserId { get; set; }
-
-        public string Account { get; set; }
-
         public string UserName { get; set; }
 
         public string UserPhoneNumber { get; set; }

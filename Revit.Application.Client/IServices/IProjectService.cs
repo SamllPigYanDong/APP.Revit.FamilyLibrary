@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Revit.Project.Dto;
-using Revit.Authorization.Users.Dto;
+using Revit.Shared.Entity.Users;
 
 namespace Revit.Service.IServices
 {

@@ -1,15 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net472;netstandard2.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
     <RootNamespace>Revit</RootNamespace>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
-	  <LangVersion>8.0</LangVersion>
+	<LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Authorization\Users\Delegation\**" />
     <Compile Remove="Authorization\Users\Profile\**" />
     <Compile Remove="Caching\**" />
+    <Compile Remove="Category\**" />
     <Compile Remove="Chat\**" />
     <Compile Remove="Common\**" />
     <Compile Remove="Configuration\**" />
@@ -28,6 +29,7 @@
     <EmbeddedResource Remove="Authorization\Users\Delegation\**" />
     <EmbeddedResource Remove="Authorization\Users\Profile\**" />
     <EmbeddedResource Remove="Caching\**" />
+    <EmbeddedResource Remove="Category\**" />
     <EmbeddedResource Remove="Chat\**" />
     <EmbeddedResource Remove="Common\**" />
     <EmbeddedResource Remove="Configuration\**" />
@@ -46,6 +48,7 @@
     <None Remove="Authorization\Users\Delegation\**" />
     <None Remove="Authorization\Users\Profile\**" />
     <None Remove="Caching\**" />
+    <None Remove="Category\**" />
     <None Remove="Chat\**" />
     <None Remove="Common\**" />
     <None Remove="Configuration\**" />
@@ -64,7 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="ApiClient\AccessTokenManager.cs" />
-    <Compile Remove="ApiClient\IApplicationContext.cs" />
     <Compile Remove="Authorization\Accounts\ProxyAccountAppService.cs" />
     <Compile Remove="Authorization\Accounts\ProxyTokenAuthControllerService.cs" />
     <Compile Remove="Authorization\Users\UserLinkAppService.cs" />
@@ -83,9 +85,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Authorization\Accounts\" />
-    <Folder Include="Category\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
 </Project>

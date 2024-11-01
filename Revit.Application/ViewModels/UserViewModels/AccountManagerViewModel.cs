@@ -15,10 +15,11 @@ using Revit.Application.Views.UserViews.DialogViews;
 using Revit.Authorization.Users;
 using System.Windows;
 using Autodesk.Revit.UI;
-using Revit.Authorization.Users.Dto;
+using Revit.Shared.Entity.Users;
 using Revit.Shared;
 using Revit.Shared.Extensions.Threading;
 using Revit.Shared.Entity.Roles;
+using Revit.Shared.Entity.Users;
 
 
 namespace Revit.Application.ViewModels.UserViewModels

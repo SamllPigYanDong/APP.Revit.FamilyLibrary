@@ -3,7 +3,7 @@
 namespace Revit
 {
     /// <summary>
-    /// Some consts used in the application.
+    /// 应用程序中使用的一些常量。
     /// </summary>
     public class AppConsts
     {

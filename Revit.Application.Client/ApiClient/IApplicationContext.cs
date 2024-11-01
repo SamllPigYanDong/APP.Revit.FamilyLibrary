@@ -1,6 +1,5 @@
 ﻿using Abp.Localization;
 using Abp.Web.Models.AbpUserConfiguration;
-using Revit.Sessions.Dto;
 using JetBrains.Annotations;
 
 namespace Revit.ApiClient
@@ -12,11 +11,11 @@ namespace Revit.ApiClient
 
         AbpUserConfigurationDto Configuration { get; set; }
 
-        GetCurrentLoginInformationsOutput LoginInfo { get; }
+        //GetCurrentLoginInformationsOutput LoginInfo { get; }
 
         void ClearLoginInfo();
 
-        void SetLoginInfo(GetCurrentLoginInformationsOutput loginInfo);
+        //void SetLoginInfo(GetCurrentLoginInformationsOutput loginInfo);
 
         void SetAsHost();
 
@@ -24,6 +23,6 @@ namespace Revit.ApiClient
 
         LanguageInfo CurrentLanguage { get; set; }
 
-        void Load(TenantInformation currentTenant, GetCurrentLoginInformationsOutput loginInfo);
+        //void Load(TenantInformation currentTenant, GetCurrentLoginInformationsOutput loginInfo);
     }
 }

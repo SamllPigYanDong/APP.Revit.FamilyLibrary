@@ -1,6 +1,6 @@
-﻿using Revit.Authorization.Users.Dto;
-using Revit.Shared.Entity.Commons;
+﻿using Revit.Shared.Entity.Commons;
 using Revit.Shared.Entity.Commons.Page;
+using Revit.Shared.Entity.Users;
 using System.Threading.Tasks;
 
 namespace Revit.Service.IServices

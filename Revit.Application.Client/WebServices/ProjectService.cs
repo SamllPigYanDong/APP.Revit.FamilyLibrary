@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Revit.Project.Dto;
-using Revit.Authorization.Users.Dto;
+using Revit.Shared.Entity.Users;
 
 namespace Revit.Service.Services
 {
@@ -81,6 +81,11 @@ namespace Revit.Service.Services
             request.Method = HttpMethod.Delete;
             request.Route = $"api/{ServiceName}/{projectId}/Users/{userId}";
             return await client.ExecuteAsync(request);
+        }
+
+        Task<ApiResponse<IEnumerable<UserDto>>> IProjectService.GetUsers(long projectId)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

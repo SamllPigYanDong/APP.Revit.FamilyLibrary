@@ -1,9 +1,8 @@
 ﻿using Abp.Application.Services.Dto;
 using Revit.ApiClient;
-using Revit.Authorization.Users.Dto;
-using Revit.Dto;
 using Revit.Shared.Entity.Commons;
 using Revit.Shared.Entity.Commons.Page;
+using Revit.Shared.Entity.Users;
 using System.Net.Http;
 using System.Threading.Tasks;
 

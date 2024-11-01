@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\common.props"></Import>
   <PropertyGroup>
-	  <TargetFrameworks>netstandard2;net472;</TargetFrameworks>
+	  <TargetFrameworks>netstandard2;</TargetFrameworks>
 	  <LangVersion>8</LangVersion>
     <RootNamespace>Revit</RootNamespace>
   </PropertyGroup>
@@ -26,6 +26,7 @@
 	  <Compile Remove="Authorization\Users\Delegation\**" />
 	  <Compile Remove="Authorization\Users\Profile\**" />
 	  <Compile Remove="Caching\**" />
+	  <Compile Remove="Categories\Dto\**" />
 	  <Compile Remove="Chat\**" />
 	  <Compile Remove="Common\**" />
 	  <Compile Remove="Configuration\**" />
@@ -34,6 +35,7 @@
 	  <Compile Remove="DynamicEntityProperties\**" />
 	  <Compile Remove="DynamicEntityPropertyValues\**" />
 	  <Compile Remove="Editions\**" />
+	  <Compile Remove="Entity\**" />
 	  <Compile Remove="Friendships\**" />
 	  <Compile Remove="Localization\**" />
 	  <Compile Remove="Logging\**" />
@@ -49,6 +51,7 @@
 	  <EmbeddedResource Remove="Authorization\Users\Delegation\**" />
 	  <EmbeddedResource Remove="Authorization\Users\Profile\**" />
 	  <EmbeddedResource Remove="Caching\**" />
+	  <EmbeddedResource Remove="Categories\Dto\**" />
 	  <EmbeddedResource Remove="Chat\**" />
 	  <EmbeddedResource Remove="Common\**" />
 	  <EmbeddedResource Remove="Configuration\**" />
@@ -57,6 +60,7 @@
 	  <EmbeddedResource Remove="DynamicEntityProperties\**" />
 	  <EmbeddedResource Remove="DynamicEntityPropertyValues\**" />
 	  <EmbeddedResource Remove="Editions\**" />
+	  <EmbeddedResource Remove="Entity\**" />
 	  <EmbeddedResource Remove="Friendships\**" />
 	  <EmbeddedResource Remove="Localization\**" />
 	  <EmbeddedResource Remove="Logging\**" />
@@ -72,6 +76,7 @@
 	  <None Remove="Authorization\Users\Delegation\**" />
 	  <None Remove="Authorization\Users\Profile\**" />
 	  <None Remove="Caching\**" />
+	  <None Remove="Categories\Dto\**" />
 	  <None Remove="Chat\**" />
 	  <None Remove="Common\**" />
 	  <None Remove="Configuration\**" />
@@ -80,6 +85,7 @@
 	  <None Remove="DynamicEntityProperties\**" />
 	  <None Remove="DynamicEntityPropertyValues\**" />
 	  <None Remove="Editions\**" />
+	  <None Remove="Entity\**" />
 	  <None Remove="Friendships\**" />
 	  <None Remove="Localization\**" />
 	  <None Remove="Logging\**" />
@@ -123,26 +129,6 @@
 	  <Compile Remove="Authorization\Accounts\IAccountAppService.cs" />
 	  <Compile Remove="Authorization\Permissions\Dto\FlatPermissionDto.cs" />
 	  <Compile Remove="Authorization\Permissions\Dto\FlatPermissionWithLevelDto.cs" />
-	  <Compile Remove="Authorization\Users\Dto\ChangeUserLanguageDto.cs" />
-	  <Compile Remove="Authorization\Users\Dto\CreateOrUpdateUserInput.cs" />
-	  <Compile Remove="Authorization\Users\Dto\GetLinkedUsersInput.cs" />
-	  <Compile Remove="Authorization\Users\Dto\GetLoginAttemptsInput.cs" />
-	  <Compile Remove="Authorization\Users\Dto\GetUserForEditOutput.cs" />
-	  <Compile Remove="Authorization\Users\Dto\GetUserPermissionsForEditOutput.cs" />
-	  <Compile Remove="Authorization\Users\Dto\GetUsersInput.cs" />
-	  <Compile Remove="Authorization\Users\Dto\GetUsersToExcelInput.cs" />
-	  <Compile Remove="Authorization\Users\Dto\IGetLoginAttemptsInput.cs" />
-	  <Compile Remove="Authorization\Users\Dto\IGetUsersInput.cs" />
-	  <Compile Remove="Authorization\Users\Dto\ImportUsersFromExcelJobArgs.cs" />
-	  <Compile Remove="Authorization\Users\Dto\LinkedUserDto.cs" />
-	  <Compile Remove="Authorization\Users\Dto\LinkToUserInput.cs" />
-	  <Compile Remove="Authorization\Users\Dto\UnlinkUserInput.cs" />
-	  <Compile Remove="Authorization\Users\Dto\UpdateUserPermissionsInput.cs" />
-	  <Compile Remove="Authorization\Users\Dto\UserEditDto.cs" />
-	  <Compile Remove="Authorization\Users\Dto\UserListDto.cs" />
-	  <Compile Remove="Authorization\Users\Dto\UserListRoleDto.cs" />
-	  <Compile Remove="Authorization\Users\Dto\UserLoginAttemptDto.cs" />
-	  <Compile Remove="Authorization\Users\Dto\UserRoleDto.cs" />
 	  <Compile Remove="Authorization\Users\IUserLinkAppService.cs" />
 	  <Compile Remove="Authorization\Users\IUserLoginAppService.cs" />
 	  <Compile Remove="Commons\R_Entity.cs" />
@@ -163,9 +149,7 @@
   <ItemGroup>
     <Folder Include="Auditing\Dto\" />
     <Folder Include="Authorization\Permissions\Dto\" />
-    <Folder Include="Categories\Dto\" />
     <Folder Include="Commons\Page\" />
-    <Folder Include="Entity\Parameters\" />
     <Folder Include="Family\" />
   </ItemGroup>
 </Project>

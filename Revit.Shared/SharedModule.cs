@@ -44,6 +44,7 @@ namespace Revit.Shared
         {
             //设置默认的Viewmodel的解析规则
             ViewModelLocationProvider.SetDefaultViewModelFactory((view, type) => Container.Resolve(type));
+            _containerExtension.RegisterInstance(Container);
             _containerExtension.RegisterInstance(_containerExtension);
             _containerExtension.RegisterInstance(_moduleCatalog);
             action.Invoke(_containerExtension);

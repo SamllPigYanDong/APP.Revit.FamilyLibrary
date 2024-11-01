@@ -7,7 +7,6 @@
         <ResourceDictionary Source="./StaticStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-
     <ControlTemplate x:Key="ScrollViewer_Normal" TargetType="{x:Type ScrollViewer}">
         <Grid Name="Grid" Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>

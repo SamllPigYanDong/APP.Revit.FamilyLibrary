@@ -93,6 +93,7 @@
                     <DataGridTextColumn
                         Width="*"
                         Binding="{Binding CreationTime, StringFormat=yyyy年MM月dd日}"
+                        HeaderStringFormat="{StaticResource }"
                         Header="上传时间" />
                     <DataGridTextColumn
                         Width="*"
