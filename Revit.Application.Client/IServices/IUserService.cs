@@ -1,12 +1,13 @@
-﻿using Revit.Shared.Entity.Commons;
-using Revit.Shared.Entity.Commons.Page;
+﻿using System.Threading.Tasks;
+using Abp.Application.Services.Dto;
+using Abp.Web.Models;
+using Revit.Shared.Entity.Commons;
 using Revit.Shared.Entity.Users;
-using System.Threading.Tasks;
 
-namespace Revit.Service.IServices
+namespace Revit.IServices
 {
     public interface IUserService
     {
-        Task<ApiResponse<PagedList<UserDto>>> GetUsers(UserPageRequestDto pageRequestDto);
+        Task<AjaxResponse<IPagedResult<UserDto>>> GetUsers(UserPageRequestDto pageRequestDto);
     }
 }

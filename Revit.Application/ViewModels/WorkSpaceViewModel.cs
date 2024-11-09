@@ -99,10 +99,6 @@ namespace Revit.Application.ViewModels
         private async Task InitRecentlyProjects()
         {
             var result = await projectService.GetRecentlyFiles(Global.User.UserId);
-            if (result != null && result.Code == ResponseCode.Success)
-            {
-                RecentlyFiles = new ObservableCollection<ProjectFolderDto>(result.Content);
-            }
 
         }
 

@@ -18,6 +18,8 @@ using Revit.Categories;
 using Revit.Families;
 using Revit.Shared.Interfaces;
 using Revit.Shared.Services.App;
+using Revit.Authorization.Accounts;
+using Revit.IServices;
 
 namespace Revit.Shared
 {
@@ -28,12 +30,12 @@ namespace Revit.Shared
             registry.RegisterSingleton<IGlobalValidator, GlobalValidator>();
             registry.RegisterSingleton<AbpApiClient>();
             registry.RegisterSingleton<AbpAuthenticateModel>();
-            registry.RegisterInstance(new MyHttpClient(Global.HOST));
-            registry.RegisterInstance(new AbpApiClient());
+            registry.RegisterSingleton<IAccessTokenManager, AccessTokenManager>();
 
+            registry.RegisterInstance(new MyHttpClient(Global.HOST));
             registry.Register<IDataPagerService, DataPagerService>();
             registry.Register<IPermissionAppService, PermissionAppService>();
-            registry.Register<ILoginService, LoginService>();
+            registry.Register<IAuthsAppService, AuthsAppService>();
             registry.Register<IAccountService, AccountService>();
             registry.Register<IProjectService, ProjectService>();
             registry.Register<IProjectFolderService, ProjectFolderService>();

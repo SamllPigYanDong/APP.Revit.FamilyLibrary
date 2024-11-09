@@ -10,6 +10,7 @@ using Revit.Shared.Models;
 using Revit.Service.Services;
 using Revit.Shared;
 using Revit.Categories;
+using Revit.Shared.Extensions.Threading;
 
 namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels.DialogViewModels
 {
@@ -53,7 +54,7 @@ namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels.DialogV
 
         #region Methods
 
-        private void Submit(string message)
+        private async void Submit(string message)
         {
             var audit = AuditingFamily.FamilyAuditStatus;
             switch (message)
@@ -67,21 +68,11 @@ namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels.DialogV
                 case "拒绝通过":
                     audit = FamilyAuditStatus.NotPass;
                     break;
-                default: throw new ArgumentException("this  message is invaild");
+                default: throw new ArgumentException("this  message is invalid");
             }
             var parameters = new DialogParameters();
-            var categoryIds = categoryService.GetCategories(Categories.FirstOrDefault()).Where(x => x.IsChecked).Select(x => x.Id).ToList();
-            var result = new FamilyPutDto()
-            {
-                Id = AuditingFamily.Id,
-                CategoriesIds = categoryIds,
-                CreationTime = AuditingFamily.CreationTime,
-                CreatorId = AuditingFamily.CreatorId,
-                FamilyAuditStatus = audit,
-                LastModificationTime = AuditingFamily.LastModificationTime
-            };
-            parameters.Add(nameof(FamilyPutDto), result);
-            RequestClose.Invoke(new DialogResult(ButtonResult.OK, parameters));
+           
+           
         }
 
         public bool CanCloseDialog()
@@ -96,14 +87,9 @@ namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels.DialogV
         public void OnDialogOpened(IDialogParameters parameters)
         {
             AuditingFamily = parameters.GetValue<FamilyDto>(nameof(FamilyDto));
-            Initial();
         }
 
-        private async void Initial()
-        {
-            var result = await categoryService.GetTreeViewCategories();
-            Categories = new ObservableCollection<ViewCategoryDto>(new List<ViewCategoryDto>() { result });
-        }
+      
         #endregion
 
 

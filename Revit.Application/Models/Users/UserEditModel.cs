@@ -1,6 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel; 
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace AppFramework.Admin.Models
+namespace Revit.Application.Models.Users
 {
     [INotifyPropertyChanged]
     public partial class UserEditModel 

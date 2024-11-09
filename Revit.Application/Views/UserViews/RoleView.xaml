@@ -40,7 +40,6 @@
                 Command="{Binding AddCommand}"
                 Content="添加角色" />
             <DataGrid
-                Name="roles"
                 Margin="0,0,5,0"
                 AutoGenerateColumns="False"
                 BorderBrush="Transparent"
@@ -49,7 +48,7 @@
                 SelectedItem="{Binding dataPager.SelectedItem}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding GetRolePermissionsCommand}" CommandParameter="{Binding ElementName=roles, Path=SelectedItem}" />
+                        <i:InvokeCommandAction Command="{Binding RoleSelectionChangedCommand}" CommandParameter="{Binding ElementName=roles, Path=SelectedItem}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
@@ -98,7 +97,7 @@
                 AutoGenerateColumns="False"
                 BorderBrush="Transparent"
                 CanUserAddRows="False"
-                ItemsSource="{Binding Permissions}">
+                ItemsSource="{Binding PermissionList}">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Width="*"

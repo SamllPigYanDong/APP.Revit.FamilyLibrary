@@ -6,6 +6,9 @@ using Revit.Shared;
 using Revit.Shared.Entity.Commons;
 using System.Threading.Tasks;
 using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
+using Revit.ApiClient.Models;
+using Revit.IServices;
 
 namespace Revit.Application.ViewModels.UserViewModels
 {
@@ -27,41 +30,36 @@ namespace Revit.Application.ViewModels.UserViewModels
             get { return _loginDto; }
             set { _loginDto = value; }
         }
-        private readonly ILoginService _loginService;
-        private readonly IAccountService _userService;
+        private readonly IAuthsAppService _authsService;
+
+        [ObservableProperty]
+        private  AbpAuthenticateModel _abpAuthenticateModel;
 
 
 
-        public LoginViewModel( ILoginService loginService, IAccountService userService)
+        public LoginViewModel( IAuthsAppService authsService, AbpAuthenticateModel abpAuthenticateModel)
         {
-            this._loginService = loginService;
-            this._userService = userService;
+            this._authsService = authsService;
+            _abpAuthenticateModel = abpAuthenticateModel;
         }
+
         [RelayCommand]
         private async Task Login(Window window)
         {
-            var result = await _loginService.Login(new LoginDto() { UserName = "admin", PassWord = "Abc123@" });
+            AbpAuthenticateModel.UserNameOrEmailAddress = "admin";
+            AbpAuthenticateModel.Password = "Abc123@";
+            await _authsService.LoginAsync();
             ProgressBarVisibility = Visibility.Visible;
-            if (result.Code == ResponseCode.Success)
+            if (true)
             {
-                var getUserResponse = await _userService.GetLoginedUser(result.Content);
-                if (getUserResponse.Code == ResponseCode.Success)
-                {
-                    Global.Token = result.Content;
-                    Global.User = getUserResponse.Content;
                     window.DialogResult = true;
-                }
             }
             ProgressBarVisibility = Visibility.Hidden;
         }
-
 
         public static void LoginOut()
         {
 
         }
-
-
-
     }
 }

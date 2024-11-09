@@ -4,6 +4,7 @@ using Revit.Shared.Entity.Commons;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Abp.Web.Models;
 using Revit.Project.Dto;
 
 namespace Revit.Service.Services
@@ -15,7 +16,7 @@ namespace Revit.Service.Services
             ServiceName = "Folder";
         }
 
-        public async Task<ApiResponse<IEnumerable<ProjectFolderDto>>> GetFolders(long projectId, ProjectGetFoldersDto projectRequestFolderDto)
+        public async Task<AjaxResponse<IEnumerable<ProjectFolderDto>>> GetFolders(long projectId, ProjectGetFoldersDto projectRequestFolderDto)
         {
             BaseRequest request = new BaseRequest();
             request.Method = HttpMethod.Get;
@@ -24,7 +25,7 @@ namespace Revit.Service.Services
             return await client.ExecuteAsync<IEnumerable<ProjectFolderDto>>(request);
         }
 
-        public async Task<ApiResponse<ProjectFolderDto>> CreateFolder(long projectId, ProjectCreateFolderDto projectRequestFolderDto)
+        public async Task<AjaxResponse<ProjectFolderDto>> CreateFolder(long projectId, ProjectCreateFolderDto projectRequestFolderDto)
         {
             BaseRequest request = new BaseRequest();
             request.Method = HttpMethod.Post;

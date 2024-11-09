@@ -41,33 +41,22 @@
                             <RowDefinition />
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
-                        <ScrollViewer DataContext="{Binding User}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <ScrollViewer DataContext="{Binding}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                             <StackPanel Margin="5,0">
-                                <TextBlock Text="账户" />
-                                <TextBox Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
+                                <TextBlock Text="账户或邮箱" />
+                                <TextBox Text="{Binding Model.User.UserName}" />
                                 <TextBlock Text="用户名" />
-                                <TextBox Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
+                                <TextBox Text="{Binding Model.User.Name}" />
                                 <TextBlock Text="密码" />
-                                <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
+                                <TextBox Text="{Binding Model.User.Password}" />
                                 <TextBlock Text="二次确认密码" />
-                                <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
-                                <!--<CheckBox
-          Margin="0,20,0,0"
-          Content="使用随机密码"
-          IsChecked="{Binding Input.SetRandomPassword}" />-->
-
-                                <!--<StackPanel DockPanel.Dock="Top" Visibility="{Binding Input.SetRandomPassword, Converter={StaticResource boolToVisibility}}">
-          <TextBlock Text="{extensions:Translate Password}" />
-          <TextBox Text="{Binding Model.User.Password}" />
-
-          <TextBlock Text="{extensions:Translate PasswordRepeat}" />
-          <TextBox Text="{Binding Model.User.Password}" />
-      </StackPanel>
-
-      <CheckBox Content="{extensions:Translate ShouldChangePasswordOnNextLogin}" IsChecked="{Binding Model.User.ShouldChangePasswordOnNextLogin}" />
-      <CheckBox Content="{extensions:Translate SendActivationEmail}" IsChecked="{Binding Input.SendActivationEmail}" />
-      <CheckBox Content="{extensions:Translate Activate}" IsChecked="{Binding Model.User.IsActive}" />
-      <CheckBox Content="{extensions:Translate IsLockoutEnabled}" IsChecked="{Binding Model.User.IsLockoutEnabled}" />-->
+                                <TextBox Text="{Binding PModel.User.Password}" />
+                                <TextBlock Text="电话号码" />
+                                <TextBox Text="{Binding PModel.User.PhoneNumber}" />
+                                <CheckBox Content="是否下次登陆时重新设置密码}" IsChecked="{Binding Model.User.ShouldChangePasswordOnNextLogin}" />
+                                <CheckBox Content="是否激活邮箱" IsChecked="{Binding Input.SendActivationEmail}" />
+                                <CheckBox Content="是否激活" IsChecked="{Binding Model.User.IsActive}" />
+                                <CheckBox Content="是否锁定账户" IsChecked="{Binding Model.User.IsLockoutEnabled}" />
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>
@@ -75,7 +64,7 @@
                 <TabItem Header="设置角色">
                     <ListView
                         Grid.Row="1"
-                        ItemsSource="{Binding Roles}"
+                        ItemsSource="{Binding Model.Roles}"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
@@ -85,24 +74,17 @@
                         <ListView.View>
                             <GridView>
                                 <GridView.Columns>
-                                    <GridViewColumn Width="{Binding ElementName=col1, Path=ActualWidth}" Header="操作">
+                                    <GridViewColumn Width="50" Header="操作">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <CheckBox IsChecked="{Binding IsAssigned}" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
-                                    <GridViewColumn Width="{Binding ElementName=col2, Path=ActualWidth}" Header="角色名称">
+                                    <GridViewColumn Width="300" Header="角色名称">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="{Binding Name}" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Width="{Binding ElementName=col3, Path=ActualWidth}" Header="创建日期">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding CreationTime}" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>

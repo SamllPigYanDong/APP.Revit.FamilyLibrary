@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Revit.Shared.Entity.Commons;
-using Revit.Shared.Entity.Commons.Page;
 using Revit.Shared.Entity.Family;
 using System.Linq;
+using Revit.Families;
 
 namespace Revit.Categories
 {
@@ -20,9 +20,9 @@ namespace Revit.Categories
         {
         }
 
-        public async Task<IEnumerable<CategoryDto>> GetAllCategories()
+        public async Task<ListResultDto<CategoryDto>> GetListAsync()
         {
-            return await ApiClient.GetAsync<IEnumerable<CategoryDto>>(GetEndpoint());
+            return await ApiClient.GetAsync<ListResultDto<CategoryDto>>(GetEndpoint());
         }
 
 
@@ -37,5 +37,19 @@ namespace Revit.Categories
             return await ApiClient.DeleteAsync<int>(GetEndpoint($"{categoryId}"), new EntityDto<long>(categoryId));
         }
 
+        public async Task<ListResultDto<CategoryDto>> GetCategories(ViewCategoryDto viewCategoryDto)
+        {
+            return await ApiClient.GetAsync<ListResultDto<CategoryDto>>(GetEndpoint());
+        }
+
+        public int GetCategoryChildIds(ViewCategoryDto category)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ViewCategoryDto> GetTreeViewCategories()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

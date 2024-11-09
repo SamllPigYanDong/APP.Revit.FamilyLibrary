@@ -20,13 +20,13 @@ namespace Revit.Service.ApiServices
     //        client = new RestClient();
     //    }
 
-    //    public async Task<ApiResponse> ExecuteAsync(BaseRequest baseRequest)
+    //    public async Task<AjaxResponse> ExecuteAsync(BaseRequest baseRequest)
     //    {
     //        var response = await RequestAsync(baseRequest);
     //        if (response.StatusCode == System.Net.HttpStatusCode.OK)
-    //            return JsonConvert.DeserializeObject<ApiResponse>(response.Content);
+    //            return JsonConvert.DeserializeObject<AjaxResponse>(response.Content);
     //        else
-    //            return new ApiResponse()
+    //            return new AjaxResponse()
     //            {
     //                Code = ResponseCode.Error,
     //                Result = null,
@@ -34,13 +34,13 @@ namespace Revit.Service.ApiServices
     //            };
     //    }
 
-    //    public async Task<ApiResponse<T>> ExecuteAsync<T>(BaseRequest baseRequest)
+    //    public async Task<AjaxResponse<T>> ExecuteAsync<T>(BaseRequest baseRequest)
     //    {
     //        IRestResponse response = await RequestAsync(baseRequest);
     //        if (response.StatusCode == System.Net.HttpStatusCode.OK)
-    //            return JsonConvert.DeserializeObject<ApiResponse<T>>(response.Content);
+    //            return JsonConvert.DeserializeObject<AjaxResponse<T>>(response.Content);
     //        else
-    //            return new ApiResponse<T>()
+    //            return new AjaxResponse<T>()
     //            {
     //                Code = ResponseCode.Error,
     //                Message = response.ErrorMessage

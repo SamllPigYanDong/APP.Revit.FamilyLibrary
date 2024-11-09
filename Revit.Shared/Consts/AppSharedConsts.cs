@@ -21,7 +21,7 @@
         /// <summary>
         /// 登录页的唯一会话标识
         /// </summary>
-        public const string LoginIdentifier = "Login";
+        public const string LoginIdentifier = "LoginAsync";
 
         /// <summary>
         /// 首页的唯一会话标识 

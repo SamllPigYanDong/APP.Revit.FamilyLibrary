@@ -1,8 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Prism.Mvvm;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AppFramework.Admin.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace AppFramework.Admin.Models
+namespace Revit.Application.Models.Users
 {
     [INotifyPropertyChanged]
     public partial class UserCreateOrUpdateModel 
@@ -15,13 +15,13 @@ namespace AppFramework.Admin.Models
          
         public UserEditModel User { get; set; }
 
-        public string[] AssignedRoleNames { get; set; }
+        //public string[] AssignedRoleNames { get; set; }
          
-        public List<long> OrganizationUnits { get; set; }
+        //public List<long> OrganizationUnits { get; set; }
 
         public UserCreateOrUpdateModel()
         {
-            OrganizationUnits = new List<long>();
+            //OrganizationUnits = new List<long>();
         }
     }
 }

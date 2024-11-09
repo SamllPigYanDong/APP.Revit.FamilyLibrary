@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 using Revit.Shared.Services.App;
 using Abp.Net.Mail;
 using System.Linq;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Revit.Shared.Services.Datapager
 {
     /// <summary>
     /// 数据分页服务
     /// </summary>
-    public class DataPagerService : BindableBase, IDataPagerService
+    public partial class DataPagerService : BindableBase, IDataPagerService
     {
         private readonly IAppMapper mapper;
 
@@ -53,7 +54,6 @@ namespace Revit.Shared.Services.Datapager
                     SkipCount = value * PageSize,
                     PageSize = PageSize,
                 });
-
                 pageIndex = value;
                 RaisePropertyChanged();
             }
@@ -65,6 +65,7 @@ namespace Revit.Shared.Services.Datapager
             set
             {
                 pageCount = value;
+
                 RaisePropertyChanged();
             }
         }
@@ -88,6 +89,8 @@ namespace Revit.Shared.Services.Datapager
                 RaisePropertyChanged();
             }
         }
+     
+
 
         public object SelectedItem
         {
@@ -116,11 +119,11 @@ namespace Revit.Shared.Services.Datapager
             await Task.CompletedTask;
         }
 
-        public async Task SetList<T>(IEnumerable<T> listResult)
+        public async Task SetList<T>(IListResult<T> listResult)
         {
             await SetList(new PagedResultDto<T>()
             {
-                Items = listResult.ToList()
+                Items = listResult.Items
             });
         }
     }

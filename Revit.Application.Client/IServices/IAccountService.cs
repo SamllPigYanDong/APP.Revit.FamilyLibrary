@@ -1,11 +1,12 @@
 ﻿using Revit.Accounts.Dto;
 using Revit.Shared.Entity.Commons;
 using System.Threading.Tasks;
+using Abp.Web.Models;
 
 namespace Revit.Service.IServices
 {
     public interface IAccountService
     {
-        Task<ApiResponse<LoginedUserDto>> GetLoginedUser(string content);
+        Task<AjaxResponse<LoginedUserDto>> GetLoginedUser(string content);
     }
 }

@@ -54,7 +54,7 @@
                 <TextBlock
                     VerticalAlignment="Center"
                     FontSize="15"
-                    Text="{Binding User.UserName, StringFormat=用户名：{0}}" />
+                    Text="{Binding AbpAuthenticateModel.UserNameOrEmailAddress, StringFormat=用户名：{0}}" />
             </StackPanel>
 
             <ui:TitleBar Title="协同平台" FontSize="15" />
@@ -90,13 +90,15 @@
                             Icon="Mail24"
                             PageType="{x:Type userViews:AccountManagerView}" />
                         <ui:NavigationItem
+                            Content="族库"
+                            Icon="Mail24"
+                            PageType="{x:Type familyPublicViews:FamilyLibraryPublicView}" />
+
+                        <ui:NavigationItem
                             Content="族库管理"
                             Icon="Mail24"
                             PageType="{x:Type familyViews:FamilyLibrayManagerView}" />
-                        <ui:NavigationItem
-                            Content="族库"
-                            Icon="Mail24"
-                            PageType="{x:Type familyPublicViews:FamilyLibaryPublicView}" />
+
                         <ui:NavigationItem
                             Content="个人空间"
                             Icon="Mail24"

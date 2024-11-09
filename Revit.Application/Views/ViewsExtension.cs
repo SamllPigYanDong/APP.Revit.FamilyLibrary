@@ -17,6 +17,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Revit.Application.ViewModels.ProjectViewModels.ProjectDialogViewModels;
+using Revit.Application.Views.ProjectViews.ProjectDialogs;
 
 namespace Revit.Application.Views
 {
@@ -24,23 +26,23 @@ namespace Revit.Application.Views
     {
         public static void AddViews(this IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<MainProjectView, MainProjectViewModel>();
-            containerRegistry.RegisterForNavigation<TotalProjectView, DisPlayProjectViewModel>();
-            containerRegistry.RegisterForNavigation<RecentlyProjectView, DisPlayProjectViewModel>();
-            containerRegistry.RegisterForNavigation<ProjectFileManageView, ProjectFileManageViewModel>();
-            containerRegistry.RegisterForNavigation<ProjectMemberView, ProjectMemberViewModel>();
-            containerRegistry.RegisterForNavigation<ProjectView, ProjectViewModel>();
-            containerRegistry.RegisterForNavigation<FamilyLibaryPublicView, FamilyLibraryPublicViewModel>();
-            containerRegistry.RegisterForNavigation<FamilyLibaryPublicUploadView, FamilyLibaryPublicUploadViewModel>();
-            containerRegistry.RegisterForNavigation<FamilyLibraryPublicAuditView, FamilyLibraryPublicAuditViewModel>();
-            containerRegistry.RegisterForNavigation<FamilyLibrayManagerView, FamilyLibraryManagerViewModel>();
-            containerRegistry.RegisterForNavigation<WorkSpaceView, WorkSpaceViewModel>();
-            containerRegistry.RegisterForNavigation<AccountManagerView, AccountManagerViewViewModel>();
-            containerRegistry.RegisterForNavigation<RoleView, RoleViewModel>();
-            containerRegistry.RegisterForNavigation<UserView, UserViewModel>();
+            containerRegistry.Add<MainProjectView, MainProjectViewModel>();
+            containerRegistry.Add<TotalProjectView, DisPlayProjectViewModel>();
+            containerRegistry.Add<RecentlyProjectView, DisPlayProjectViewModel>();
+            containerRegistry.Add<ProjectFileManageView, ProjectFileManageViewModel>();
+            containerRegistry.Add<ProjectMemberView, ProjectMemberViewModel>();
+            containerRegistry.Add<ProjectView, ProjectViewModel>();
+            containerRegistry.Add<FamilyLibraryPublicView, FamilyLibraryPublicViewModel>();
+            containerRegistry.Add<FamilyLibaryPublicUploadView, FamilyLibraryPublicUploadViewModel>();
+            containerRegistry.Add<FamilyLibraryPublicAuditView, FamilyLibraryPublicAuditViewModel>();
+            containerRegistry.Add<FamilyLibrayManagerView, FamilyLibraryManagerViewModel>();
+            containerRegistry.Add<WorkSpaceView, WorkSpaceViewModel>();
+            containerRegistry.Add<AccountManagerView, AccountManagerViewViewModel>();
+            containerRegistry.Add<RoleView, RoleViewModel>();
+            containerRegistry.Add<UserView, UserViewModel>();
+            containerRegistry.Add<LoginView, LoginViewModel>(); 
 
-
-
+            containerRegistry.RegisterDialog<ProjectCreateDialog, ProjectCreateDialogViewModel>();
             containerRegistry.RegisterDialog<AddUserDialogView, AddUserDialogViewModel>();
             containerRegistry.RegisterDialog<AddRoleDialogView, AddRoleDialogViewModel>();
             containerRegistry.RegisterDialog<AuditingFamilyDialogView, AuditingFamilyDialogViewModel>();

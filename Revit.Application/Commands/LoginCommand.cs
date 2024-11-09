@@ -1,18 +1,16 @@
-﻿using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
+﻿using System;
 using Autodesk.Revit.Attributes;
+using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
 using Prism.Ioc;
+using Revit.Application.Services;
 using Revit.Application.ViewModels;
 using Revit.Application.Views;
 using Revit.Extension;
 using Revit.Mvvm.Extensions;
-using System;
-using Revit.Shared.Base;
 using Revit.Shared;
+using Revit.Shared.Base;
 using Revit.Shared.Interfaces;
-using Revit.Application.Services;
-
-
 
 //翻页存在问题需要解决 √
 //程序报错时会直接崩溃需要排查一下 √
@@ -28,7 +26,6 @@ using Revit.Application.Services;
 
 //公共族库页码有问题
 
-
 //审核模块补充备注入数据库
 //补充上传列表获取
 //日志管理模块
@@ -37,17 +34,16 @@ namespace Revit.Application.Commands
     [Transaction(TransactionMode.Manual)]
     [Journaling(JournalingMode.NoCommandData)]
     [Regeneration(RegenerationOption.Manual)]
-    public class LoginCommand :CommandBase
+    public class LoginCommand : CommandBase
     {
-
         public override System.Windows.Window CreateMainWindow()
         {
             if (!LoginExtension.IsUserLogin())
             {
                 return null;
             }
-            
-            return Container.Resolve<MainView,MainViewModel>();
+
+            return Container.Resolve<MainView, MainViewModel>();
         }
 
         public override Result Execute(string message, ElementSet elements)
@@ -59,7 +55,11 @@ namespace Revit.Application.Commands
                 //ResolveHelper.BeginAssemblyResolve(GetType()); objecttype
 
 #endif
-              transactionStatus = DocumentExtension.NewTransactionGroup(DataContext.Document, "族库管理", () => MainWindow.ShowDialog().Value);
+                transactionStatus = DocumentExtension.NewTransactionGroup(
+                    DataContext.Document,
+                    "族库管理",
+                    () => MainWindow.ShowDialog().Value
+                );
             }
             catch (Exception exception)
             {
@@ -71,12 +71,13 @@ namespace Revit.Application.Commands
                 //ResolveHelper.EndAssemblyResolve();
 #endif
             }
-            return transactionStatus == TransactionStatus.Committed ? Result.Succeeded: Result.Cancelled;
+            return transactionStatus == TransactionStatus.Committed
+                ? Result.Succeeded
+                : Result.Cancelled;
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterLoginTypes();
             ViewsExtension.AddViews(containerRegistry);
             ServiceExtensions.AddServices(containerRegistry);
         }

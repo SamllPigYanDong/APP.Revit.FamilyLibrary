@@ -7,10 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:vm="clr-namespace:Revit.Application.ViewModels.UserViewModels"
     Name="MainWindow"
     Title="LoginView"
     Width="350"
     Height="400"
+    d:DataContext="{d:DesignInstance vm:LoginViewModel}"
     prism:ViewModelLocator.AutoWireViewModel="True"
     AllowsTransparency="True"
     Background="{x:Null}"
@@ -318,12 +320,12 @@
                     Height="45"
                     Margin="3,0"
                     Style="{StaticResource UserNameTextBoxStyle}"
-                    Text="{Binding LoginModel.UserName, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding AbpAuthenticateModel.UserNameOrEmailAddress, UpdateSourceTrigger=PropertyChanged}" />
                 <PasswordBox
                     Grid.Row="1"
                     Height="45"
                     Margin="3,0"
-                    contants:PasswordDependencyProperty.Password="{Binding LoginDto.Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    contants:PasswordDependencyProperty.Password="{Binding AbpAuthenticateModel.Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Style="{StaticResource PasswordBoxStyle}" />
                 <!--<TextBox
                     Grid.Row="2"

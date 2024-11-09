@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Prism.Regions;
 using Prism.Commands;
 using Revit.Application.Views.ProjectViews;
@@ -10,10 +11,11 @@ using Revit.Service.IServices;
 using Revit.Entity;
 using Revit.Accounts.Dto;
 using Revit.Shared;
+using Revit.ApiClient.Models;
 
 namespace Revit.Application.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public partial class MainViewModel : ViewModelBase
     {
         private readonly IRegionManager _regionManager;
 
@@ -34,8 +36,11 @@ namespace Revit.Application.ViewModels
         }
 
 
-        private readonly IAccountService _userService;
         private DelegateCommand<MenuBar> _navigateCommand;
+
+        [ObservableProperty]
+        private  AbpAuthenticateModel _abpAuthenticateModel;
+
         public DelegateCommand<MenuBar> NavigateCommand
         {
             get => _navigateCommand ?? new DelegateCommand<MenuBar>(Navigate);
@@ -43,10 +48,10 @@ namespace Revit.Application.ViewModels
 
       
 
-        public MainViewModel( IRegionManager regionManager, IAccountService userService) 
+        public MainViewModel( IRegionManager regionManager, AbpAuthenticateModel abpAuthenticateModel)
         {
             this._regionManager = regionManager;
-            this._userService = userService;
+            _abpAuthenticateModel = abpAuthenticateModel;
         }
 
       

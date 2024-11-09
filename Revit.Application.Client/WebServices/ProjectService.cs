@@ -4,6 +4,7 @@ using Revit.Shared.Entity.Commons;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Abp.Web.Models;
 using Revit.Project.Dto;
 using Revit.Shared.Entity.Users;
 
@@ -17,19 +18,19 @@ namespace Revit.Service.Services
         }
 
 
-        public async Task<ApiResponse<IEnumerable<ProjectDto>>> GetProjects(ProjectPageRequestDto queryParameter)
+        public async Task<AjaxResponse<IEnumerable<ProjectDto>>> GetProjects(ProjectPageRequestDto queryParameter)
         {
             BaseRequest request = new BaseRequest();
-            request.Method = HttpMethod.Get;
-            request.Route = $"api/{ServiceName}?pageIndex={queryParameter.PageIndex}" +
-                $"&&pageSize={queryParameter.PageSize}" +
-                $"&&userId={queryParameter.UserId}" +
-                $"&&searchMessage={queryParameter.SearchMessage}";
+            //request.Method = HttpMethod.Get;
+            //request.Route = $"api/{ServiceName}?pageIndex={queryParameter.PageIndex}" +
+            //    $"&&pageSize={queryParameter.PageSize}" +
+            //    $"&&userId={queryParameter.UserId}" +
+            //    $"&&searchMessage={queryParameter.SearchMessage}";
             return await client.ExecuteAsync<IEnumerable<ProjectDto>>(request);
         }
 
 
-        public async Task<ApiResponse<ProjectDto>> Create(ProjectPostPutDto createDto)
+        public async Task<AjaxResponse<ProjectDto>> Create(ProjectPostPutDto createDto)
         {
             BaseRequest request = new BaseRequest();
             request.Method = HttpMethod.Post;
@@ -49,7 +50,7 @@ namespace Revit.Service.Services
             return await client.ExecuteAsync<ProjectDto>(request);
         }
 
-        public async Task<ApiResponse> Delete(long projectId)
+        public async Task<AjaxResponse> Delete(long projectId)
         {
             BaseRequest request = new BaseRequest();
             request.Method = HttpMethod.Delete;
@@ -58,7 +59,7 @@ namespace Revit.Service.Services
         }
 
 
-        public async Task<ApiResponse<IEnumerable<ProjectFolderDto>>> GetRecentlyFiles(long userId)
+        public async Task<AjaxResponse<IEnumerable<ProjectFolderDto>>> GetRecentlyFiles(long userId)
         {
             BaseRequest request = new BaseRequest();
             request.Method = HttpMethod.Get;
@@ -67,7 +68,7 @@ namespace Revit.Service.Services
         }
 
 
-        public async Task<ApiResponse<IEnumerable<UserDto>>> GetUsers(long projectId)
+        public async Task<AjaxResponse<IEnumerable<UserDto>>> GetUsers(long projectId)
         {
             BaseRequest request = new BaseRequest();
             request.Method = HttpMethod.Get;
@@ -75,7 +76,7 @@ namespace Revit.Service.Services
             return await client.ExecuteAsync<IEnumerable<UserDto>>(request);
         }
 
-        public async Task<ApiResponse> DeleteUser(long projectId,long userId)
+        public async Task<AjaxResponse> DeleteUser(long projectId,long userId)
         {
             BaseRequest request = new BaseRequest();
             request.Method = HttpMethod.Delete;
@@ -83,7 +84,7 @@ namespace Revit.Service.Services
             return await client.ExecuteAsync(request);
         }
 
-        Task<ApiResponse<IEnumerable<UserDto>>> IProjectService.GetUsers(long projectId)
+        Task<AjaxResponse<IEnumerable<UserDto>>> IProjectService.GetUsers(long projectId)
         {
             throw new System.NotImplementedException();
         }

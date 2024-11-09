@@ -1,14 +1,12 @@
-﻿using Abp.Configuration.Startup;
-using Abp.Dependency;
+﻿using Abp.Dependency;
 using Abp.UI;
-using Abp.Web.Models;
-using Revit.Extensions;
 using Flurl.Http;
 using Flurl.Http.Content;
+using Revit.Extensions;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using Revit.Shared.Entity.Commons;
+using System.Windows.Forms;
 
 namespace Revit.ApiClient
 {
@@ -21,13 +19,13 @@ namespace Revit.ApiClient
 
         public static int? TimeoutSeconds { get; set; } = 30;
 
-        public AbpApiClient()
+        public AbpApiClient(
+            IAccessTokenManager accessTokenManager)
         {
 
-            //IAccessTokenManager accessTokenManager,
             //IApplicationContext applicationContext,
             //IMultiTenancyConfig multiTenancyConfig
-            //_accessTokenManager = accessTokenManager;
+            _accessTokenManager = accessTokenManager;
             //_applicationContext = applicationContext;
             //_multiTenancyConfig = multiTenancyConfig;
         }
@@ -36,7 +34,7 @@ namespace Revit.ApiClient
 
         public async Task<T> PostAsync<T>(string endpoint)
         {
-            return await PostAsync<T>(endpoint, null, null, /*_accessTokenManager.GetAccessToken()*/null, true);
+            return await PostAsync<T>(endpoint, null, null, _accessTokenManager.GetAccessToken(), true);
         }
 
         public async Task<T> PostAnonymousAsync<T>(string endpoint)
@@ -46,12 +44,12 @@ namespace Revit.ApiClient
 
         public async Task<T> PostAsync<T>(string endpoint, object inputDto)
         {
-            return await PostAsync<T>(endpoint, inputDto, null, /*_accessTokenManager.GetAccessToken()*/null, true);
+            return await PostAsync<T>(endpoint, inputDto, null, _accessTokenManager.GetAccessToken(), true);
         }
 
         public async Task<T> PostAsync<T>(string endpoint, object inputDto, object queryParameters)
         {
-            return await PostAsync<T>(endpoint, inputDto, queryParameters, /*_accessTokenManager.GetAccessToken()*/null, true);
+            return await PostAsync<T>(endpoint, inputDto, queryParameters, _accessTokenManager.GetAccessToken(), true);
         }
 
         /// <summary>
@@ -78,7 +76,7 @@ namespace Revit.ApiClient
 
         public async Task<T> PostMultipartAsync<T>(string endpoint, Action<CapturedMultipartContent> buildContent, bool stripAjaxResponseWrapper = true)
         {
-            var httpResponse = GetClient( /*_accessTokenManager.GetAccessToken()*/null)
+            var httpResponse = GetClient( _accessTokenManager.GetAccessToken())
                 .Request(endpoint)
                 .PostMultipartAsync(buildContent);
 
@@ -87,7 +85,7 @@ namespace Revit.ApiClient
 
         public async Task<T> PostMultipartAsync<T>(string endpoint, Stream stream, string fileName, bool stripAjaxResponseWrapper = true)
         {
-            var httpResponse = GetClient( /*_accessTokenManager.GetAccessToken()*/null)
+            var httpResponse = GetClient( _accessTokenManager.GetAccessToken())
                     .Request(endpoint)
                     .PostMultipartAsync(multiPartContent => multiPartContent.AddFile("file", stream, fileName));
             return await ValidateResponse<T>(httpResponse, stripAjaxResponseWrapper);
@@ -95,7 +93,7 @@ namespace Revit.ApiClient
 
         public async Task<T> PostMultipartAsync<T>(string endpoint, string filePath, bool stripAjaxResponseWrapper = true)
         {
-            var httpResponse = GetClient( /*_accessTokenManager.GetAccessToken()*/null)
+            var httpResponse = GetClient( _accessTokenManager.GetAccessToken())
                 .Request(endpoint)
                 .PostMultipartAsync(multiPartContent => multiPartContent.AddFile("file", filePath));
             return await ValidateResponse<T>(httpResponse, stripAjaxResponseWrapper);
@@ -107,12 +105,12 @@ namespace Revit.ApiClient
 
         public async Task PostAsync(string endpoint)
         {
-            await PostAsync(endpoint, null, null,  /*_accessTokenManager.GetAccessToken()*/null, true);
+            await PostAsync(endpoint, null, null,  _accessTokenManager.GetAccessToken(), true);
         }
 
         public async Task PostAsync(string endpoint, object inputDto)
         {
-            await PostAsync(endpoint, inputDto, null,  /*_accessTokenManager.GetAccessToken()*/null, true);
+            await PostAsync(endpoint, inputDto, null,  _accessTokenManager.GetAccessToken(), true);
         }
 
         /// <summary>
@@ -128,7 +126,7 @@ namespace Revit.ApiClient
 
         public async Task PostAsync(string endpoint, object inputDto, object queryParameters)
         {
-            await PostAsync(endpoint, inputDto, queryParameters,  /*_accessTokenManager.GetAccessToken()*/null, true);
+            await PostAsync(endpoint, inputDto, queryParameters,  _accessTokenManager.GetAccessToken(), true);
         }
 
         public async Task PostAsync(string endpoint, object inputDto, object queryParameters, string accessToken,
@@ -159,7 +157,7 @@ namespace Revit.ApiClient
 
         public async Task<T> GetAsync<T>(string endpoint, object queryParameters)
         {
-            return await GetAsync<T>(endpoint, queryParameters,  /*_accessTokenManager.GetAccessToken()*/null, true);
+            return await GetAsync<T>(endpoint, queryParameters,  _accessTokenManager.GetAccessToken(), true);
         }
 
         public async Task<T> GetAsync<T>(string endpoint, object queryParameters, string accessToken, bool stripAjaxResponseWrapper)
@@ -183,7 +181,7 @@ namespace Revit.ApiClient
 
         public async Task GetAsync(string endpoint, object queryParameters)
         {
-            await GetAsync(endpoint, queryParameters,  /*_accessTokenManager.GetAccessToken()*/null, true);
+            await GetAsync(endpoint, queryParameters,  _accessTokenManager.GetAccessToken(), true);
         }
 
         public async Task GetAsync(string endpoint, object queryParameters, string accessToken, bool stripAjaxResponseWrapper)
@@ -202,7 +200,7 @@ namespace Revit.ApiClient
 
         public async Task GetStringAsync(string endpoint, object queryParameters)
         {
-            await GetStringAsync(endpoint, queryParameters,  /*_accessTokenManager.GetAccessToken()*/null);
+            await GetStringAsync(endpoint, queryParameters,  _accessTokenManager.GetAccessToken());
         }
 
         public async Task<string> GetStringAsync(string endpoint, object queryParameters, string accessToken)
@@ -219,12 +217,12 @@ namespace Revit.ApiClient
 
         public async Task DeleteAsync(string endpoint)
         {
-            await DeleteAsync(endpoint, null,  /*_accessTokenManager.GetAccessToken()*/null);
+            await DeleteAsync(endpoint, null,  _accessTokenManager.GetAccessToken());
         }
 
         public async Task DeleteAsync(string endpoint, object queryParameters)
         {
-            await DeleteAsync(endpoint, queryParameters,  /*_accessTokenManager.GetAccessToken()*/null);
+            await DeleteAsync(endpoint, queryParameters,  _accessTokenManager.GetAccessToken());
         }
 
         public async Task DeleteAsync(string endpoint, object queryParameters, string accessToken)
@@ -243,7 +241,7 @@ namespace Revit.ApiClient
 
         public async Task<T> DeleteAsync<T>(string endpoint, object queryParameters)
         {
-            return await DeleteAsync<T>(endpoint, queryParameters,  /*_accessTokenManager.GetAccessToken()*/null, true);
+            return await DeleteAsync<T>(endpoint, queryParameters,  _accessTokenManager.GetAccessToken(), true);
         }
 
         public async Task<T> DeleteAsync<T>(string endpoint, object queryParameters, string accessToken, bool stripAjaxResponseWrapper)
@@ -262,17 +260,17 @@ namespace Revit.ApiClient
 
         public async Task<T> PutAsync<T>(string endpoint)
         {
-            return await PutAsync<T>(endpoint, null, null,  /*_accessTokenManager.GetAccessToken()*/null, true);
+            return await PutAsync<T>(endpoint, null, null,  _accessTokenManager.GetAccessToken(), true);
         }
 
         public async Task<T> PutAsync<T>(string endpoint, object inputDto)
         {
-            return await PutAsync<T>(endpoint, inputDto, null,  /*_accessTokenManager.GetAccessToken()*/null, true);
+            return await PutAsync<T>(endpoint, inputDto, null,  _accessTokenManager.GetAccessToken(), true);
         }
 
         public async Task<T> PutAsync<T>(string endpoint, object inputDto, object queryParameters)
         {
-            return await PutAsync<T>(endpoint, inputDto, queryParameters,  /*_accessTokenManager.GetAccessToken()*/null, true);
+            return await PutAsync<T>(endpoint, inputDto, queryParameters,  _accessTokenManager.GetAccessToken(), true);
         }
 
         public async Task<T> PutAsync<T>(string endpoint, object inputDto, object queryParameters, string accessToken, bool stripAjaxResponseWrapper)
@@ -291,17 +289,17 @@ namespace Revit.ApiClient
 
         public async Task PutAsync(string endpoint)
         {
-            await PutAsync(endpoint, null, null,  /*_accessTokenManager.GetAccessToken()*/null, true);
+            await PutAsync(endpoint, null, null,  _accessTokenManager.GetAccessToken(), true);
         }
 
         public async Task PutAsync(string endpoint, object inputDto)
         {
-            await PutAsync(endpoint, inputDto, null,  /*_accessTokenManager.GetAccessToken()*/null, true);
+            await PutAsync(endpoint, inputDto, null,  _accessTokenManager.GetAccessToken(), true);
         }
 
         public async Task PutAsync(string endpoint, object inputDto, object queryParameters)
         {
-            await PutAsync(endpoint, inputDto, queryParameters,  /*_accessTokenManager.GetAccessToken()*/null, true);
+            await PutAsync(endpoint, inputDto, queryParameters,  _accessTokenManager.GetAccessToken(), true);
         }
 
         public async Task PutAsync(string endpoint, object inputDto, object queryParameters, string accessToken,
@@ -316,7 +314,7 @@ namespace Revit.ApiClient
 
         public async Task<string> DownloadAsync(string endpoint, string localFolderPath, string localFileName = null)
         {
-            return await GetClient( /*_accessTokenManager.GetAccessToken()*/null)
+            return await GetClient( _accessTokenManager.GetAccessToken())
                   .Request(endpoint)
                   .DownloadFileAsync(localFolderPath, localFileName);
         }
@@ -381,14 +379,15 @@ namespace Revit.ApiClient
                 return await httpResponse.ReceiveJson<T>();
             }
 
-            ApiResponse<T> response;
+            Abp.Web.Models.AjaxResponse<T> response;
             try
             {
-                response = await httpResponse.ReceiveJson<ApiResponse<T>>();
+                response = await httpResponse.ReceiveJson<Abp.Web.Models.AjaxResponse<T>>();
             }
             catch (FlurlHttpException e)
             {
-                response = await e.GetResponseJsonAsync<ApiResponse<T>>();
+                MessageBox.Show(e?.Message+e?.InnerException?.Message);
+                response = await e.GetResponseJsonAsync<Abp.Web.Models.AjaxResponse<T>>();
             }
 
             if (response == null)
@@ -396,12 +395,17 @@ namespace Revit.ApiClient
                 return default;
             }
 
-            if (response.Code==ResponseCode.Success)
+            if (response.Success)
             {
-                return response.Content;
+                return response.Result;
             }
 
-            throw new UserFriendlyException(response.Message);
+            if (response.Error == null)
+            {
+                return response.Result;
+            }
+
+            throw new UserFriendlyException(response.Error.GetConsolidatedMessage());
         }
 
         public void Dispose()

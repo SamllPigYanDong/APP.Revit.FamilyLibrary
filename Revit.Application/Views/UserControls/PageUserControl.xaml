@@ -33,26 +33,25 @@
             <Button
                 Width="50"
                 Margin="5"
-                Command="{Binding ChangeFirstPageCommand}"
                 Content="&#xe63f;" />
             <Button
                 Width="50"
                 Margin="5"
-                Command="{Binding ChangePreviousPageCommand}"
                 Content="&#xe626;"
-                FontWeight="Bold" />
-            <TextBlock IsEnabled="{Binding PagedList.HasNextPage}" Text="{Binding PagedList.PageIndex, StringFormat={}{0}/}" />
-            <TextBlock IsEnabled="{Binding PagedList.HasPreviousPage}" Text="{Binding PagedList.TotalPages, StringFormat={}}" />
+                FontWeight="Bold"
+                IsEnabled="{Binding HasPreviousPage}" />
+            <TextBlock Name="PageIndex" Text="{Binding PageIndex, StringFormat={}{0}/}" />
+            <TextBlock Text="{Binding PageCount, StringFormat={}}" />
             <Button
                 Width="50"
                 Margin="5"
-                Command="{Binding ChangeNextPageCommand}"
+                Command="{Binding MoveNextPageCommand}"
                 Content="&#xe628;"
-                FontWeight="Bold" />
+                FontWeight="Bold"
+                IsEnabled="{Binding HasNextPage}" />
             <Button
                 Width="50"
                 Margin="5"
-                Command="{Binding ChangeLastPageCommand}"
                 Content="&#xe63e;" />
         </StackPanel>
     </Grid>

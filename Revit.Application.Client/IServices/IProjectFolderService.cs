@@ -2,12 +2,13 @@
 using Revit.Shared.Entity.Commons;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Abp.Web.Models;
 
 namespace Revit.Service.IServices
 {
     public interface IProjectFolderService
     {
-        Task<ApiResponse<ProjectFolderDto>> CreateFolder(long projectId, ProjectCreateFolderDto projectCreateFolderDto);
-        Task<ApiResponse<IEnumerable<ProjectFolderDto>>> GetFolders(long projectId, ProjectGetFoldersDto projectRequestFolderDto);
+        Task<AjaxResponse<ProjectFolderDto>> CreateFolder(long projectId, ProjectCreateFolderDto projectCreateFolderDto);
+        Task<AjaxResponse<IEnumerable<ProjectFolderDto>>> GetFolders(long projectId, ProjectGetFoldersDto projectRequestFolderDto);
     }
 }

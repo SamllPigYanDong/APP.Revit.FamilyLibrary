@@ -557,7 +557,10 @@
                             TextBlock.FontWeight="Normal">
                             <ContentPresenter.ContentTemplate>
                                 <DataTemplate>
-                                    <TextBlock FontWeight="Normal" Text="{Binding}" FontSize="14" />
+                                    <TextBlock
+                                        FontSize="14"
+                                        FontWeight="Normal"
+                                        Text="{Binding}" />
                                 </DataTemplate>
                             </ContentPresenter.ContentTemplate>
                         </ContentPresenter>
@@ -570,7 +573,10 @@
                             <Setter TargetName="contentPresenter" Property="ContentTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
-                                        <TextBlock FontWeight="Bold" Text="{Binding}" FontSize="15"/>
+                                        <TextBlock
+                                            FontSize="15"
+                                            FontWeight="Bold"
+                                            Text="{Binding}" />
                                     </DataTemplate>
                                 </Setter.Value>
                             </Setter>
@@ -588,7 +594,10 @@
                             <Setter TargetName="contentPresenter" Property="ContentTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
-                                        <TextBlock FontWeight="Bold" Text="{Binding}" FontSize="15"/>
+                                        <TextBlock
+                                            FontSize="15"
+                                            FontWeight="Bold"
+                                            Text="{Binding}" />
                                     </DataTemplate>
                                 </Setter.Value>
                             </Setter>
@@ -685,7 +694,7 @@
                             <Setter TargetName="headerPanel" Property="Margin" Value="0,2,2,2" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="templateRoot" Property="TextBlock.Foreground" Value="{DynamicResource SystemColors.GrayTextBrushKey}" />
+                            <Setter TargetName="templateRoot" Property="TextBlock.Foreground" Value="Black" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

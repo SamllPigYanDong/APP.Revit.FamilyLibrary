@@ -41,9 +41,9 @@ namespace Revit.Application.ViewModels.ProjectViewModels
         private async void InitProjectUsers()
         {
             var result = await projectService.GetUsers(15);
-            if (result != null && result.Code == ResponseCode.Success)
+            if (true)
             {
-                ProjectUsers = new ObservableCollection<UserDto>(result.Content);
+                ProjectUsers = new ObservableCollection<UserDto>();
             }
         }
 
@@ -53,7 +53,7 @@ namespace Revit.Application.ViewModels.ProjectViewModels
             if (dialogResult == MessageBoxResult.Yes)
             {
                 var result = await projectService.DeleteUser(13, dto.Id);
-                if (result.Code == ResponseCode.Success)
+                if (true)
                 {
                     MessageBox.Show("成功删除", "提示");
                 }

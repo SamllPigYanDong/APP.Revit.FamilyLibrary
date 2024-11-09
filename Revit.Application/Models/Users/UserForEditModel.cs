@@ -1,10 +1,8 @@
-﻿using AppFramework.Authorization.Users.Dto;
-using AppFramework.Organizations.Dto;
-using CommunityToolkit.Mvvm.ComponentModel;
-using Prism.Mvvm;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using Revit.Application.Models.Users;
+using Revit.Shared.Entity.Users;
 
 namespace AppFramework.Admin.Models
 {
@@ -14,16 +12,16 @@ namespace AppFramework.Admin.Models
         public Guid? ProfilePictureId { get; set; }
 
         [ObservableProperty]
-        private UserEditModel user;
+        private UserEditModel _user;
           
         public UserRoleDto[] Roles { get; set; }
 
-        public List<OrganizationUnitDto> AllOrganizationUnits { get; set; }
+        //public List<OrganizationUnitDto> AllOrganizationUnits { get; set; }
 
         public List<string> MemberedOrganizationUnits { get; set; }
 
         private byte[] _photo;
-        private List<OrganizationUnitModel> _organizationUnits;
+        //private List<OrganizationUnitModel> _organizationUnits;
 
         public string FullName => User == null ? string.Empty : User.Name + " " + User.Surname;
 
@@ -41,28 +39,28 @@ namespace AppFramework.Admin.Models
             }
         }
 
-        public List<OrganizationUnitModel> OrganizationUnits
-        {
-            get => _organizationUnits;
-            set
-            {
-                _organizationUnits = value?.OrderBy(o => o.Code).ToList();
-                SetAsAssignedForMemberedOrganizationUnits();
-                OnPropertyChanged();
-            }
-        }
+        //public List<OrganizationUnitModel> OrganizationUnits
+        //{
+        //    get => _organizationUnits;
+        //    set
+        //    {
+        //        _organizationUnits = value?.OrderBy(o => o.Code).ToList();
+        //        SetAsAssignedForMemberedOrganizationUnits();
+        //        OnPropertyChanged();
+        //    }
+        //}
 
-        private void SetAsAssignedForMemberedOrganizationUnits()
-        {
-            if (_organizationUnits != null)
-            {
-                MemberedOrganizationUnits?.ForEach(memberedOrgUnitCode =>
-                {
-                    _organizationUnits
-                        .Single(o => o.Code == memberedOrgUnitCode)
-                        .IsAssigned = true;
-                });
-            }
-        }
+        //private void SetAsAssignedForMemberedOrganizationUnits()
+        //{
+        //    if (_organizationUnits != null)
+        //    {
+        //        MemberedOrganizationUnits?.ForEach(memberedOrgUnitCode =>
+        //        {
+        //            _organizationUnits
+        //                .Single(o => o.Code == memberedOrgUnitCode)
+        //                .IsAssigned = true;
+        //        });
+        //    }
+        //}
     }
 }

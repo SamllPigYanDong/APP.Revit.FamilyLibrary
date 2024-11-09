@@ -6,8 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
+    xmlns:uiModel="clr-namespace:Revit.Application.Styles.UIModel"
+    xmlns:userViewModels="clr-namespace:Revit.Application.ViewModels.UserViewModels"
+    d:DataContext="{d:DesignInstance userViewModels:UserViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -28,7 +32,7 @@
             Orientation="Horizontal">
             <Button
                 VerticalAlignment="Center"
-                Command="{Binding AddUsersCommand}"
+                Command="{Binding AddCommand}"
                 Content="添加用户" />
         </StackPanel>
         <Grid x:Name="gridContainer" Grid.Row="1">
@@ -51,8 +55,9 @@
         </Grid>
         <ListView
             Grid.Row="1"
-            ItemsSource="{Binding Users}"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            ItemsSource="{Binding dataPager.GridModelList}"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            SelectedItem="{Binding dataPager.SelectedItem}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -108,12 +113,12 @@
                                 <DataTemplate>
                                     <UniformGrid HorizontalAlignment="Stretch" Columns="2">
                                         <Button
-                                            Command="{Binding DeleteUserCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                            CommandParameter="{Binding Id}"
+                                            Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}"
                                             Content="修改" />
                                         <Button
-                                            Command="{Binding DeleteUserCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                            CommandParameter="{Binding Id}"
+                                            Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}"
                                             Content="删除" />
                                     </UniformGrid>
                                 </DataTemplate>
@@ -123,6 +128,12 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <controls:PageUserControl Grid.Row="2" />
+        <uiModel:DataPager
+            Grid.Row="2"
+            Margin="5"
+            NumericButtonCount="{Binding dataPager.NumericButtonCount}"
+            PageCount="{Binding dataPager.PageCount, Mode=TwoWay}"
+            PageSize="{Binding dataPager.PageSize, Mode=TwoWay}"
+            PageIndex="{Binding dataPager.PageIndex, Mode=TwoWay}" />
     </Grid>
 </UserControl>

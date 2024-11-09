@@ -3,140 +3,102 @@ using Autodesk.Revit.DB;
 using System.Windows.Forms;
 using Tuna.Revit.Extension;
 using Revit.Shared.Entity.Family;
-using Revit.Shared.Entity.Commons.Page;
 using Revit.Families;
 using System.Threading.Tasks;
 using System;
 using System.Linq;
 using System.IO;
+using Abp.Application.Services.Dto;
 using Revit.Shared.Extensions.Threading;
 using Revit.Mvvm.Interface;
 using Revit.Shared.Base;
 using Revit.Mvvm.Extensions;
+using Castle.MicroKernel.Registration;
 
 namespace Revit.Mvvm.Services
 {
+    public interface IFamilyService
+    {
+        /// <summary>
+        /// 放置族
+        /// </summary>
+        /// <param name="familyDto"></param>
+        /// <returns></returns>
+        bool PromptForFamilyInstancePlacement(FamilyDto familyDto);
+
+        /// <summary>
+        /// 载入族
+        /// </summary>
+        /// <param name="filePath"></param>
+        Task<bool> LoadFamily(byte[] filePath);
+    }
+
     public class FamilyService : RevitViewModelBase, IFamilyService
     {
-        private IFamilyAppService _familyAppSerivce;
-
-        public FamilyService(IDataContext dataContext, IFamilyAppService familyAppSerivce) : base(dataContext)
+        public FamilyService(IDataContext dataContext) : base(dataContext)
         {
-            _familyAppSerivce = familyAppSerivce;
         }
-
-
-
-        public async Task LoadFamilies(FamilyPageRequestDto queryParameter, Action<PagedList<FamilyDto>> action)
-        {
-            await _familyAppSerivce.GetPageListAsync(queryParameter).WebAsync(successCallback: async (x) =>
-            {
-                if (action != null)
-                {
-                    action.Invoke(x);
-                }
-            });
-        }
-
 
         /// <summary>
         /// 放置族
         /// </summary>
         /// <param name="familyDto"></param>
         /// <returns></returns>
-        public async Task PromptForFamilyInstancePlacement(FamilyDto familyDto)
+        public bool PromptForFamilyInstancePlacement(FamilyDto familyDto)
         {
             var familyName = Path.GetFileNameWithoutExtension(familyDto.Name);
             //查验本项目中是否存在同名族，询问是否直接放置或者依旧载入
             Family family = _document.GetElements<Family>().FirstOrDefault(x => x.Name == familyName);
-
-            if (family != null)
+            if (family == null) return false;
+            var selectResult = MessageBox.Show("存在同名称族，选择是：使用已有族放置，选择否：依旧重新载入", "提示", MessageBoxButtons.YesNo);
+            if (selectResult != DialogResult.Yes) return false;
+            try
             {
-                var selectResult = MessageBox.Show("存在同名称族，选择是：使用已有族放置，选择否：依旧重新载入", "提示", MessageBoxButtons.YesNo);
-                if (selectResult == DialogResult.Yes)
-                {
-                    try
-                    {
-                        _uiDocument.PromptForFamilyInstancePlacement(family.GetFamilySymbols().FirstOrDefault());
-                        return;
-                    }
-                    catch (Exception)
-                    {
-                        return;
-                    }
-                }
+                _uiDocument.PromptForFamilyInstancePlacement(family.GetFamilySymbols().FirstOrDefault());
             }
-            //下载族
-            string filePath = await DownLoadFamily(familyDto);
-            //载入族
-            LoadFamily(filePath);
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
         /// 载入族
         /// </summary>
+        /// <param name="bytes"></param>
         /// <param name="filePath"></param>
-        private void LoadFamily(string filePath)
+        public async Task<bool> LoadFamily(byte[] bytes)
         {
             Family family = null;
-            if (File.Exists(filePath))
+            string filePath = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.rfa");
+            using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
             {
-                _document.NewTransaction(() =>
-                {
-                    //如果文档内存在相同的族会传输失败
-                    var loadResult = _document.LoadFamily(filePath, new FamilyPromptOverLoadOption(), out family);
-                    if (!loadResult)
-                    {
-                        family = _document.GetElements<Family>().FirstOrDefault(x => x.Name == Path.GetFileNameWithoutExtension(filePath));
-                    }
-                }, "放置族");
-                if (family != null)
-                {
-                    try
-                    {
-                        _uiDocument.PromptForFamilyInstancePlacement(family.GetFamilySymbols().FirstOrDefault());
-                    }
-                    catch (Exception)
-                    {
-                        return;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("载入失败", "提示");
-                }
+                await fileStream.WriteAsync(bytes, 0, bytes.Length);
             }
-            else
+
+            if (!File.Exists(filePath)) return false;
+            _document.NewTransaction(() =>
             {
-                MessageBox.Show("载入失败", "提示");
+                //如果文档内存在相同的族会传输失败
+                var loadResult = _document.LoadFamily(filePath, new FamilyPromptOverLoadOption(), out family);
+                if (!loadResult)
+                {
+                    family = _document.GetElements<Family>()
+                        .FirstOrDefault(x => x.Name == Path.GetFileNameWithoutExtension(filePath));
+                }
+            }, "放置族");
+            if (family == null) return false;
+            try
+            {
+                _uiDocument.PromptForFamilyInstancePlacement(family.GetFamilySymbols().FirstOrDefault());
             }
-        }
-
-        /// <summary>
-        /// 下载族
-        /// </summary>
-        /// <param name="familyDto"></param>
-        /// <returns></returns>
-        private async Task<string> DownLoadFamily(FamilyDto familyDto)
-        {
-            //var result = await _familyAppSerivce.DownLoadFamily(familyDto.Id);
-            //string filePath = "";
-            //if (result.Code == ResponseCode.Success)
-            //{
-            //    var direction = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
-            //    if (!Directory.Exists(direction))
-            //    {
-            //        Directory.CreateDirectory(direction);
-            //    }
-            //    filePath = Path.Combine(direction, familyDto.Name);
-            //    using (var fileStream = new FileStream(filePath, FileMode.CreateNew))
-            //    {
-            //        await fileStream.WriteAsync(result.Content, 0, result.Content.Length);
-            //    }
-            //}
-
-            return "filePath";
-            //return filePath;
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
         }
     }
 

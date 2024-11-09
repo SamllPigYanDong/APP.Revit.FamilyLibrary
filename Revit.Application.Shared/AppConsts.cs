@@ -15,7 +15,7 @@ namespace Revit
         /// <summary>
         ///默认页大小
         /// </summary>
-        public const int DefaultPageSize = 10;
+        public const int DefaultPageSize = 5;
 
         /// <summary>
         /// 最大页大小

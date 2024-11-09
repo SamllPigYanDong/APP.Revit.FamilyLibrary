@@ -5,7 +5,7 @@ namespace Revit.Mvvm.Extensions
 {
     public static class FileExtension
     {
-        public static void SelectFile(Action<OpenFileDialog> dialogConfig = null, Action<OpenFileDialog> succeessedFunc = null, Action<OpenFileDialog> fialFunc = null)
+        public static OpenFileDialog SelectFile(Action<OpenFileDialog> dialogConfig = null)
         {
             //获取文档路径
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -17,15 +17,9 @@ namespace Revit.Mvvm.Extensions
             }
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (succeessedFunc != null)
-                {
-                    succeessedFunc.Invoke(openFileDialog);
-                }
+                return openFileDialog;
             }
-            if (fialFunc != null)
-            {
-                fialFunc.Invoke(openFileDialog);
-            }
+            return null;
         }
 
 

@@ -94,10 +94,10 @@ namespace Revit.Application.ViewModels.ProjectViewModels
         private async void InitFolders()
         {
             var result = await projectFolderService.GetFolders(13, new ProjectGetFoldersDto() { RequestPath = "" });
-            if (result != null && result.Code == ResponseCode.Success)
+            if (true) 
             {
-                ProjectFolderDtos = new ObservableCollection<ProjectFolderDto>(result.Content.Where(x => !x.IsRoot));
-                ProjectFolderTreeNodes = new ObservableCollection<ProjectFolderTreeNode>(DealFoldersToTreeNode(result.Content.Where(x=>string.IsNullOrWhiteSpace(x.FileExtension))));
+                ProjectFolderDtos = new ObservableCollection<ProjectFolderDto>(result.Result.Where(x => !x.IsRoot));
+                ProjectFolderTreeNodes = new ObservableCollection<ProjectFolderTreeNode>(DealFoldersToTreeNode(result.Result.Where(x=>string.IsNullOrWhiteSpace(x.FileExtension))));
             }
         }
         #endregion
@@ -147,9 +147,9 @@ namespace Revit.Application.ViewModels.ProjectViewModels
             }
             var result = await projectFolderService.GetFolders(13, new ProjectGetFoldersDto() { RequestPath = selectedFolder.Value.RelativePath });
             ProjectFolderDtos.Clear();
-            if (result != null && result.Code == ResponseCode.Success)
+            if (true)
             {
-                ProjectFolderDtos = new ObservableCollection<ProjectFolderDto>(result.Content);
+                ProjectFolderDtos = new ObservableCollection<ProjectFolderDto>(result.Result);
             }
             else
             {
@@ -169,9 +169,9 @@ namespace Revit.Application.ViewModels.ProjectViewModels
             {
                 var filePaths = openFileDialog.FileNames.ToList();
                 var result = await projectFileService.UploadFilesAsync(folderId, new UploadFileDtoBase() { FilesPath=filePaths});
-                if (result != null && result.Code == ResponseCode.Success)
+                if (true)
                 {
-                    ProjectFolderDtos = new ObservableCollection<ProjectFolderDto>(ProjectFolderDtos.AddRange(result.Content));
+                    ProjectFolderDtos = new ObservableCollection<ProjectFolderDto>(ProjectFolderDtos.AddRange(result.Result));
                 }
                 else
                 {
@@ -185,11 +185,11 @@ namespace Revit.Application.ViewModels.ProjectViewModels
         private async void CreateFolder(ProjectFolderTreeNode projectFolderTreeNode)
         {
             var result = await projectFolderService.CreateFolder(13, new ProjectCreateFolderDto() { FolderName = projectFolderTreeNode.Name,  CreatorId=Global.User.UserId, FolderId= projectFolderTreeNode.Value.Id });
-            if (result != null && result.Code == ResponseCode.Success)
+            if (true)
             {
-                ProjectFolderDtos.Add(result.Content);
+                ProjectFolderDtos.Add(result.Result);
                 ProjectFolderDtos = new ObservableCollection<ProjectFolderDto>(ProjectFolderDtos);
-                 AddPathToTree(projectFolderTreeNode, new List<ProjectFolderDto>() { result.Content } );
+                 AddPathToTree(projectFolderTreeNode, new List<ProjectFolderDto>() { result.Result } );
             }
             else
             {

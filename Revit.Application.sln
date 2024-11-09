@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revit.Core.Shared", "Revit.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Revit.Shared.Entity", "..\webapi-revitor\Revit.Shared.Entity\Revit.Shared.Entity.csproj", "{0E738917-5127-4E06-AE84-B5A2B6AD206F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUI", "TestUI\TestUI.csproj", "{BF9FDF39-A07C-4A23-A8A2-ECFECF501294}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,18 +111,6 @@ Global
 		{0E738917-5127-4E06-AE84-B5A2B6AD206F}.RVT_19|Any CPU.Build.0 = Release|Any CPU
 		{0E738917-5127-4E06-AE84-B5A2B6AD206F}.RVT_20|Any CPU.ActiveCfg = Release|Any CPU
 		{0E738917-5127-4E06-AE84-B5A2B6AD206F}.RVT_20|Any CPU.Build.0 = Release|Any CPU
-		{BF9FDF39-A07C-4A23-A8A2-ECFECF501294}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF9FDF39-A07C-4A23-A8A2-ECFECF501294}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF9FDF39-A07C-4A23-A8A2-ECFECF501294}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF9FDF39-A07C-4A23-A8A2-ECFECF501294}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BF9FDF39-A07C-4A23-A8A2-ECFECF501294}.RVT_17|Any CPU.ActiveCfg = Release|Any CPU
-		{BF9FDF39-A07C-4A23-A8A2-ECFECF501294}.RVT_17|Any CPU.Build.0 = Release|Any CPU
-		{BF9FDF39-A07C-4A23-A8A2-ECFECF501294}.RVT_18|Any CPU.ActiveCfg = Release|Any CPU
-		{BF9FDF39-A07C-4A23-A8A2-ECFECF501294}.RVT_18|Any CPU.Build.0 = Release|Any CPU
-		{BF9FDF39-A07C-4A23-A8A2-ECFECF501294}.RVT_19|Any CPU.ActiveCfg = Release|Any CPU
-		{BF9FDF39-A07C-4A23-A8A2-ECFECF501294}.RVT_19|Any CPU.Build.0 = Release|Any CPU
-		{BF9FDF39-A07C-4A23-A8A2-ECFECF501294}.RVT_20|Any CPU.ActiveCfg = Release|Any CPU
-		{BF9FDF39-A07C-4A23-A8A2-ECFECF501294}.RVT_20|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

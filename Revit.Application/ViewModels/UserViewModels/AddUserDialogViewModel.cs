@@ -1,10 +1,14 @@
-﻿using Autodesk.Revit.DB;
+﻿using Abp.Application.Services.Dto;
+using Autodesk.Revit.DB;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Prism.Services.Dialogs;
 using Revit.Application.Models;
 using Revit.Authorization.Roles;
+using Revit.Authorization.Users;
 using Revit.Service.Services;
 using Revit.Shared;
+using Revit.Shared.Consts;
 using Revit.Shared.Entity.Roles;
 using Revit.Shared.Entity.Users;
 using Revit.Shared.Extensions.Threading;
@@ -15,67 +19,127 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AppFramework.Admin.Models;
+using Revit.Application.Models.Users;
+using UserEditModel = Revit.Application.Models.Users.UserEditModel;
 
 namespace Revit.Application.ViewModels.UserViewModels
 {
     public partial class AddUserDialogViewModel : DialogViewModel
     {
-        public AddUserDialogViewModel()
+        private readonly IRoleAppService _roleAppService;
+        private readonly IUserAppService _userAppService;
+
+        public AddUserDialogViewModel(
+            IRoleAppService roleAppService,
+            IUserAppService userAppService
+        )
         {
-                
-        }
-        public AddUserDialogViewModel(IRoleAppService roleAppService) 
-        {
-            this.roleAppService = roleAppService;
+            _roleAppService = roleAppService;
+            _userAppService = userAppService;
         }
 
         public string Title => "添加用户";
 
         [ObservableProperty]
-        private UserCreateDto _user = new UserCreateDto();
+        private UserCreateOrUpdateModel _input = new UserCreateOrUpdateModel();
+
         
-        [ObservableProperty]
-        private ObservableCollection<RoleDto> _roles=new ObservableCollection<RoleDto>();
-        private readonly IRoleAppService roleAppService;
-
-        public event Action<IDialogResult> RequestClose;
-
-        public bool CanCloseDialog()
+        private static RolePageRequestDto _rolePageRequestDto = new RolePageRequestDto()
         {
-           
-            return true;
-        }
+            Name = "",
+        };
 
-        public void OnDialogClosed()
-        {
+        /// <summary>
+        /// 是否是新建用户
+        /// </summary>
+        [ ObservableProperty]
+        public bool _isNewUser;
 
-            
-        }
+        [ObservableProperty] public UserForEditModel _model;
+       
 
         public override async void OnDialogOpened(IDialogParameters parameters)
         {
+           
+
             await SetBusyAsync(async () =>
             {
-                await roleAppService.GetAllRoles().WebAsync(successCallback: (result) => {
-                    Roles = new ObservableCollection<RoleDto>(result);
-                    return Task.CompletedTask;
-                });
-            } );
+                UserDto? user = null;
+                if (parameters.ContainsKey("Value"))
+                    user = parameters.GetValue<UserDto>("Value");
+
+                IsNewUser = user == null;
+                Input.SetRandomPassword = IsNewUser;
+                Input.SendActivationEmail = IsNewUser;
+
+                await _userAppService.GetEditUser(new NullableIdDto<long>(user?.Id)).WebAsync(GetUserForEditSuccessed);
+            });
+
+            //if (parameters.ContainsKey("Config"))
+                //PasswordComplexitySetting = parameters.GetValue<GetPasswordComplexitySettingOutput>("Config");
         }
 
-        protected  void Submit()
+        /// <summary>
+        /// 设置编辑用户数据
+        /// </summary>
+        /// <param name="output"></param>
+        /// <returns></returns>
+        private async Task GetUserForEditSuccessed(GetUserForEditOutput output)
         {
-            if (string.IsNullOrWhiteSpace(User.UserName) || string.IsNullOrWhiteSpace(User.Password))
+            Model = Map<UserForEditModel>(output);
+            //Model.OrganizationUnits = Map<List<OrganizationUnitModel>>(output.AllOrganizationUnits);
+
+            if (IsNewUser)
             {
-                MessageBox.Show("未填写用户名或密码");
-                return;
+                //Model.Photo = ImageSource.FromResource(AssetsHelper.ProfileImagePlaceholderNamespace);
+                Model.User = new UserEditModel
+                {
+                    IsActive = true,
+                    IsLockoutEnabled = true,
+                    ShouldChangePasswordOnNextLogin = true,
+                };
             }
-            var buttonResult = ButtonResult.OK;
-            var parameters = new DialogParameters();
-            parameters.Add(nameof(UserCreateDto), User);
-            var result = new Prism.Services.Dialogs.DialogResult(buttonResult, parameters);
-            RequestClose.Invoke(result);
+
+            await Task.CompletedTask;
         }
-        
+
+        public override async Task Save()
+        {
+            Input.User = Model.User;
+            //Input.AssignedRoleNames = Model.Roles.Where(x => x.IsAssigned).Select(x => x.RoleName).ToArray();
+            //Input.OrganizationUnits = Model.OrganizationUnits.Where(x => x.IsAssigned).Select(x => x.Id).ToList();
+
+            if (!Verify(Input).IsValid) return;
+
+            await SetBusyAsync(async () =>
+            {
+                var input = Map<CreateOrUpdateUserInput>(Input);
+                await _userAppService.CreateOrUpdateUser(input).WebAsync(base.Save);
+            }, AppLocalizationKeys.SavingWithThreeDot);
+        }
+
+
+
+        /// <summary>
+        /// 生成可选的组织树
+        /// </summary>
+        /// <param name="organizationUnits"></param>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        //private ObservableCollection<object> BuildOrganizationTree(
+        //    List<OrganizationListModel> organizationUnits, long? parentId = null)
+        //{
+        //    var masters = organizationUnits
+        //        .Where(x => x.ParentId == parentId).ToList();
+
+        //    var childs = organizationUnits
+        //        .Where(x => x.ParentId != parentId).ToList();
+
+        //    foreach (OrganizationListModel dpt in masters)
+        //        dpt.Items = BuildOrganizationTree(childs, dpt.Id);
+
+        //    return new ObservableCollection<object>(masters);
+        //}
     }
 }

@@ -4,6 +4,7 @@ using Revit.Service.IServices;
 using Revit.Shared.Entity.Commons;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Abp.Web.Models;
 
 namespace Revit.Service.Services
 {
@@ -14,7 +15,7 @@ namespace Revit.Service.Services
             this.ServiceName = "Accounts";
         }
 
-        public async Task<ApiResponse<LoginedUserDto>> GetLoginedUser(string token)
+        public async Task<AjaxResponse<LoginedUserDto>> GetLoginedUser(string token)
         {
             BaseRequest request = new BaseRequest();
             request.Method = HttpMethod.Get;

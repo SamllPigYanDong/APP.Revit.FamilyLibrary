@@ -1,25 +1,26 @@
+using System;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using Abp.Configuration.Startup;
 using Abp.Dependency;
 using Abp.UI;
 using Abp.Web.Models;
-using Revit.ApiClient.Models;
-using Revit.Authorization.Accounts.Dto;
 using Flurl.Http;
 using JetBrains.Annotations;
-using System;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
+using Revit.ApiClient.Models;
+using Revit.Shared.Entity.Auths;
+using AbpAuthenticateResultModel = Revit.ApiClient.Models.AbpAuthenticateResultModel;
 
 namespace Revit.ApiClient
 {
     public class AccessTokenManager : IAccessTokenManager, ISingletonDependency
     {
-        private const string LoginUrlSegment = "api/TokenAuth/Authenticate";
+        private const string LoginUrlSegment = "api/Auths/login";
         private const string RefreshTokenUrlSegment = "api/TokenAuth/RefreshToken";
 
         private readonly AbpAuthenticateModel _authenticateModel;
-        private readonly IApplicationContext _applicationContext;
-        private readonly IMultiTenancyConfig _multiTenancyConfig;
+        //private readonly IApplicationContext _applicationContext;
+        //private readonly IMultiTenancyConfig _multiTenancyConfig;
 
         public DateTime AccessTokenRetrieveTime { get; set; }
 
@@ -30,14 +31,11 @@ namespace Revit.ApiClient
         public bool IsRefreshTokenExpired =>
             AuthenticateResult == null || DateTime.Now >= AuthenticateResult.RefreshTokenExpireDate;
 
-        public AccessTokenManager(
-            IApplicationContext applicationContext,
-            AbpAuthenticateModel authenticateModel,
-            IMultiTenancyConfig multiTenancyConfig)
+        public AccessTokenManager(AbpAuthenticateModel authenticateModel)
         {
-            _applicationContext = applicationContext;
+           // _applicationContext = applicationContext;
             _authenticateModel = authenticateModel;
-            _multiTenancyConfig = multiTenancyConfig;
+            //_multiTenancyConfig = multiTenancyConfig;
         }
 
         public string GetAccessToken()
@@ -56,13 +54,13 @@ namespace Revit.ApiClient
 
             using (var client = CreateApiClient())
             {
-                if (_applicationContext.CurrentTenant != null)
-                {
-                    client.WithHeader(
-                        _multiTenancyConfig.TenantIdResolveKey,
-                        _applicationContext.CurrentTenant.TenantId
-                    );
-                }
+                //if (_applicationContext.CurrentTenant != null)
+                //{
+                //    client.WithHeader(
+                //        _multiTenancyConfig.TenantIdResolveKey,
+                //        _applicationContext.CurrentTenant.TenantId
+                //    );
+                //}
 
                 var response = await client
                     .Request(LoginUrlSegment)
@@ -91,13 +89,13 @@ namespace Revit.ApiClient
 
             using (var client = CreateApiClient())
             {
-                if (_applicationContext.CurrentTenant != null)
-                {
-                    client.WithHeader(
-                        _multiTenancyConfig.TenantIdResolveKey,
-                        _applicationContext.CurrentTenant.TenantId
-                    );
-                }
+                //if (_applicationContext.CurrentTenant != null)
+                //{
+                //    client.WithHeader(
+                //        _multiTenancyConfig.TenantIdResolveKey,
+                //        _applicationContext.CurrentTenant.TenantId
+                //    );
+                //}
 
                 var response = await client.Request(RefreshTokenUrlSegment)
                     .PostUrlEncodedAsync(new { refreshToken = AuthenticateResult.RefreshToken })

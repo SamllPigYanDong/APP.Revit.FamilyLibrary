@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Revit.Application.Views.FamilyViews.PublicViews
 {
     /// <summary>
-    /// FamilyLibaryView.xaml 的交互逻辑
+    /// FamilyLibraryView.xaml 的交互逻辑
     /// </summary>
-    public partial class FamilyLibaryPublicView : UserControl
+    public partial class FamilyLibraryPublicView : UserControl
     {
-        public FamilyLibaryPublicView()
+        public FamilyLibraryPublicView()
         {
             InitializeComponent();
         }

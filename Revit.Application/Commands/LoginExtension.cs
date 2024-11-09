@@ -9,17 +9,8 @@ using Revit.Shared.Base;
 
 namespace Revit.Application.Commands
 {
-    public static class LoginExtension 
+    public static class LoginExtension
     {
-        public static  void RegisterLoginTypes(this IContainerRegistry containerRegistry)
-        {
-            //containerRegistry.RegisterDialogWindow<DefaultDialog>();
-            containerRegistry.RegisterDialog<ProjectCreateDialog, ProjectCreateDialogViewModel>();
-
-            containerRegistry.RegisterForNavigation<LoginView, LoginViewModel>();
-
-        }
-
         public static bool IsUserLogin()
         {
             if (Global.User != null)
@@ -29,13 +20,12 @@ namespace Revit.Application.Commands
             else
             {
                 var loginView = CommandBase.Instance.Container.Resolve<LoginView>();
-                if (loginView!=null)
+                if (loginView != null)
                 {
                     return loginView.ShowDialog().Value;
                 }
             }
             return false;
         }
-
     }
 }

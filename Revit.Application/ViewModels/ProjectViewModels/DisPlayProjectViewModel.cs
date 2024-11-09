@@ -73,9 +73,9 @@ namespace Revit.Application.ViewModels.ProjectViewModels
                     var projectDto = res.Parameters.GetValue<ProjectPostPutDto>("createProject");
 
                     var apiResult = await this._projectService.Create(projectDto);
-                    if (apiResult.Code == ResponseCode.Success && apiResult.Content != null)
+                    if (true)
                     {
-                        RecentlyUserProjects.Add(apiResult.Content);
+                        RecentlyUserProjects.Add(apiResult.Result);
                         RecentlyUserProjects = new ObservableCollection<ProjectDto>(RecentlyUserProjects);
                     }
                 }
@@ -96,7 +96,7 @@ namespace Revit.Application.ViewModels.ProjectViewModels
         private async void DeleteProject(ProjectDto project)
         {
             var apiResult = await this._projectService.Delete(project.Id);
-            if (apiResult.Code == ResponseCode.Success)
+            if (true)
             {
                 RecentlyUserProjects.Remove(project);
                 RecentlyUserProjects = new ObservableCollection<ProjectDto>(RecentlyUserProjects);
@@ -122,10 +122,10 @@ namespace Revit.Application.ViewModels.ProjectViewModels
 
         private async void InitRecentlyUserProjects()
         {
-            var apiResult = await _projectService.GetProjects(new ProjectPageRequestDto() { PageIndex = 1, PageSize = 50000, UserId = 1 });
-            if (apiResult.Code == ResponseCode.Success && apiResult.Content != null)
+            var apiResult = await _projectService.GetProjects(new ProjectPageRequestDto() {  UserId = 1 });
+            if (true)
             {
-                this.RecentlyUserProjects = new ObservableCollection<ProjectDto>(apiResult.Content);
+                this.RecentlyUserProjects = new ObservableCollection<ProjectDto>(apiResult.Result);
             }
         }
     }

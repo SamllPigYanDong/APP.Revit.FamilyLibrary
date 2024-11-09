@@ -13,6 +13,7 @@ namespace Revit.Application.Services
         public static void AddServices(this IContainerRegistry services)
         {
             services.RegisterSingleton<IAppMapper, AppMapper>();
+            services.RegisterSingleton<IFamilyService, FamilyService>();
         }
     }
 }

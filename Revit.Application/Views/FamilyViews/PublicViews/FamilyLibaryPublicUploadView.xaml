@@ -11,7 +11,7 @@
     xmlns:prism="http://prismlibrary.com/"
     xmlns:usercontrols="clr-namespace:Revit.Application.Views.UserControls"
     xmlns:vm="clr-namespace:Revit.Application.ViewModels.FamilyViewModels.PublicViewModels"
-    d:DataContext="{d:DesignInstance vm:FamilyLibaryPublicUploadViewModel}"
+    d:DataContext="{d:DesignInstance vm:FamilyLibraryPublicUploadViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     prism:ViewModelLocator.AutoWireViewModel="True"

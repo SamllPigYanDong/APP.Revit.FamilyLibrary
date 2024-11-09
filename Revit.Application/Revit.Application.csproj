@@ -54,7 +54,6 @@
 		<Compile Remove="Models\Roles\**" />
 		<Compile Remove="Models\Tenants\**" />
 		<Compile Remove="Models\Update\**" />
-		<Compile Remove="Models\Users\**" />
 		<Compile Remove="Services\Account\**" />
 		<Compile Remove="Services\Features\**" />
 		<Compile Remove="Services\Navigation\**" />
@@ -74,7 +73,6 @@
 		<EmbeddedResource Remove="Models\Roles\**" />
 		<EmbeddedResource Remove="Models\Tenants\**" />
 		<EmbeddedResource Remove="Models\Update\**" />
-		<EmbeddedResource Remove="Models\Users\**" />
 		<EmbeddedResource Remove="Services\Account\**" />
 		<EmbeddedResource Remove="Services\Features\**" />
 		<EmbeddedResource Remove="Services\Navigation\**" />
@@ -94,7 +92,6 @@
 		<None Remove="Models\Roles\**" />
 		<None Remove="Models\Tenants\**" />
 		<None Remove="Models\Update\**" />
-		<None Remove="Models\Users\**" />
 		<None Remove="Services\Account\**" />
 		<None Remove="Services\Features\**" />
 		<None Remove="Services\Navigation\**" />
@@ -114,7 +111,6 @@
 		<Page Remove="Models\Roles\**" />
 		<Page Remove="Models\Tenants\**" />
 		<Page Remove="Models\Update\**" />
-		<Page Remove="Models\Users\**" />
 		<Page Remove="Services\Account\**" />
 		<Page Remove="Services\Features\**" />
 		<Page Remove="Services\Navigation\**" />
@@ -127,6 +123,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Validations\AdminValidatorExtensions.cs" />
+	  <Compile Remove="Validations\EditionValidator.cs" />
+	  <Compile Remove="Validations\OrganizationUnitValidator.cs" />
+	  <Compile Remove="Validations\SettingsValidator.cs" />
+	  <Compile Remove="Validations\TenantValidator.cs" />
+	  <Compile Remove="Validations\VersionValidator.cs" />
 	  <Compile Remove="ViewModels\TestViewModel.cs" />
 	</ItemGroup>
 
@@ -183,7 +185,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
 		<PackageReference Include="REVIT-WPF-UI" Version="2.2.0" />
 	</ItemGroup>
 

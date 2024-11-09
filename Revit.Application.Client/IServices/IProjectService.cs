@@ -1,6 +1,7 @@
 ﻿using Revit.Shared.Entity.Commons;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Abp.Web.Models;
 using Revit.Project.Dto;
 using Revit.Shared.Entity.Users;
 
@@ -8,13 +9,13 @@ namespace Revit.Service.IServices
 {
     public interface IProjectService
     {
-        Task<ApiResponse<IEnumerable<ProjectDto>>> GetProjects(ProjectPageRequestDto pagedList);
-        Task<ApiResponse<ProjectDto>> Create(ProjectPostPutDto createDto);
-        Task<ApiResponse> Delete(long projectId);
+        Task<AjaxResponse<IEnumerable<ProjectDto>>> GetProjects(ProjectPageRequestDto pagedList);
+        Task<AjaxResponse<ProjectDto>> Create(ProjectPostPutDto createDto);
+        Task<AjaxResponse> Delete(long projectId);
 
-        Task<ApiResponse<IEnumerable<ProjectFolderDto>>> GetRecentlyFiles(long userId);
+        Task<AjaxResponse<IEnumerable<ProjectFolderDto>>> GetRecentlyFiles(long userId);
 
-        Task<ApiResponse<IEnumerable<UserDto>>> GetUsers(long projectId);
-        Task<ApiResponse> DeleteUser(long projectId, long userId);
+        Task<AjaxResponse<IEnumerable<UserDto>>> GetUsers(long projectId);
+        Task<AjaxResponse> DeleteUser(long projectId, long userId);
     }
 }

@@ -24,12 +24,7 @@
                   HorizontalAlignment="Stretch"
                   Name="listView"
                   ItemsSource="{Binding MenuBars}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding NavigateCommand}"
-                                           CommandParameter="{Binding ElementName=listView,Path=SelectedItem}"></i:InvokeCommandAction>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+           
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Title}"></TextBlock>

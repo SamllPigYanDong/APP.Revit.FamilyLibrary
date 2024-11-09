@@ -2,58 +2,36 @@
 using Prism.Services.Dialogs;
 using Revit.Application.Views.FamilyViews.Public.DialogViews;
 using Revit.Families;
+using Revit.Mvvm.Services;
 using Revit.Service.IServices;
 using Revit.Shared;
-using Revit.Shared.Entity.Commons.Page;
 using Revit.Shared.Entity.Family;
 using Revit.Shared.Extensions.Threading;
 using Revit.Shared.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels
 {
-    public class FamilyLibraryPublicAuditViewModel : ViewModelBase
+    public partial class FamilyLibraryPublicAuditViewModel : NavigationCurdViewModel
     {
 
         #region Properties
-        private readonly IFamilyService _familySerivce;
-        private readonly IFamilyAppService _webFamilyService;
+        private readonly IFamilyAppService _familyAppService;
         private readonly IDialogService _dialogService;
+
+        [ObservableProperty]
         private ObservableCollection<FamilyDto> _auditingFamilies = new ObservableCollection<FamilyDto>();
 
-        public ObservableCollection<FamilyDto> AuditingFamilies
-        {
-            get { return _auditingFamilies; }
-            set { SetProperty(ref _auditingFamilies, value); }
-        }
+        [ObservableProperty]
+        private static FamilyPageRequestDto _queryParameter = new FamilyPageRequestDto() {  Name = "", AuditStatus = FamilyAuditStatus.Auditing };
 
 
-        private static FamilyPageRequestDto _queryParameter = new FamilyPageRequestDto() { PageIndex = 1, PageSize = 10, SearchMessage = "", AuditStatus = FamilyAuditStatus.Auditing };
-        public FamilyPageRequestDto QueryParameter
-        {
-            get { return _queryParameter; }
-            set { SetProperty(ref _queryParameter, value); }
-        }
-
-        private IPagedList<FamilyDto> _pagedList;
-        public IPagedList<FamilyDto> PagedList
-        {
-            get { return _pagedList; }
-            set { SetProperty(ref _pagedList, value); }
-        }
-
+        [ObservableProperty]
         private ComboboxItems<FamilyAuditStatus> _auditStatusOptions = new ComboboxItems<FamilyAuditStatus>() { Items = new ObservableCollection<FamilyAuditStatus>(new List<FamilyAuditStatus>() { FamilyAuditStatus.Auditing, FamilyAuditStatus.Retry, FamilyAuditStatus.Pass, FamilyAuditStatus.NotPass }) };
-
-        public ComboboxItems<FamilyAuditStatus> AuditStatusOptions
-        {
-            get { return _auditStatusOptions; }
-            set { _auditStatusOptions = value; }
-        }
-
-
-
         #endregion
 
 
@@ -81,10 +59,6 @@ namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels
         {
             get => _filterAuditingFamiliesCommand ?? new DelegateCommand(FilterAuditingFamilies);
         }
-
-
-
-
         #endregion
 
         #region Methods
@@ -93,33 +67,21 @@ namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels
         /// </summary>
         private async void ChangeViewFamilies()
         {
-            await _familySerivce.LoadFamilies(_queryParameter, (result) =>
+            await SetBusyAsync(async () =>
             {
-                if (result != null && result.Items != null)
-                {
-                    PagedList = result;
-                    AuditingFamilies = new ObservableCollection<FamilyDto>(result.Items);
-                }
-                else
-                {
-                    PagedList = new PagedList<FamilyDto>();
-                    AuditingFamilies = new ObservableCollection<FamilyDto>();
-                }
+                await _familyAppService.GetPageListAsync(_queryParameter).WebAsync(dataPager.SetList);
             });
         }
 
 
         private void AuditFamily(FamilyDto selectedFamily)
         {
-            var parameters = new DialogParameters();
-            parameters.Add(nameof(FamilyDto), selectedFamily);
-            _dialogService.ShowDialog(nameof(AuditingFamilyDialogView), parameters, async (dialogResult) =>
+            var parameters = new DialogParameters { { nameof(FamilyDto), selectedFamily } };
+            _dialogService.Show(nameof(AuditingFamilyDialogView), parameters, async (dialogResult) =>
             {
-                if (dialogResult.Result == ButtonResult.OK)
-                {
-                    var familyPutDto = dialogResult.Parameters.GetValue<FamilyPutDto>(nameof(FamilyPutDto));
-                    await _webFamilyService.AuditingPublicAsync(familyPutDto).WebAsync(async () => { ChangeViewFamilies(); });
-                }
+                if (dialogResult.Result != ButtonResult.OK) return;
+                var familyPutDto = dialogResult.Parameters.GetValue<FamilyPutDto>(nameof(FamilyPutDto));
+                await _familyAppService.AuditingPublicAsync(familyPutDto).WebAsync(async () => { ChangeViewFamilies(); });
             });
         }
         #endregion
@@ -132,15 +94,13 @@ namespace Revit.Application.ViewModels.FamilyViewModels.PublicViewModels
             ChangeViewFamilies();
         }
 
+       
 
 
 
-
-
-        public FamilyLibraryPublicAuditViewModel( IFamilyService familySerivce, IFamilyAppService webFamilyService, IDialogService dialogService) 
+        public FamilyLibraryPublicAuditViewModel( IFamilyAppService familyAppService, IDialogService dialogService) 
         {
-            _familySerivce = familySerivce;
-            _webFamilyService = webFamilyService;
+            _familyAppService = familyAppService;
             _dialogService = dialogService;
         }
 

@@ -68,7 +68,7 @@ namespace Revit.Shared.Services.Datapager
         /// <typeparam name="T"></typeparam>
         /// <param name="listResult"></param>
         /// <returns></returns>
-        Task SetList<T>(IEnumerable<T> listResult);
+        Task SetList<T>(IListResult<T> listResult);
 
         /// <summary>
         /// 页面索引改变事件

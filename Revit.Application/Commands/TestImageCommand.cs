@@ -37,8 +37,6 @@ namespace Revit.Application.Commands
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterLoginTypes();
-
             containerRegistry.RegisterForNavigation<MainProjectView,MainProjectViewModel>();
             containerRegistry.RegisterForNavigation<TotalProjectView, DisPlayProjectViewModel>();
             containerRegistry.RegisterForNavigation<RecentlyProjectView, DisPlayProjectViewModel>();

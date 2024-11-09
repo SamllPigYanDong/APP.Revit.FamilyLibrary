@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Abp.Web.Models;
 
 namespace Revit.Service.ApiServices
 {
@@ -21,73 +22,48 @@ namespace Revit.Service.ApiServices
             this.apiUrl = apiUrl;
             client.BaseAddress = new Uri(apiUrl);
         }
-        public async Task<ApiResponse> ExecuteAsync(BaseRequest baseRequest)
+        public async Task<AjaxResponse> ExecuteAsync(BaseRequest baseRequest)
         {
             var response = await RequestAsync(baseRequest);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                return JsonConvert.DeserializeObject<ApiResponse>(await response.Content.ReadAsStringAsync());
+                return JsonConvert.DeserializeObject<AjaxResponse>(await response.Content.ReadAsStringAsync());
             else
-                return new ApiResponse()
-                {
-                    Code = ResponseCode.Error,
-                    Content = null,
-                    Message = response.ReasonPhrase
-                };
+                return new AjaxResponse();
         }
 
-        public async Task<ApiResponse<T>> ExecuteAsync<T>(BaseRequest baseRequest) 
+        public async Task<AjaxResponse<T>> ExecuteAsync<T>(BaseRequest baseRequest) 
         {
             var response = await RequestAsync(baseRequest);
             if (response != null && response.Content != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 try
                 {
-                    var result= JsonConvert.DeserializeObject<ApiResponse<T>>(await response.Content.ReadAsStringAsync());
+                    var result= JsonConvert.DeserializeObject<AjaxResponse<T>>(await response.Content.ReadAsStringAsync());
                     //MessageBox.Show(JsonConvert.SerializeObject(result));
                     return result;
                 }
                 catch (Exception e)
                 {
-                    return new ApiResponse<T>()
-                    {
-                        Code = ResponseCode.Error,
-                        Message = response.ReasonPhrase
-                    };
+                    return new AjaxResponse<T>();
                 }
             }
             else
-                return new ApiResponse<T>()
-                {
-                    Code = ResponseCode.Error,
-                    Message = response?.ReasonPhrase
-                };
+                return new AjaxResponse<T>();
         }
 
 
-        public async Task<ApiResponse<byte[]>> ExecuteStreamAsync(BaseRequest baseRequest)
+        public async Task<AjaxResponse<byte[]>> ExecuteStreamAsync(BaseRequest baseRequest)
         {
             var response = await RequestAsync(baseRequest);
             if (response!=null&& response.Content != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                try
-                {
                     var result = await response.Content.ReadAsByteArrayAsync();
-                    return new ApiResponse<byte[]>() { Content = result };
-                }
-                catch (Exception)
-                {
-                    return new ApiResponse<byte[]>()
-                    {
-                        Code = ResponseCode.Error,
-                        Message = response.ReasonPhrase
-                    };
-                }
+                    return new AjaxResponse<byte[]>() {};
+                   
             }
             else
-                return new ApiResponse<byte[]>()
+                return new AjaxResponse<byte[]>()
                 {
-                    Code = ResponseCode.Error,
-                    Message = response?.ReasonPhrase
                 };
         }
 

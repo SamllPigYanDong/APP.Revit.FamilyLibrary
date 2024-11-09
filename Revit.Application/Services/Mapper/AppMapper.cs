@@ -1,9 +1,11 @@
-﻿using AutoMapper;
+﻿using AppFramework.Admin.Models;
+using AutoMapper;
 using Revit.Application.Services;
 using Revit.Shared.Models;
 using Revit.Shared.Services.App;
 using System;
 using System.Linq;
+using Revit.Application.Models;
 
 namespace Revit.Application.Services;
 
@@ -13,9 +15,8 @@ public class AppMapper : IAppMapper
     {
         var configuration = new MapperConfiguration(configure =>
         {
-            var assemblys = AppDomain.CurrentDomain.GetAssemblies();
-            var targets = assemblys.Where(x => x.FullName.ToLower().Equals("revit.application")).Distinct();
             configure.AddProfile<SharedModuleMapper>();
+            configure.AddProfile<AdminModuleMapper>();
         });
         Current = configuration.CreateMapper();
     }

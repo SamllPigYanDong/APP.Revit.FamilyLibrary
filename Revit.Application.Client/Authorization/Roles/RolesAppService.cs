@@ -1,7 +1,6 @@
 ﻿using Abp.Application.Services.Dto;
 using Revit.ApiClient;
 using Revit.Authorization.Roles;
-using Revit.Shared.Entity.Commons.Page;
 using Revit.Shared.Entity.Permissions;
 using Revit.Shared.Entity.Roles;
 using System.Collections.Generic;
@@ -11,6 +10,7 @@ namespace Revit.Application
 {
     public class RolesAppService : ProxyAppServiceBase, IRoleAppService
     {
+
         public RolesAppService(AbpApiClient apiClient) : base(apiClient)
         {
         }
@@ -26,6 +26,8 @@ namespace Revit.Application
             await ApiClient.DeleteAsync(GetEndpoint(nameof(DeleteRole)), input);
         }
 
+
+       
         public async Task<GetRoleForEditOutput> GetRole(long? id)
         {
             return await ApiClient.GetAsync<GetRoleForEditOutput>(GetEndpoint(id?.ToString()));
@@ -38,9 +40,9 @@ namespace Revit.Application
         }
 
 
-        public async Task<IEnumerable<RoleDto>> GetAllRoles()
+        public async Task<ListResultDto<RoleDto>> GetListAsync(RolePageRequestDto request)
         {
-            return await ApiClient.GetAsync<IEnumerable<RoleDto>>(GetEndpoint("all"));
+            return await ApiClient.GetAsync<ListResultDto<RoleDto>>(GetEndpoint(), request);
         }
 
     }

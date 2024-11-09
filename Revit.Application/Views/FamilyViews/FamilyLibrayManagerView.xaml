@@ -76,7 +76,7 @@
                     </ContentControl>
 
                 </TabItem>
-                <TabItem
+                <!--<TabItem
                     BorderBrush="Black"
                     BorderThickness="1"
                     Header="族标审核">
@@ -88,7 +88,7 @@
                     BorderThickness="1"
                     Header="族标上传">
                     <usercontrols:FamilyLibaryPublicUploadView />
-                </TabItem>
+                </TabItem>-->
             </TabControl>
 
         </Grid>
